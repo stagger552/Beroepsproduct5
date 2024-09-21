@@ -1,0 +1,33 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Alatsi';
+  src: url('../Font/Alatsi/Alatsi-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Roboto Mono Font */
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('../Font/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf') format('truetype'),
+       url('../Font/Roboto_Mono/RobotoMono-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400 700;
+  font-style:normal;
+}
+:root {
+    --white: #fff;
+    --black: #171a1f;
+    --prime: #c6e2e3;
+    --second: #22CCB2;
+    --third: #ff1919;
+}
+
+
+body {
+@apply bg-beige;
+}
+
