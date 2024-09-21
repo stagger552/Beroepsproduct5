@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as Boei } from '../img/boei.svg';
+import { ReactComponent as Boei } from '../../img/boei.svg';
 
 
 function MainHome() {
