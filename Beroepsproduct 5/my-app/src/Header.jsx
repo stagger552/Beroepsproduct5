@@ -10,7 +10,7 @@ function Header() {
                 <div className="row">
                     <div className="col-lg-4">
                         <nav>
-                            <Link to="./Home.jsx">Home</Link>
+                            <Link to="/">Home</Link>
                             <Link to="/dashboard">Dashboard</Link>
                         </nav>
                     </div>

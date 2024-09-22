@@ -1,7 +1,7 @@
 import React from 'react';
 import { ReactComponent as Boei } from './img/boei.svg';
 const pages = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
-function Header() {
+function Footer() {
     return (
         <div className="container-fluid  bg-white mt-16 footer py-28">
             <div className="container">
@@ -53,4 +53,4 @@ function Header() {
     );
 }
 
-export default Header
+export default Footer

@@ -1,14 +1,25 @@
-import HomeMain from "./SitesComponents/Home/HomeMain";
-import Header from "./Header";
-import Footer from "./footer";
-import Infocards from "./SitesComponents/Home/Instructions";
-import React from 'react';
 
-function QuikData() {
+import React from 'react';
+import { ReactComponent as Boei } from '../../img/boei.svg';
+
+function Seperator() {
   return (
-    <div>
-     
-    </div>)
+    <div className="container-fluid  bg-lightblue h-80 my-6">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-3 flex justify-center items-center">
+            <Boei className='max-h-56' />
+          </div>
+          <div className="col-lg-9 flex justify-center items-center">
+            <h1 className="text-8xl font-alatsi text-white">
+              Arduino Data
+            </h1>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  )
 }
 
-export default App;
+export default Seperator;

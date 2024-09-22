@@ -14,20 +14,134 @@
 @font-face {
   font-family: 'Roboto Mono';
   src: url('../Font/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf') format('truetype'),
-       url('../Font/Roboto_Mono/RobotoMono-VariableFont_wght.ttf') format('truetype');
+    url('../Font/Roboto_Mono/RobotoMono-VariableFont_wght.ttf') format('truetype');
   font-weight: 400 700;
-  font-style:normal;
+  font-style: normal;
 }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../Font/Roboto/Roboto-Black.ttf') format('truetype'),
+    url('../Font/Roboto/Roboto-BoldItalic.ttf') format('truetype');
+  font-weight: 400 700;
+  font-style: normal;
+}
+
 :root {
-    --white: #fff;
-    --black: #171a1f;
-    --prime: #c6e2e3;
-    --second: #22CCB2;
-    --third: #ff1919;
+  --white: #fff;
+  --black: #171a1f;
+  --lightblue: #c6e2e3;
+  --green: #22CCB2;
+  --red: #ff1919;
+}
+
+.toggleContainer {
+  font-family: Alatsi;
+
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  border: 3px solid var(--lightblue);
+  border-radius: 8px;
+  background: var(--lightblue);
+  font-weight: bold;
+  color: var(--black);
+  cursor: pointer;
+}
+
+.toggleContainer::before {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 0%;
+  border-radius: 8px;
+  background: white;
+  transition: all 0.3s;
+}
+
+.toggleCheckbox:checked+.toggleContainer::before {
+  left: 50%;
+}
+
+.toggleContainer div {
+  padding: 6px;
+  text-align: center;
+  z-index: 1;
+}
+
+.toggleCheckbox {
+  display: none;
+}
+
+.toggleCheckbox:checked+.toggleContainer div:first-child {
+  color: var(--black);
+  transition: color 0.3s;
+}
+
+.toggleCheckbox:checked+.toggleContainer div:last-child {
+  color: var(--black);
+  transition: color 0.3s;
+}
+
+.toggleCheckbox+.toggleContainer div:first-child {
+  color: var(--black);
+  transition: color 0.3s;
+}
+
+.toggleCheckbox+.toggleContainer div:last-child {
+  color: var(--black);
+  transition: color 0.3s;
 }
 
 
 body {
-@apply bg-beige;
+  @apply bg-beige;
 }
 
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  /* or your preferred background color */
+  z-index: 9999;
+  /* Ensure it covers the entire page */
+}
+
+.fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+    /* Adjust for vertical animation */
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

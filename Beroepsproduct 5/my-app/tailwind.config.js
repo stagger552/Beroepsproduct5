@@ -5,8 +5,9 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      roboto: ['Roboto Mono', 'monospace'],
-      alatsi: ['Alatsi', 'sans-serif'], // Assuming Altasi is loaded from CDN
+      roboto: ['Roboto', 'sans-serif'],
+      alatsi: ['Alatsi', 'sans-serif'],
+      robotoMono: ['Roboto Mono', 'monospace'], // Assuming Altasi is loaded from CDN
     },
     colors: {
       transparent: 'transparent',
