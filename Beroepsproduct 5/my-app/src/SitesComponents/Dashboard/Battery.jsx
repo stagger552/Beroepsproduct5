@@ -10,7 +10,7 @@ function Battery() {
         const newLevel = prevLevel - 5;
         return newLevel >= 0 ? newLevel : 100;
       });
-    }, 1000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
@@ -34,7 +34,7 @@ function Battery() {
         <h3 className='font-alatsi weight-bold text-5xl text-center my-4'>{batteryLevel}%</h3>
         <div className="relative h-40 w-2/6 bg-white rounded-2/3 overflow-hidden  m-auto rounded-3xl  ">
           <div
-            className={`absolute bottom-0 left-0 w-full transition-all duration-300 ease-in-out ${getColor(batteryLevel)}`}
+            className={`absolute bottom-0 left-0 w-full transition-all duration-1000 ease-in-out ${getColor(batteryLevel)}`}
             style={{ backgroundColor: getColor(batteryLevel), height: `${batteryLevel}%` }}
           ></div>
           

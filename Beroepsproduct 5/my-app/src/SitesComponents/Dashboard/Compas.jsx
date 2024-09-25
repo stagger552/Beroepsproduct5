@@ -85,7 +85,7 @@ const Compass = () => {
   }, []);
 
   return (
-    <div>
+    <div >
       <div className="compass">
         <div className="arrow"></div>
         <div className="compass-circle"></div>
