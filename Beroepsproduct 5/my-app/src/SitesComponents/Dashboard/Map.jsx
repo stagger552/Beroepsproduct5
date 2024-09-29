@@ -28,13 +28,13 @@ function Maps() {
                     <div className="w-full w-1/2">
                         <h3 className='font-alatsi text-4xl'>Latitude:{ }</h3>
                     </div>
-                    <div className="w-full w-1/3 flex justify-center my-5">
+                    <div className="w-1/3 flex justify-center my-5">
                         <button className='text-xl w-3/4 font-alatsi bg-green p-2 rounded-lg h-20px'>Navigeer</button>
                     </div>
-                    <div className="w-full w-1/3 flex justify-center my-5">
+                    <div className="w-1/3 flex justify-center my-5">
                         <button className='text-xl w-3/4 font-alatsi bg-green p-2 rounded-lg'>Ar</button>
                     </div>
-                    <div className="w-full w-1/3 flex justify-center my-5">
+                    <div className="w-1/3 flex justify-center my-5">
                         <button className='text-xl w-3/4 font-alatsi bg-green p-2 rounded-lg' onClick={openCompassPopup} >Compas</button>
                     </div>
 
