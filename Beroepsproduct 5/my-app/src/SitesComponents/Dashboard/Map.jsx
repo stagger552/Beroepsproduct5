@@ -6,11 +6,11 @@ function Maps() {
     const [showCompass, setShowCompass] = useState(false);
 
     const openCompassPopup = () => {
-      setShowCompass(true);
+        setShowCompass(true);
     };
-  
+
     const closePopup = () => {
-      setShowCompass(false);
+        setShowCompass(false);
     };
     return (
         <div>
@@ -20,7 +20,14 @@ function Maps() {
 
                 </div>
                 <div className="flex flex-wrap">
-                    <div id="map" className="w-full" style={{ height: '400px' }}></div> {/* Set height for map */}
+                    <div id="map" className="w-full" >
+                        <div><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Onderwijsboulevard%203+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                            <a href="https://www.gps.ie/">
+                                gps vehicle tracker
+                            </a>
+                        </iframe>
+                        </div>
+                    </div> {/* Set height for map */}
 
                     <div className="w-full w-1/2">
                         <h3 className='font-alatsi text-4xl'>Longtude:{ }</h3>
