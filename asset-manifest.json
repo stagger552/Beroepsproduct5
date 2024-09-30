@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.748d2e0d.css",
-    "main.js": "/static/js/main.505c642c.js",
-    "static/js/453.ed3810f9.chunk.js": "/static/js/453.ed3810f9.chunk.js",
-    "static/media/Alatsi-Regular.ttf": "/static/media/Alatsi-Regular.8f3df35372bace9c8b65.ttf",
-    "static/media/RobotoMono-Italic-VariableFont_wght.ttf": "/static/media/RobotoMono-Italic-VariableFont_wght.a53103a7b0e22765d7ff.ttf",
-    "static/media/RobotoMono-VariableFont_wght.ttf": "/static/media/RobotoMono-VariableFont_wght.e14e25b7c497634efdfe.ttf",
-    "static/media/Roboto-BoldItalic.ttf": "/static/media/Roboto-BoldItalic.3fcf599c8a6c05a2c712.ttf",
-    "static/media/Roboto-Black.ttf": "/static/media/Roboto-Black.4afbed674a5252ead176.ttf",
-    "static/media/boei.svg": "/static/media/boei.79901461528f2e7998015452cc15b575.svg",
-    "static/media/ph-meter.svg": "/static/media/ph-meter.f8a127279a8f776934cd8a126177ce25.svg",
-    "static/media/temperature.svg": "/static/media/temperature.c67071cf71849e65a8efb8c060088b83.svg",
-    "index.html": "/index.html",
-    "main.748d2e0d.css.map": "/static/css/main.748d2e0d.css.map",
-    "main.505c642c.js.map": "/static/js/main.505c642c.js.map",
-    "453.ed3810f9.chunk.js.map": "/static/js/453.ed3810f9.chunk.js.map"
+    "main.css": "/Beroepsproduct5/static/css/main.b7cbfa1d.css",
+    "main.js": "/Beroepsproduct5/static/js/main.2d2191fe.js",
+    "static/js/453.ed3810f9.chunk.js": "/Beroepsproduct5/static/js/453.ed3810f9.chunk.js",
+    "static/media/Alatsi-Regular.ttf": "/Beroepsproduct5/static/media/Alatsi-Regular.8f3df35372bace9c8b65.ttf",
+    "static/media/RobotoMono-Italic-VariableFont_wght.ttf": "/Beroepsproduct5/static/media/RobotoMono-Italic-VariableFont_wght.a53103a7b0e22765d7ff.ttf",
+    "static/media/RobotoMono-VariableFont_wght.ttf": "/Beroepsproduct5/static/media/RobotoMono-VariableFont_wght.e14e25b7c497634efdfe.ttf",
+    "static/media/Roboto-BoldItalic.ttf": "/Beroepsproduct5/static/media/Roboto-BoldItalic.3fcf599c8a6c05a2c712.ttf",
+    "static/media/Roboto-Black.ttf": "/Beroepsproduct5/static/media/Roboto-Black.4afbed674a5252ead176.ttf",
+    "static/media/boei.svg": "/Beroepsproduct5/static/media/boei.79901461528f2e7998015452cc15b575.svg",
+    "static/media/ph-meter.svg": "/Beroepsproduct5/static/media/ph-meter.f8a127279a8f776934cd8a126177ce25.svg",
+    "static/media/temperature.svg": "/Beroepsproduct5/static/media/temperature.c67071cf71849e65a8efb8c060088b83.svg",
+    "index.html": "/Beroepsproduct5/index.html",
+    "main.b7cbfa1d.css.map": "/Beroepsproduct5/static/css/main.b7cbfa1d.css.map",
+    "main.2d2191fe.js.map": "/Beroepsproduct5/static/js/main.2d2191fe.js.map",
+    "453.ed3810f9.chunk.js.map": "/Beroepsproduct5/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.748d2e0d.css",
-    "static/js/main.505c642c.js"
+    "static/css/main.b7cbfa1d.css",
+    "static/js/main.2d2191fe.js"
   ]
 }
