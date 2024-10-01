@@ -96,8 +96,10 @@ const Compass = () => {
       <style jsx>{`
         .compass {
           position: relative;
-          width: 320px;
-          height: 320px;
+          width: 80%;
+          height: 100%;
+          min-height: 300px;
+          min-width: 200px;
           border-radius: 50%;
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
           margin: auto;

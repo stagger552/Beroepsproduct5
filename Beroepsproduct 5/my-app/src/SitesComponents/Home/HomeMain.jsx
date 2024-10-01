@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { ReactComponent as Boei } from '../../img/boei.svg';
+import  Arduino  from '../../img/ArduinoUno.png';
 import waves from 'nice-waves'; // Import the nice-waves library
 
 
@@ -38,6 +39,7 @@ function MainHome() {
                         <Boei className='max-w-md' />
                     </div>
                     <div className="col-lg-6 flex justify-center items-center ">
+                        <img src={Arduino} className='max-w-md' />
                     </div>
                 </div>
             </div>

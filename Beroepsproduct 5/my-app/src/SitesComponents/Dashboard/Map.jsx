@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
 import Popup from '../../Popup';
 import Compass from './Compas';
+import Arjs from './ARjs';
+
 function Maps() {
 
     const [showCompass, setShowCompass] = useState(false);
+    const [showAR, setShowAr] = useState(false);
 
     const openCompassPopup = () => {
         setShowCompass(true);
     };
-
     const closePopup = () => {
         setShowCompass(false);
     };
+
+    const openShowAr = () => {
+        setShowAr(true);
+    };
+    const closeShowAr = () => {
+        setShowAr(false);
+    };
+
+    
     return (
         <div>
             <div className=' bg-white w-full p-5 rounded-lg my-12'>
@@ -39,7 +50,7 @@ function Maps() {
                         <button className='text-xl w-3/4 font-alatsi bg-green p-2 rounded-lg h-20px'>Navigeer</button>
                     </div>
                     <div className="w-1/3 flex justify-center my-5">
-                        <button className='text-xl w-3/4 font-alatsi bg-green p-2 rounded-lg'>Ar</button>
+                        <button className='text-xl w-3/4 font-alatsi bg-green p-2 rounded-lg' onClick={openShowAr}>Ar</button>
                     </div>
                     <div className="w-1/3 flex justify-center my-5">
                         <button className='text-xl w-3/4 font-alatsi bg-green p-2 rounded-lg' onClick={openCompassPopup} >Compas</button>
@@ -51,6 +62,11 @@ function Maps() {
                 {showCompass && (
                     <Popup onClose={closePopup}>
                         <Compass /> {/* The Compass component goes here */}
+                    </Popup>
+                )}
+                {showAR && (
+                    <Popup onClose={closeShowAr}>
+                        <Arjs/> { }
                     </Popup>
                 )}
             </div>
