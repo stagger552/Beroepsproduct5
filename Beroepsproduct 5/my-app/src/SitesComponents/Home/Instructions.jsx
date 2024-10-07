@@ -1,8 +1,22 @@
-import React from 'react';
+import  React from 'react';
 import { ReactComponent as Tempratuur } from '../../img/temperature.svg';
 import { ReactComponent as PHmeter } from '../../img/ph-meter.svg';
+import IconButton from "../../IconButton"
+// import {ReactComponent as Smallscreen} from "../../img/small-screen.svg"
+import {ReactComponent as Fullscreen} from "../../img/fullscreen.jsx"
 
 function InfoCards() {
+
+    // const [isFullscreen, setIsFullscreen] = useState(false);
+    
+    // const handleFullscreen = () => {
+    //   setIsFullscreen(true);
+    // };
+    
+    // const handleCloseFullscreen = () => {
+    //   setIsFullscreen(false);
+    // };
+    
     return (
 
         <div className="container ">
@@ -15,12 +29,12 @@ function InfoCards() {
             </div>
             <div className="row infocards">
                 <div className="col-lg-6">
-                    <div className="card p-4 bg-white border-5 border-green shadow-lg  max-w-lg min-h-lg m-auto mb-5">
+                    <div className={`card p-4 border-5 border-green shadow-lg max-w-lg min-h-lg m-auto mb-5`}>
                         <div className="InstructionsIcon lg:w-1/2 md:w-5/12 ">
                             <Tempratuur className=' w-full h-full ' />
                         </div>
                         <div className="InstructionTextlg:w-1/2 md:w-full m-auto pr-10 ">
-                            <div className="text-5xl font-alatsi font-bold mb-4">
+                            <div className={`text-5xl font-alatsi font-bold mb-4 `}>
                                 Temperature 5
                             </div>
                             <div className="textCard font-roboto">
@@ -30,15 +44,20 @@ function InfoCards() {
                                 exercitation excepteur consequat incididunt id reprehenderit.
                             </div>
                         </div>
+                        <div className='flex justify-end'>
+                            <IconButton>
+                                 {/* <Fullscreen />  */}
+                            </IconButton>
+                        </div>
                     </div>
                 </div>
                 <div className="col-lg-6">
-                    <div className="card p-4 bg-white border-5 border-green shadow-lg max-w-lg min-h-540px m-auto mb-5">
+                    <div className={`card p-4 border-5 border-green shadow-lg max-w-lg min-h-lg m-auto mb-5`}>
                         <div className="InstructionsIcon lg:w-1/2 md:w-5/12 ">
                             <PHmeter className=' w-full h-full' />
                         </div>
                         <div className="InstructionTextlg:w-1/2 md:w-full m-auto pr-10 ">
-                            <div className="text-5xl font-alatsi font-bold mb-4">
+                            <div className={`text-5xl font-alatsi font-bold mb-4 `}>
                                 PH meter
                             </div>
                             <div className="textCard font-roboto">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ReactComponent as Boei } from '../../img/boei.svg';
 import  Arduino  from '../../img/ArduinoUno.png';
 import waves from 'nice-waves'; // Import the nice-waves library
@@ -6,6 +6,7 @@ import waves from 'nice-waves'; // Import the nice-waves library
 
 function MainHome() {
     const waveRef = useRef(null);
+    const [darkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
         const opts = {
@@ -39,7 +40,7 @@ function MainHome() {
                         <Boei className='max-w-md' />
                     </div>
                     <div className="col-lg-6 flex justify-center items-center ">
-                        <img src={Arduino} className='max-w-md' />
+                        <img src={Arduino} className='max-w-72' />
                     </div>
                 </div>
             </div>

@@ -1,28 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Popup from '../../Popup';
 import Compass from './Compas';
 import Arjs from './ARjs';
 
+
 function Maps() {
+
+    const [position, setPosition] = useState(null);
+
+    useEffect(() => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.watchPosition((position) => {
+                setPosition({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                });
+            }, (error) => {
+                console.error("Error getting location:", error);
+            });
+        }
+    }, []);
+
+    console.log(position)
+
 
     const [showCompass, setShowCompass] = useState(false);
     const [showAR, setShowAr] = useState(false);
 
-    const openCompassPopup = () => {
-        setShowCompass(true);
-    };
-    const closePopup = () => {
-        setShowCompass(false);
-    };
+    const openCompassPopup = () => setShowCompass(true);
+    const closeCompassPopup = () => setShowCompass(false);
+    const openShowAr = () => setShowAr(true);
+    const closeShowAr = () => setShowAr(false);
 
-    const openShowAr = () => {
-        setShowAr(true);
-    };
-    const closeShowAr = () => {
-        setShowAr(false);
-    };
-
-    
     return (
         <div>
             <div className=' bg-white w-full p-5 rounded-lg my-12'>
@@ -60,17 +69,19 @@ function Maps() {
                     <div className="flex-item bg-green">This is another flex item</div> */}
                 </div>
                 {showCompass && (
-                    <Popup onClose={closePopup}>
+                    <Popup onClose={closeCompassPopup}>
                         <Compass /> {/* The Compass component goes here */}
                     </Popup>
                 )}
                 {showAR && (
                     <Popup onClose={closeShowAr}>
-                        <Arjs/> { }
+                        <Arjs /> { }
                     </Popup>
                 )}
+
             </div>
         </div>)
 }
+
 
 export default Maps;

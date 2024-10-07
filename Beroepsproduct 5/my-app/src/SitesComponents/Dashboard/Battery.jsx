@@ -37,11 +37,23 @@ function Battery() {
             className={`absolute bottom-0 left-0 w-full transition-all duration-1000 ease-in-out ${getColor(batteryLevel)}`}
             style={{ backgroundColor: getColor(batteryLevel), height: `${batteryLevel}%` }}
           ></div>
-          
+
         </div>
-        {batteryLevel === 100 && (
-            <h3 className='font-alatsi text-4xl text-center text-green-400'>Battery Full</h3>
-          )}
+        {batteryLevel === 100 &&(
+          <h3 className='font-alatsi text-3xl text-center text-green-400'>Batterij Vol</h3>
+        )}
+          {batteryLevel <= 99  &&  batteryLevel > 50 &&(
+          <h3 className='font-alatsi text-3xl text-center text-green-400'>Batterij Voldoende geladen</h3>
+        )}
+        {batteryLevel <= 40  &&  batteryLevel > 20 &&(
+          <h3 className='font-alatsi text-3xl text-center text-green-400'>Batterij Erg Laag</h3>
+        )}
+         {batteryLevel <= 20  &&  batteryLevel > 10 &&(
+          <h3 className='font-alatsi text-3xl text-center text-green-400'>Batterij Bijna Leeg, vervang batterijen Aub</h3>
+        )}
+        {batteryLevel === 0 && (
+          <h3 className='font-alatsi text-3xl text-center text-green-400'>Batterij Leeg, vervang batterijen Aub</h3>
+        )}
       </div>
 
     </div>

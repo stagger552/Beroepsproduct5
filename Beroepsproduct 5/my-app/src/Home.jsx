@@ -18,6 +18,7 @@ function Home() {
         return () => clearTimeout(timer);
     }, []);
 
+
     return (
         <div>
             {loading ? (
