@@ -30,10 +30,6 @@ function QuikData() {
   const gaugeHeight = 40;
   const filledWidth = (temperature / 50) * gaugeWidthValue * animationProgress;
 
-  console.log(gaugeWidthValue)
-  console.log(gaugeWidth)
-  console.log(gaugeHeight)
-  console.log(filledWidth)
   return (
     <div>
       <div className="container my-7">

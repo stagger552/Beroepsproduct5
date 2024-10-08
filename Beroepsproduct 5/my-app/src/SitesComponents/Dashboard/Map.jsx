@@ -21,7 +21,6 @@ function Maps() {
         }
     }, []);
 
-    console.log(position)
 
 
     const [showCompass, setShowCompass] = useState(false);
@@ -75,7 +74,7 @@ function Maps() {
                 )}
                 {showAR && (
                     <Popup onClose={closeShowAr}>
-                        <Arjs /> { }
+                        {/* <Arjs /> { } */}
                     </Popup>
                 )}
 

@@ -1,11 +1,15 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Gauge } from 'gaugeJS';
+import IconButton from "../../IconButton"
+import { ReactComponent as Fullscreen } from "../../img/fullscreen.svg"
+import { useAdvanced  } from "./DashboardContext"
 
 function DashboardData() {
   const [temperature, setTemperature] = useState(-42);
+  const { Advanced, setAdvanced } = useAdvanced();
 
-  
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTemperature(prevTemp => {
@@ -19,7 +23,7 @@ function DashboardData() {
 
   const getColor = () => {
     if (temperature < -20) return 'bg-blue-500';
-    if (temperature <= 0) return 'bg-blue-300';
+    if (temperature <= 0) return 'bg-yellow-300';
     if (temperature < 20) return 'bg-red-300';
     return 'bg-red';
   };
@@ -59,7 +63,7 @@ function DashboardData() {
         subWidth: 0.6,
         subColor: '#666666'
       },
-      staticZones: [
+      staticFullscreenes: [
         { strokeStyle: "#FF0000", min: 0, max: 1 },
         { strokeStyle: "#FF4500", min: 1, max: 2 },
         { strokeStyle: "#FF8C00", min: 2, max: 3 },
@@ -112,12 +116,28 @@ function DashboardData() {
     gauge.animationSpeed = 99;
     gauge.set(1775);
   }, []);
+
+
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+
+  const handleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+    }
+  };
   return (
     <div>
       <div className="container">
         <div className="row">
           <div className="col-lg-6">
-            <div className="Card bg-white border-0 p-6 rounded-lg max-w-lg m-auto mb-5 w-auto min-h-48 flex flex-col justify-between">
+            <div className="Card bg-white border-0 p-6 rounded-lg max-w-lg m-auto mb-5 w-auto min-h-96 flex flex-col justify-between">
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl '>Temperature</h2>
               </div>
@@ -130,23 +150,55 @@ function DashboardData() {
                 </div>
               </div>
               <h3 className="mt-4 text-4xl font-semibold text-center">{temperature}°C</h3>
+
+              {isFullscreen && (
+                <div className="mt-8">
+                  <h4 className="text-2xl font-semibold mb-2">Additional Information</h4>
+                  <p className="text-lg">Here you can add more text and information that will only be visible in fullscreen mode.</p>
+                  <ul className="list-disc list-inside mt-4">
+                    <li>Humidity: 65%</li>
+                    <li>Pressure: 1013 hPa</li>
+                    <li>Wind Speed: 5 km/h</li>
+                  </ul>
+                </div>
+              )}
+              <div className='flex justify-end'>
+                <button onclick={handleFullscreen}>
+
+                </button>
+                <IconButton onclick={handleFullscreen} >
+                  <Fullscreen />
+                </IconButton>
+              </div>
             </div>
           </div>
           <div className="col-lg-6">
 
-            <div className="Card bg-white border-0 p-6  rounded-lg  max-w-lg m-auto mb-5 w-auto min-h-48">
+            <div className="Card bg-white border-0 p-6  rounded-lg  max-w-lg m-auto mb-5 w-auto min-h-96">
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl '>Ph Meter</h2>
               </div>
               <div className="Gauge justify-center flex">
                 <canvas ref={PHGauge} ></canvas>
               </div>
+             {Advanced && (
+                <div className='bg-amber-700 w-full h-16'>
+                  </div>
+             )}
+              <div className='flex justify-end'>
+                <button onclick={handleFullscreen}>
+
+                </button>
+                <IconButton onclick={handleFullscreen} >
+                  <Fullscreen />
+                </IconButton>
+              </div>
             </div>
           </div>
         </div>
         <div className="row">
           <div className="col-lg-6">
-            <div className="Card bg-white border-0 p-6  rounded-lg  max-w-lg m-auto mb-5 w-auto min-h-48">
+            <div className="Card bg-white border-0 p-6  rounded-lg  max-w-lg m-auto mb-5 w-auto min-h-96">
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl '>Troebelheid</h2>
               </div>
@@ -162,7 +214,7 @@ function DashboardData() {
           </div>
           <div className="col-lg-6">
 
-            <div className="Card bg-white border-0 p-6  rounded-lg  max-w-lg m-auto mb-5 w-auto min-h-48">
+            <div className="Card bg-white border-0 p-6  rounded-lg  max-w-lg m-auto mb-5 w-auto min-h-96">
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl'>Zuurstof</h2>
               </div>

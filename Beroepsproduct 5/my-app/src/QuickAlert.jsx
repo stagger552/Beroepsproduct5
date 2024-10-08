@@ -4,10 +4,11 @@ const QuickAlert = ({ Message, Icon }) => {
     return (
         <div className=" fixed max-h-9 w-10/12 inset-0 bg-black bg-opacity-50 flex items-center justify-center fade-in z-50">
             <h1 className='text-3xl font-roboto'>
-                Message
+                {Message}
             </h1>
-
-            {children}
+            <div>
+                {Icon}
+            </div>
         </div>
     );
 };
