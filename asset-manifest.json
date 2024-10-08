@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "/Beroepsproduct5/static/css/main.7721f6cb.css",
-    "main.js": "/Beroepsproduct5/static/js/main.e45c6201.js",
+    "main.css": "/Beroepsproduct5/static/css/main.71087cbb.css",
+    "main.js": "/Beroepsproduct5/static/js/main.56004c9d.js",
     "static/js/453.ed3810f9.chunk.js": "/Beroepsproduct5/static/js/453.ed3810f9.chunk.js",
+    "static/media/gentle-ocean-waves-birdsong.mp3": "/Beroepsproduct5/static/media/gentle-ocean-waves-birdsong.1f0288384f202346b052.mp3",
     "static/media/Alatsi-Regular.ttf": "/Beroepsproduct5/static/media/Alatsi-Regular.8f3df35372bace9c8b65.ttf",
     "static/media/RobotoMono-Italic-VariableFont_wght.ttf": "/Beroepsproduct5/static/media/RobotoMono-Italic-VariableFont_wght.a53103a7b0e22765d7ff.ttf",
     "static/media/RobotoMono-VariableFont_wght.ttf": "/Beroepsproduct5/static/media/RobotoMono-VariableFont_wght.e14e25b7c497634efdfe.ttf",
@@ -12,13 +13,19 @@
     "static/media/boei.svg": "/Beroepsproduct5/static/media/boei.79901461528f2e7998015452cc15b575.svg",
     "static/media/ph-meter.svg": "/Beroepsproduct5/static/media/ph-meter.f8a127279a8f776934cd8a126177ce25.svg",
     "static/media/temperature.svg": "/Beroepsproduct5/static/media/temperature.c67071cf71849e65a8efb8c060088b83.svg",
+    "static/media/sound-Full.svg": "/Beroepsproduct5/static/media/sound-Full.4870bae09a7fddf7af9137e202cab98d.svg",
+    "static/media/sound-Off.svg": "/Beroepsproduct5/static/media/sound-Off.73923702a95cb46ba7c88f278c11a4b9.svg",
+    "static/media/fullscreen.svg": "/Beroepsproduct5/static/media/fullscreen.959c26bd5729e99f3212920268e2950b.svg",
     "index.html": "/Beroepsproduct5/index.html",
-    "main.7721f6cb.css.map": "/Beroepsproduct5/static/css/main.7721f6cb.css.map",
-    "main.e45c6201.js.map": "/Beroepsproduct5/static/js/main.e45c6201.js.map",
+    "static/media/sound-Mid.svg": "/Beroepsproduct5/static/media/sound-Mid.1465d9d2f27dee893fdd7844718549b9.svg",
+    "static/media/moon.svg": "/Beroepsproduct5/static/media/moon.e2222d35ddc4eed2746efd03bacf55e6.svg",
+    "static/media/Sun.svg": "/Beroepsproduct5/static/media/Sun.75ad86a59ac3f9e2f8a8b4a1a28e8a7a.svg",
+    "main.71087cbb.css.map": "/Beroepsproduct5/static/css/main.71087cbb.css.map",
+    "main.56004c9d.js.map": "/Beroepsproduct5/static/js/main.56004c9d.js.map",
     "453.ed3810f9.chunk.js.map": "/Beroepsproduct5/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7721f6cb.css",
-    "static/js/main.e45c6201.js"
+    "static/css/main.71087cbb.css",
+    "static/js/main.56004c9d.js"
   ]
 }
