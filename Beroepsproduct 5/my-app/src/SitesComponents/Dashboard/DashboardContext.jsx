@@ -1,23 +1,30 @@
 import React, { createContext, useState, useContext } from 'react';
 
-const AdvancedContext = createContext();
+const DashboardContext = createContext();
 
-export const AdvancedProvider = ({ children }) => {
+export const DashboardProvider = ({ children }) => {
   const [Advanced, setAdvanced] = useState(false);
-  // const [otherInfo, setOtherInfo] = useState('');
-  // Add any other state you want to share
+  const [TemperatureValue, setTemperatureValue] = useState(40);
+  const [PhMeterValue, setPhMeterValue] = useState(8);
+  const [ZuurstofValue, setZuurstofValue] = useState(9);
+  const [TroebelheidValue, setTroebelheidValue] = useState(7);
 
   return (
-    <AdvancedContext.Provider value={{ 
+    <DashboardContext.Provider value={{ 
       Advanced, 
       setAdvanced, 
-      // otherInfo, 
-      // setOtherInfo,
-      // Add other state and setter functions here
+      TemperatureValue, 
+      setTemperatureValue, 
+      PhMeterValue, 
+      setPhMeterValue, 
+      ZuurstofValue, 
+      setZuurstofValue, 
+      TroebelheidValue, 
+      setTroebelheidValue
     }}>
       {children}
-    </AdvancedContext.Provider>
+    </DashboardContext.Provider>
   );
 };
 
-export const useAdvanced = () => useContext(AdvancedContext);
+export const useDashboard = () => useContext(DashboardContext);

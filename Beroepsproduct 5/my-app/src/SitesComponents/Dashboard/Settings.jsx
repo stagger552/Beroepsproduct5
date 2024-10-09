@@ -1,12 +1,12 @@
 
 import React, { useState } from 'react';
 import SideBar from "../../Sidebar"
-import { useAdvanced  } from "./DashboardContext"
+import { useDashboard  } from "./DashboardContext"
 
 function Settings() {
 
     const [SideIsOpen, setIsOpen] = useState(false);
-    const { Advanced, setAdvanced } = useAdvanced();
+    const { Advanced, setAdvanced } = useDashboard();
 
     const openSideBar = () => {
         console.log("open sidebar")

@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { useAdvanced } from "./DashboardContext"
+import { useDashboard } from "./DashboardContext"
 import CircularGauge from './CircularGauge';
 
 function QuikData() {
   const [temperature, setTemperature] = useState(29);
   const [animationProgress, setAnimationProgress] = useState(0);
-  const { Advanced, setAdvanced } = useAdvanced();
+  const { Advanced, setAdvanced } = useDashboard();
 
   var gaugeTemeprature = 50
   var gaugePhmeter = 8
@@ -73,7 +73,7 @@ function QuikData() {
                     </div>
                   </div>
                   <div className="DataText">
-                    <h3 className="text-center text-2xl font-bold text-gray-700 my-2">
+                    <h3 className="text-center text-2xl font-bold text-qk_red  my-6">
                       Temprature
                     </h3>
                   </div>
@@ -81,9 +81,17 @@ function QuikData() {
               )}
 
               {Advanced && (
-                <div className="p-4 flex justify-center py-4">
-                  <CircularGauge value={gaugeTemeprature} max={100} size={200} />
+                <div className="p-4">
+                  <div className='w-full'>
+                    <CircularGauge value={gaugeTemeprature} max={100} size={200} color='qk_red' background='qk_red_bg' />
+                  </div>
+                  <div className="DataText w-full">
+                    <h3 className="text-center text-5xl font-bold text-qk_red my-4 ">
+                      Temperatuur
+                    </h3>
+                  </div>
                 </div>
+
               )}
             </div>
           </div>
@@ -114,21 +122,26 @@ function QuikData() {
                           ry="10"
                         />
                       </svg>
-                      <div className="gaugeText w-1/4 text-2xl font-bold text-gray-700 ml-2 text-red-600">
+                      <div className="gaugeText w-1/4 text-2xl font-bold text-qk_purple ml-2 ">
                         {temperature.toFixed(1)}
                       </div>
                     </div>
                   </div>
                   <div className="DataText">
-                    <h3 className="text-center text-2xl font-bold text-gray-700 my-2 text-indigo-600">
+                    <h3 className="text-center text-2xl font-bold text-qk_purple my-2 ">
                       Ph meter
                     </h3>
                   </div>
                 </div>
               )}
               {Advanced && (
-                <div className="p-4 flex justify-center py-4">
-                  <CircularGauge value={gaugePhmeter} max={100} size={200} />
+                <div className="p-4">
+                  <CircularGauge value={gaugePhmeter} max={100} size={200} color='qk_purple' background='qk_purple_bg' />
+                  <div className="DataText">
+                  <h3 className="text-center text-5xl font-bold text-qk_purple my-4 ">
+                  Ph Meter
+                    </h3>
+                  </div>
                 </div>
               )}
             </div>
@@ -173,8 +186,13 @@ function QuikData() {
                 </div>
               )}
               {Advanced && (
-                <div className="p-4 flex justify-center py-4">
-                  <CircularGauge value={gaugeZuurstof} max={100} size={200} />
+                <div className="p-4">
+                  <CircularGauge value={gaugeZuurstof} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
+                  <div className="DataText">
+                  <h3 className="text-center text-5xl font-bold text-qk_blue my-4 ">
+                  Zuurstof
+                    </h3>
+                  </div>
                 </div>
               )}
             </div>

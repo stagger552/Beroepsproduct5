@@ -3,28 +3,52 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Gauge } from 'gaugeJS';
 import IconButton from "../../IconButton"
 import { ReactComponent as Fullscreen } from "../../img/fullscreen.svg"
-import { useAdvanced } from "./DashboardContext"
+import { useDashboard } from "./DashboardContext"
 // import { Chart, registerables } from 'chart.js';
 import CircularGauge from './CircularGauge';
 
 function DashboardData() {
 
-  var gaugeTemeprature = 40
-  var gaugePhmeter = 8
+  const {
+    Advanced,
+    setAdvanced,
+    TemperatureValue,
+    setTemperatureValue,
+    PhMeterValue,
+    setPhMeterValue,
+    ZuurstofValue,
+    setZuurstofValue,
+    TroebelheidValue,
+    setTroebelheidValue
+  } = useDashboard(); // Destructure all the context values
+
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTemperatureValue(prevTemp => (prevTemp + 1 > 100 ? -40 : prevTemp + 1));
+      setPhMeterValue(prevPh => (prevPh + 0.1 > 14 ? 0 : prevPh + 0.1));
+      setZuurstofValue(prevOxygen => (prevOxygen + 0.1 > 10 ? 0 : prevOxygen + 0.1));
+      setTroebelheidValue(prevTurbidity => (prevTurbidity + 0.1 > 10 ? 0 : prevTurbidity + 0.1));
+    }, 1000); // Update values every second
+
+    return () => clearInterval(timer);
+  }, [setTemperatureValue, setPhMeterValue, setZuurstofValue, setTroebelheidValue]);
+
+  var gaugeTemeprature = TemperatureValue
+  var gaugePhmeter = PhMeterValue
   var gaugeZuurstof = 8
   var gaugeTroebelheid = 7
 
-  const [temperature, setTemperature] = useState(gaugeTemeprature);
-  const { Advanced, setAdvanced } = useAdvanced();
+
 
   const getColor = () => {
-    if (temperature < -40 && temperature > 0) return 'bg-blue-500';
-    if (temperature <= 0 && temperature >= 20) return 'bg-yellow-300';
-    if (temperature < 20) return 'bg-red-300';
+    if (gaugeTemeprature < -40 && gaugeTemeprature > 0) return 'bg-blue-500';
+    if (gaugeTemeprature <= 0 && gaugeTemeprature >= 20) return 'bg-yellow-300';
+    if (gaugeTemeprature < 20) return 'bg-red-300';
     return 'bg-red';
   };
 
-  const gaugeHeight = `${((temperature + 42) / 82) * 100}%`;
+  const gaugeHeight = `${((gaugeTemeprature + 42) / 82) * 100}%`;
 
   const PHGauge = useRef(null);
   const ZuurstofGauge = useRef(null);
@@ -183,11 +207,11 @@ function DashboardData() {
 
               {Advanced && (
                 <div className="p-4 flex justify-center ">
-                  <CircularGauge value={gaugeTemeprature} max={100} size={200}  />
+                  <CircularGauge value={gaugeTemeprature} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
                 </div>
               )}
 
-              <h3 className="mt-4 text-4xl font-semibold text-center">{temperature}°C</h3>
+              <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTemeprature}°C</h3>
 
               {isFullscreen && (
                 <div className="mt-8">

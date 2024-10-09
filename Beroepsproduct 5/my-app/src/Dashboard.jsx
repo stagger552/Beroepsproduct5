@@ -6,13 +6,13 @@ import QuickData from './SitesComponents/Dashboard/QuickData'
 import DashboardData from './SitesComponents/Dashboard/DashboardData'
 import Seperator from './SitesComponents/Dashboard/Seperator'
 import ArduinoData from './SitesComponents/Dashboard/ArduinoData'
-import { AdvancedProvider  } from "./SitesComponents/Dashboard/DashboardContext"
+import { DashboardProvider  } from "./SitesComponents/Dashboard/DashboardContext"
 
 
 function Dashboard() {
 
     return (
-        <AdvancedProvider>
+        <DashboardProvider>
             <div>
                 <div className="min-h-screen flex flex-col">
                     {/* Header */}
@@ -32,7 +32,7 @@ function Dashboard() {
                     <Footer />
                 </div>
             </div>
-        </AdvancedProvider>
+        </DashboardProvider>
     )
 }
 
