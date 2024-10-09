@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Gauge } from 'gaugeJS';
 import IconButton from "../../IconButton"
 import { ReactComponent as Fullscreen } from "../../img/fullscreen.svg"
-import { useAdvanced  } from "./DashboardContext"
+import { useAdvanced } from "./DashboardContext"
 
 function DashboardData() {
   const [temperature, setTemperature] = useState(-42);
@@ -33,61 +33,91 @@ function DashboardData() {
   const PHGauge = useRef(null);
   const ZuurstofGauge = useRef(null);
 
+
   // PH Meter Gauge
   useEffect(() => {
-    const opts = {
-      angle: 0,
-      lineWidth: 0.4,
-      radiusScale: 1,
-      pointer: {
-        length: 0.7,
-        strokeWidth: 0.035,
-        color: '#000000',
-      },
-      limitMax: false,
-      limitMin: false,
-      highDpiSupport: true,
-      staticLabels: {
-        font: "10px sans-serif",
-        labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-        color: "#000000",
-        fractionDigits: 0
-      },
-      renderTicks: {
-        divisions: 14,
-        divWidth: 1.1,
-        divLength: 0.7,
-        divColor: '#333333',
-        subDivisions: 0,
-        subLength: 0.5,
-        subWidth: 0.6,
-        subColor: '#666666'
-      },
-      staticFullscreenes: [
-        { strokeStyle: "#FF0000", min: 0, max: 1 },
-        { strokeStyle: "#FF4500", min: 1, max: 2 },
-        { strokeStyle: "#FF8C00", min: 2, max: 3 },
-        { strokeStyle: "#FFD700", min: 3, max: 4 },
-        { strokeStyle: "#FFFF00", min: 4, max: 5 },
-        { strokeStyle: "#ADFF2F", min: 5, max: 6 },
-        { strokeStyle: "#7FFF00", min: 6, max: 7 },
-        { strokeStyle: "#32CD32", min: 7, max: 8 },
-        { strokeStyle: "#00FF00", min: 8, max: 9 },
-        { strokeStyle: "#00FA9A", min: 9, max: 10 },
-        { strokeStyle: "#00FFFF", min: 10, max: 11 },
-        { strokeStyle: "#1E90FF", min: 11, max: 12 },
-        { strokeStyle: "#0000FF", min: 12, max: 13 },
-        { strokeStyle: "#8A2BE2", min: 13, max: 14 },
-      ],
-    };
+    if (PHGauge.current) {
 
-    const target = PHGauge.current;
-    const gauge = new Gauge(target).setOptions(opts);
-    gauge.maxValue = 14;
-    gauge.setMinValue(0);
-    gauge.animationSpeed = 32;
-    gauge.set(7);
+      const target = PHGauge.current;
+      const opts = {
+        angle: 0,
+        lineWidth: 0.4,
+        radiusScale: 1,
+        pointer: {
+          length: 0.7,
+          strokeWidth: 0.035,
+          color: '#000000',
+        },
+        limitMax: false,
+        limitMin: false,
+        highDpiSupport: true,
+        staticLabels: {
+          font: "10px sans-serif",
+          labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+          color: "#000000",
+          fractionDigits: 0
+        },
+        renderTicks: {
+          divisions: 14,
+          divWidth: 1.1,
+          divLength: 0.7,
+          divColor: '#333333',
+          subDivisions: 0,
+          subLength: 0.5,
+          subWidth: 0.6,
+          subColor: '#666666'
+        },
+        staticZones: [
+          { strokeStyle: "#FF0000", min: 0, max: 1 },
+          { strokeStyle: "#FF4500", min: 1, max: 2 },
+          { strokeStyle: "#FF8C00", min: 2, max: 3 },
+          { strokeStyle: "#FFD700", min: 3, max: 4 },
+          { strokeStyle: "#FFFF00", min: 4, max: 5 },
+          { strokeStyle: "#ADFF2F", min: 5, max: 6 },
+          { strokeStyle: "#7FFF00", min: 6, max: 7 },
+          { strokeStyle: "#32CD32", min: 7, max: 8 },
+          { strokeStyle: "#00FF00", min: 8, max: 9 },
+          { strokeStyle: "#00FA9A", min: 9, max: 10 },
+          { strokeStyle: "#00FFFF", min: 10, max: 11 },
+          { strokeStyle: "#1E90FF", min: 11, max: 12 },
+          { strokeStyle: "#0000FF", min: 12, max: 13 },
+          { strokeStyle: "#8A2BE2", min: 13, max: 14 },
+        ],
+      };
+      const gauge = new Gauge(target).setOptions(opts);
+      gauge.maxValue = 14;
+      gauge.setMinValue(0);
+      gauge.animationSpeed = 32;
+      gauge.set(7);
+    } else {
+      alert("Gauge not found")
+    };
   }, []);
+
+  // Ensure the value is between 0 and 14
+  const clampedValue = Math.min(Math.max(7.4, 0), 14);
+
+  // Generate 14 color blocks for the pH scale
+  const colorBlocks = [
+    { color: '#FF0000', label: '0' }, // Red
+    { color: '#FF4500', label: '1' }, // OrangeRed
+    { color: '#FFA500', label: '2' }, // Orange
+    { color: '#FFD700', label: '3' }, // Gold
+    { color: '#FFFF00', label: '4' }, // Yellow
+    { color: '#ADFF2F', label: '5' }, // GreenYellow
+    { color: '#7FFF00', label: '6' }, // Chartreuse
+    { color: '#00FF00', label: '7' }, // Lime
+    { color: '#00FA9A', label: '8' }, // MediumSpringGreen
+    { color: '#00FFFF', label: '9' }, // Cyan
+    { color: '#1E90FF', label: '10' }, // DodgerBlue
+    { color: '#0000FF', label: '11' }, // Blue
+    { color: '#8A2BE2', label: '12' }, // BlueViolet
+    { color: '#800080', label: '13' }, // Purple
+  ];
+
+  // Calculate the position of the pointer
+  const pointerPosition = (clampedValue / 14) * 100;
+
 
   // Zuurstof Gauge
   useEffect(() => {
@@ -178,13 +208,42 @@ function DashboardData() {
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl '>Ph Meter</h2>
               </div>
-              <div className="Gauge justify-center flex">
-                <canvas ref={PHGauge} ></canvas>
-              </div>
-             {Advanced && (
-                <div className='bg-amber-700 w-full h-16'>
+              {!Advanced && (
+                <div className="flex items-center">
+                  <div className="w-12 h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+                    {colorBlocks.map((block, index) => (
+                      <div
+                        key={index}
+                        className="absolute w-full"
+                        style={{
+                          backgroundColor: block.color,
+                          height: '7.14%', // 100% / 14
+                          bottom: `${index * 7.14}%`,
+                        }}
+                      />
+                    ))}
+                    <div
+                      className="absolute left-0 w-full h-1 bg-black"
+                      style={{ bottom: `${pointerPosition}%` }}
+                    />
                   </div>
-             )}
+                  <div className="ml-4 flex flex-col justify-between h-64">
+                    {colorBlocks.slice().reverse().map((block, index) => (
+                      <div key={index} className="text-xs">{block.label}</div>
+                    ))}
+                  </div>
+                  <div className="ml-4 text-lg font-semibold">{clampedValue.toFixed(1)}</div>
+                </div>
+              )}
+              {Advanced && (
+                <div>
+                  <div className="Gauge justify-center flex">
+                    <canvas ref={PHGauge} ></canvas>
+                  </div>
+                  <div className='bg-amber-700 w-full h-16'>
+                  </div>
+                </div>
+              )}
               <div className='flex justify-end'>
                 <button onclick={handleFullscreen}>
 
