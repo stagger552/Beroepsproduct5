@@ -4,26 +4,22 @@ import { Gauge } from 'gaugeJS';
 import IconButton from "../../IconButton"
 import { ReactComponent as Fullscreen } from "../../img/fullscreen.svg"
 import { useAdvanced } from "./DashboardContext"
+// import { Chart, registerables } from 'chart.js';
+import CircularGauge from './CircularGauge';
 
 function DashboardData() {
-  const [temperature, setTemperature] = useState(-42);
+
+  var gaugeTemeprature = 40
+  var gaugePhmeter = 8
+  var gaugeZuurstof = 8
+  var gaugeTroebelheid = 7
+
+  const [temperature, setTemperature] = useState(gaugeTemeprature);
   const { Advanced, setAdvanced } = useAdvanced();
 
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTemperature(prevTemp => {
-        const newTemp = prevTemp + 1;
-        return newTemp > 40 ? -42 : newTemp;
-      });
-    }, 100);
-
-    return () => clearInterval(timer);
-  }, []);
-
   const getColor = () => {
-    if (temperature < -20) return 'bg-blue-500';
-    if (temperature <= 0) return 'bg-yellow-300';
+    if (temperature < -40 && temperature > 0) return 'bg-blue-500';
+    if (temperature <= 0 && temperature >= 20) return 'bg-yellow-300';
     if (temperature < 20) return 'bg-red-300';
     return 'bg-red';
   };
@@ -36,11 +32,11 @@ function DashboardData() {
 
   // PH Meter Gauge
   useEffect(() => {
-    if (PHGauge.current) {
+    if (Advanced && PHGauge.current) {
 
       const target = PHGauge.current;
       const opts = {
-        angle: 0,
+        angle: -0.20,
         lineWidth: 0.4,
         radiusScale: 1,
         pointer: {
@@ -68,20 +64,20 @@ function DashboardData() {
           subColor: '#666666'
         },
         staticZones: [
-          { strokeStyle: "#FF0000", min: 0, max: 1 },
-          { strokeStyle: "#FF4500", min: 1, max: 2 },
-          { strokeStyle: "#FF8C00", min: 2, max: 3 },
-          { strokeStyle: "#FFD700", min: 3, max: 4 },
-          { strokeStyle: "#FFFF00", min: 4, max: 5 },
-          { strokeStyle: "#ADFF2F", min: 5, max: 6 },
-          { strokeStyle: "#7FFF00", min: 6, max: 7 },
-          { strokeStyle: "#32CD32", min: 7, max: 8 },
-          { strokeStyle: "#00FF00", min: 8, max: 9 },
-          { strokeStyle: "#00FA9A", min: 9, max: 10 },
-          { strokeStyle: "#00FFFF", min: 10, max: 11 },
-          { strokeStyle: "#1E90FF", min: 11, max: 12 },
-          { strokeStyle: "#0000FF", min: 12, max: 13 },
-          { strokeStyle: "#8A2BE2", min: 13, max: 14 },
+          { strokeStyle: "#DC2626", min: 0, max: 1 },
+          { strokeStyle: "#EF4444", min: 1, max: 2 },
+          { strokeStyle: "#F97316", min: 2, max: 3 },
+          { strokeStyle: "#FB923C", min: 3, max: 4 },
+          { strokeStyle: "#FACC15", min: 4, max: 5 },
+          { strokeStyle: "#FDE047", min: 5, max: 6 },
+          { strokeStyle: "#A3E635", min: 6, max: 7 },
+          { strokeStyle: "#84CC16", min: 7, max: 8 },
+          { strokeStyle: "#22C55E", min: 8, max: 9 },
+          { strokeStyle: "#4ADE80", min: 9, max: 10 },
+          { strokeStyle: "#2DD4BF", min: 10, max: 11 },
+          { strokeStyle: "#60A5FA", min: 11, max: 12 },
+          { strokeStyle: "#3B82F6", min: 12, max: 13 },
+          { strokeStyle: "#7e22ce", min: 13, max: 14 },
         ],
       };
       const gauge = new Gauge(target).setOptions(opts);
@@ -90,29 +86,31 @@ function DashboardData() {
       gauge.animationSpeed = 32;
       gauge.set(7);
     } else {
-      alert("Gauge not found")
+      console.log("Gauge not found")
+      // alert("Gauge not found")
     };
-  }, []);
+
+  }, [Advanced, PHGauge]);
 
   // Ensure the value is between 0 and 14
   const clampedValue = Math.min(Math.max(7.4, 0), 14);
 
   // Generate 14 color blocks for the pH scale
   const colorBlocks = [
-    { color: '#FF0000', label: '0' }, // Red
-    { color: '#FF4500', label: '1' }, // OrangeRed
-    { color: '#FFA500', label: '2' }, // Orange
-    { color: '#FFD700', label: '3' }, // Gold
-    { color: '#FFFF00', label: '4' }, // Yellow
-    { color: '#ADFF2F', label: '5' }, // GreenYellow
-    { color: '#7FFF00', label: '6' }, // Chartreuse
-    { color: '#00FF00', label: '7' }, // Lime
-    { color: '#00FA9A', label: '8' }, // MediumSpringGreen
-    { color: '#00FFFF', label: '9' }, // Cyan
-    { color: '#1E90FF', label: '10' }, // DodgerBlue
-    { color: '#0000FF', label: '11' }, // Blue
-    { color: '#8A2BE2', label: '12' }, // BlueViolet
-    { color: '#800080', label: '13' }, // Purple
+    { color: '#DC2626', label: '0' }, // Red
+    { color: '#EF4444', label: '1' }, // OrangeRed
+    { color: '#F97316', label: '2' }, // Orange
+    { color: '#FB923C', label: '3' }, // Gold
+    { color: '#FACC15', label: '4' }, // Yellow
+    { color: '#FDE047', label: '5' }, // GreenYellow
+    { color: '#A3E635', label: '6' }, // Chartreuse
+    { color: '#84CC16', label: '7' }, // Lime
+    { color: '#22C55E', label: '8' }, // MediumSpringGreen
+    { color: '#4ADE80', label: '9' }, // Cyan
+    { color: '#2DD4BF', label: '10' }, // DodgerBlue
+    { color: '#60A5FA', label: '11' }, // Blue
+    { color: '#3B82F6', label: '12' }, // BlueViolet
+    { color: '#7e22ce', label: '13' }, // Purple
   ];
 
   // Calculate the position of the pointer
@@ -171,14 +169,24 @@ function DashboardData() {
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl '>Temperature</h2>
               </div>
-              <div className="Gauge justify-center flex flex-col items-center">
-                <div className="relative w-full max-w-16 h-64 bg-gray-300 rounded-full overflow-hidden">
-                  <div
-                    className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColor()}`}
-                    style={{ height: gaugeHeight }}
-                  ></div>
+              {!Advanced && (
+                <div className="Gauge justify-center flex flex-col items-center">
+                  <div className="relative w-full max-w-16 h-64 bg-gray-300 rounded-full overflow-hidden">
+                    <div
+                      className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColor()}`}
+                      style={{ height: gaugeHeight }}
+                    ></div>
+                  </div>
                 </div>
-              </div>
+              )}
+
+
+              {Advanced && (
+                <div className="p-4 flex justify-center ">
+                  <CircularGauge value={gaugeTemeprature} max={100} size={200}  />
+                </div>
+              )}
+
               <h3 className="mt-4 text-4xl font-semibold text-center">{temperature}°C</h3>
 
               {isFullscreen && (
@@ -209,30 +217,33 @@ function DashboardData() {
                 <h2 className='font-alatsi text-3xl '>Ph Meter</h2>
               </div>
               {!Advanced && (
-                <div className="flex items-center">
-                  <div className="w-12 h-64 bg-gray-200 rounded-lg overflow-hidden relative">
-                    {colorBlocks.map((block, index) => (
+                <div>
+                  <div className="flex justify-center items-center">
+                    <div className="w-12 h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+                      {colorBlocks.map((block, index) => (
+                        <div
+                          key={index}
+                          className="absolute w-full"
+                          style={{
+                            backgroundColor: block.color,
+                            height: '30px', // 100% / 14
+                            bottom: `${index * 7.14}%`,
+                          }}
+                        />
+                      ))}
                       <div
-                        key={index}
-                        className="absolute w-full"
-                        style={{
-                          backgroundColor: block.color,
-                          height: '7.14%', // 100% / 14
-                          bottom: `${index * 7.14}%`,
-                        }}
+                        className="absolute left-0 w-full h-1 bg-black"
+                        style={{ bottom: `${pointerPosition}%` }}
                       />
-                    ))}
-                    <div
-                      className="absolute left-0 w-full h-1 bg-black"
-                      style={{ bottom: `${pointerPosition}%` }}
-                    />
+                    </div>
+                    <div className="ml-4 flex flex-col justify-between h-64">
+                      {colorBlocks.slice().reverse().map((block, index) => (
+                        <div key={index} className="text-xs font-roboto">{block.label}</div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="ml-4 flex flex-col justify-between h-64">
-                    {colorBlocks.slice().reverse().map((block, index) => (
-                      <div key={index} className="text-xs">{block.label}</div>
-                    ))}
-                  </div>
-                  <div className="ml-4 text-lg font-semibold">{clampedValue.toFixed(1)}</div>
+                  <div className="ml-4 text-4xl font-semibold text-center my-6 font-alatsi">{clampedValue.toFixed(1)}</div>
+
                 </div>
               )}
               {Advanced && (
@@ -265,7 +276,7 @@ function DashboardData() {
                 <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
                   <div
                     className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColor()}`}
-                    style={{ height: gaugeHeight }}
+                    style={{ height: gaugeTroebelheid }}
                   ></div>
                 </div>
               </div>

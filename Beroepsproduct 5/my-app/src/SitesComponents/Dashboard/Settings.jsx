@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import SideBar from "../../Sidebar"
 import { useAdvanced  } from "./DashboardContext"
+
 function Settings() {
 
     const [SideIsOpen, setIsOpen] = useState(false);

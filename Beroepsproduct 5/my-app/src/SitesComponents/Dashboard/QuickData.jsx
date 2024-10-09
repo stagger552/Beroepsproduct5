@@ -1,9 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
+import { useAdvanced } from "./DashboardContext"
+import CircularGauge from './CircularGauge';
 
 function QuikData() {
   const [temperature, setTemperature] = useState(29);
   const [animationProgress, setAnimationProgress] = useState(0);
+  const { Advanced, setAdvanced } = useAdvanced();
+
+  var gaugeTemeprature = 50
+  var gaugePhmeter = 8
+  var gaugeZuurstof = 8
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -35,117 +42,141 @@ function QuikData() {
       <div className="container my-7">
         <div className="row">
           <div className="col-lg-4 flex justify-center items-center">
-            <div className="bg-white border-0 rounded-lg  max-w-lg m-auto mb-5 w-full  h-48 flex flex-col items-center justify-center">
-              <div className="DataGauge w-full flex flex-col items-center">
-                <div className="Gauge w-full">
-                  <div className="w-3/4 m-auto flex justify-center">
-                    <svg width={gaugeWidth} height={gaugeHeight}>
-                      <rect
-                        x="0"
-                        y="0"
-                        width="100%"
-                        height={gaugeHeight}
-                        fill="#FFD1DC"
-                        rx="10"
-                        ry="10"
-                      />
-                      <rect
-                        x="0"
-                        y="0"
-                        width={filledWidth}
-                        height={gaugeHeight}
-                        fill="#FF6B6B"
-                        rx="10"
-                        ry="10"
-                      />
-                    </svg>
-                    <div className="gaugeText w-1/4 text-2xl font-bold text-gray-700 ml-2">
-                      {temperature.toFixed(1)}
+            <div className="bg-white h-full border-0 rounded-lg  max-w-lg m-auto mb-5 w-full  h-48 flex flex-col items-center justify-center">
+              {!Advanced && (
+                <div className="DataGauge w-full  flex flex-col items-center">
+                  <div className="Gauge w-full">
+                    <div className="w-3/4 m-auto flex justify-center">
+                      <svg width={gaugeWidth} height={gaugeHeight}>
+                        <rect
+                          x="0"
+                          y="0"
+                          width="100%"
+                          height={gaugeHeight}
+                          fill="#FFD1DC"
+                          rx="10"
+                          ry="10"
+                        />
+                        <rect
+                          x="0"
+                          y="0"
+                          width={filledWidth}
+                          height={gaugeHeight}
+                          fill="#FF6B6B"
+                          rx="10"
+                          ry="10"
+                        />
+                      </svg>
+                      <div className="gaugeText w-1/4 text-2xl font-bold text-gray-700 ml-2">
+                        {temperature.toFixed(1)}
+                      </div>
                     </div>
                   </div>
+                  <div className="DataText">
+                    <h3 className="text-center text-2xl font-bold text-gray-700 my-2">
+                      Temprature
+                    </h3>
+                  </div>
                 </div>
-                <div className="DataText">
-                  <h3 className="text-center text-2xl font-bold text-gray-700 my-2">
-                    Temprature
-                  </h3>
+              )}
+
+              {Advanced && (
+                <div className="p-4 flex justify-center py-4">
+                  <CircularGauge value={gaugeTemeprature} max={100} size={200} />
                 </div>
-              </div>
+              )}
             </div>
           </div>
           <div className="col-lg-4 ">
-            <div className="bg-white border-0   rounded-lg  max-w-lg m-auto mb-5 w-full h-48 flex flex-col items-center justify-center">
-              <div className="DataGauge w-full flex flex-col items-center">
-                <div className="Gauge w-full">
-                  <div className="w-3/4 m-auto flex justify-center">
-                    <svg width={gaugeWidth} height={gaugeHeight}>
-                      <rect
-                        x="0"
-                        y="0"
-                        width="100%"
-                        height={gaugeHeight}
-                        fill="#CCCEFF"
-                        rx="10"
-                        ry="10"
-                      />
-                      <rect
-                        x="0"
-                        y="0"
-                        width={filledWidth}
-                        height={gaugeHeight}
-                        fill="#636AE8"
-                        rx="10"
-                        ry="10"
-                      />
-                    </svg>
-                    <div className="gaugeText w-1/4 text-2xl font-bold text-gray-700 ml-2 text-red-600">
-                      {temperature.toFixed(1)}
+            <div className="bg-white border-0 h-full  rounded-lg  max-w-lg m-auto mb-5 w-full h-48 flex flex-col items-center justify-center">
+              {!Advanced && (
+
+                <div className="DataGauge w-full  flex flex-col items-center">
+                  <div className="Gauge w-full">
+                    <div className="w-3/4 m-auto flex justify-center">
+                      <svg width={gaugeWidth} height={gaugeHeight}>
+                        <rect
+                          x="0"
+                          y="0"
+                          width="100%"
+                          height={gaugeHeight}
+                          fill="#CCCEFF"
+                          rx="10"
+                          ry="10"
+                        />
+                        <rect
+                          x="0"
+                          y="0"
+                          width={filledWidth}
+                          height={gaugeHeight}
+                          fill="#636AE8"
+                          rx="10"
+                          ry="10"
+                        />
+                      </svg>
+                      <div className="gaugeText w-1/4 text-2xl font-bold text-gray-700 ml-2 text-red-600">
+                        {temperature.toFixed(1)}
+                      </div>
                     </div>
                   </div>
+                  <div className="DataText">
+                    <h3 className="text-center text-2xl font-bold text-gray-700 my-2 text-indigo-600">
+                      Ph meter
+                    </h3>
+                  </div>
                 </div>
-                <div className="DataText">
-                  <h3 className="text-center text-2xl font-bold text-gray-700 my-2 text-indigo-600">
-                    Ph meter
-                  </h3>
+              )}
+              {Advanced && (
+                <div className="p-4 flex justify-center py-4">
+                  <CircularGauge value={gaugePhmeter} max={100} size={200} />
                 </div>
-              </div>
+              )}
             </div>
           </div>
           <div className="col-lg-4 ">
-            <div className="bg-white border-0   rounded-lg  max-w-lg m-auto mb-5 w-full h-48 flex flex-col items-center justify-center">
-              <div className="DataGauge w-full flex flex-col items-center">
-                <div className="Gauge w-full">
-                  <div className="w-3/4 m-auto flex justify-center">
-                    <svg width={gaugeWidth} height={gaugeHeight}>
-                      <rect
-                        x="0"
-                        y="0"
-                        width="100%"
-                        height={gaugeHeight}
-                        fill="#CCE8FF"
-                        rx="10"
-                        ry="10"
-                      />
-                      <rect
-                        x="0"
-                        y="0"
-                        width={filledWidth}
-                        height={gaugeHeight}
-                        fill="#379AE6"
-                        rx="10"
-                        ry="10"
-                      />
-                    </svg>
-                    <div className="gaugeText w-1/4 text-2xl font-bold text-gray-700 ml-2">
-                      {temperature.toFixed(1)}
+            <div className="bg-white border-0  h-full rounded-lg  max-w-lg m-auto mb-5 w-full h-48 flex flex-col items-center justify-center">
+              {!Advanced && (
+
+                <div className="DataGauge w-full flex flex-col items-center">
+                  <div className="Gauge w-full">
+                    <div className="w-3/4 m-auto flex justify-center">
+                      <svg width={gaugeWidth} height={gaugeHeight}>
+                        <rect
+                          x="0"
+                          y="0"
+                          width="100%"
+                          height={gaugeHeight}
+                          fill="#CCE8FF"
+                          rx="10"
+                          ry="10"
+                        />
+                        <rect
+                          x="0"
+                          y="0"
+                          width={filledWidth}
+                          height={gaugeHeight}
+                          fill="#379AE6"
+                          rx="10"
+                          ry="10"
+                        />
+                      </svg>
+                      <div className="gaugeText w-1/4 text-2xl font-bold text-gray-700 ml-2">
+                        {temperature.toFixed(1)}
+                      </div>
                     </div>
                   </div>
+                  <div className="DataText">
+                    <h3 className="text-center text-2xl font-bold text-gray-700 my-2 text-blue-600">
+                      Zuurstof
+                    </h3>
+                  </div>
                 </div>
-                <div className="DataText">
-                  <h3 className="text-center text-2xl font-bold text-gray-700 my-2 text-blue-600">
-                    Zuurstof
-                  </h3>
+              )}
+              {Advanced && (
+                <div className="p-4 flex justify-center py-4">
+                  <CircularGauge value={gaugeZuurstof} max={100} size={200} />
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
