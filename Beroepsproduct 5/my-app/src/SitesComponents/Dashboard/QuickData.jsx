@@ -74,7 +74,7 @@ function QuikData() {
                   </div>
                   <div className="DataText">
                     <h3 className="text-center text-2xl font-bold text-qk_red  my-6">
-                      Temprature
+                      Tempraturesss
                     </h3>
                   </div>
                 </div>

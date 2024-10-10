@@ -189,7 +189,7 @@ function DashboardData() {
       <div className="container">
         <div className="row">
           <div className="col-lg-6">
-            <div className="Card bg-white border-0 p-6 rounded-lg max-w-lg m-auto mb-5 w-auto min-h-96 flex flex-col justify-between">
+            <div className={`Card bg-white border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl '>Temperature</h2>
               </div>
@@ -236,7 +236,7 @@ function DashboardData() {
           </div>
           <div className="col-lg-6">
 
-            <div className="Card bg-white border-0 p-6  rounded-lg  max-w-lg m-auto mb-5 w-auto min-h-96">
+            <div className={`Card bg-white border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl '>Ph Meter</h2>
               </div>
@@ -275,10 +275,12 @@ function DashboardData() {
                   <div className="Gauge justify-center flex">
                     <canvas ref={PHGauge} ></canvas>
                   </div>
-                  <div className='bg-amber-700 w-full h-16'>
-                  </div>
+
                 </div>
               )}
+
+              <h3 className="mt-4 text-4xl font-semibold text-center">{gaugePhmeter} PH</h3>
+
               <div className='flex justify-end'>
                 <button onclick={handleFullscreen}>
 
@@ -292,7 +294,7 @@ function DashboardData() {
         </div>
         <div className="row">
           <div className="col-lg-6">
-            <div className="Card bg-white border-0 p-6  rounded-lg  max-w-lg m-auto mb-5 w-auto min-h-96">
+            <div className={`Card bg-white border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl '>Troebelheid</h2>
               </div>
@@ -304,17 +306,22 @@ function DashboardData() {
                   ></div>
                 </div>
               </div>
+              <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTroebelheid} PH</h3>
+
             </div>
           </div>
           <div className="col-lg-6">
 
-            <div className="Card bg-white border-0 p-6  rounded-lg  max-w-lg m-auto mb-5 w-auto min-h-96">
+            <div className={`Card bg-white border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl'>Zuurstof</h2>
               </div>
               <div className="Gauge justify-center flex">
                 <canvas ref={ZuurstofGauge} ></canvas>
               </div>
+
+              <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeZuurstof} PH</h3>
+
             </div>
           </div>
         </div>

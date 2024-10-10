@@ -172,7 +172,7 @@ function InfoCards() {
                 <div className="col-lg-12">
 
                     <div className="flex justify-center mt-7">
-                        <button className='btn bg-green text-zwart font-alatsi text-6xl p-4'>
+                        <button className='btn bg-lightblue text-zwart font-alatsi text-1xl p-4'>
                             Ga naar dashboard
                         </button>
                     </div>
