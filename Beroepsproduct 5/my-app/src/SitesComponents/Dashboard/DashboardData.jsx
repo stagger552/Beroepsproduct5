@@ -35,20 +35,32 @@ function DashboardData() {
   }, [setTemperatureValue, setPhMeterValue, setZuurstofValue, setTroebelheidValue]);
 
   var gaugeTemeprature = TemperatureValue
-  var gaugePhmeter = PhMeterValue
+  var gaugePhmeter = PhMeterValue.toFixed(2)
   var gaugeZuurstof = 8
   var gaugeTroebelheid = 7
 
 
 
-  const getColor = () => {
-    if (gaugeTemeprature < -40 && gaugeTemeprature > 0) return 'bg-blue-500';
-    if (gaugeTemeprature <= 0 && gaugeTemeprature >= 20) return 'bg-yellow-300';
-    if (gaugeTemeprature < 20) return 'bg-red-300';
-    return 'bg-red';
+  const getColorTemperature = () => {
+    // if (gaugeTemeprature < -40 && gaugeTemeprature > 0) return 'bg-blue-500';
+    // if (gaugeTemeprature <= 0 && gaugeTemeprature >= 20) return 'bg-yellow-300';
+    // if (gaugeTemeprature < 20) return 'bg-red-300';
+
+    if (gaugeTemeprature < 0) return 'bg-qk_blue';
+    if (gaugeTemeprature > 0) return 'bg-qk_red';
+  };
+  const getColorTroebelheid = () => {
+    // if (gaugeTemeprature < -40 && gaugeTemeprature > 0) return 'bg-blue-500';
+    // if (gaugeTemeprature <= 0 && gaugeTemeprature >= 20) return 'bg-yellow-300';
+    // if (gaugeTemeprature < 20) return 'bg-red-300';
+
+    if (gaugeTemeprature < 50) return 'bg-qk_blue';
+    if (gaugeTemeprature > 50) return 'bg-qk_red';
   };
 
-  const gaugeHeight = `${((gaugeTemeprature + 42) / 82) * 100}%`;
+  const TemperaturegaugeHeight = `${((gaugeTemeprature + 30 ) / 100) * 100}%`;
+  const TroebelheidgaugeHeight = `${((gaugeTroebelheid  ) / 100) * 100}%`;
+
 
   const PHGauge = useRef(null);
   const ZuurstofGauge = useRef(null);
@@ -197,8 +209,8 @@ function DashboardData() {
                 <div className="Gauge justify-center flex flex-col items-center">
                   <div className="relative w-full max-w-16 h-64 bg-gray-300 rounded-full overflow-hidden">
                     <div
-                      className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColor()}`}
-                      style={{ height: gaugeHeight }}
+                      className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTemperature()}`}
+                      style={{ height: TemperaturegaugeHeight }}
                     ></div>
                   </div>
                 </div>
@@ -301,8 +313,8 @@ function DashboardData() {
               <div className="Gauge justify-center flex flex-col items-center">
                 <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
                   <div
-                    className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColor()}`}
-                    style={{ height: gaugeTroebelheid }}
+                    className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTroebelheid()}`}
+                    style={{ height: TroebelheidgaugeHeight }}
                   ></div>
                 </div>
               </div>
