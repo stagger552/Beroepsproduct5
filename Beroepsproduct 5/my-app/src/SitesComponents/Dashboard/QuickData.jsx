@@ -6,36 +6,56 @@ import CircularGauge from './CircularGauge';
 function QuikData() {
   const [temperature, setTemperature] = useState(29);
   const [animationProgress, setAnimationProgress] = useState(0);
-  const { Advanced, setAdvanced } = useDashboard();
+  const {
+    Advanced,
+    setAdvanced,
+    TemperatureValue,
+    setTemperatureValue,
+    PhMeterValue,
+    setPhMeterValue,
+    ZuurstofValue,
+    setZuurstofValue,
+    TroebelheidValue,
+    setTroebelheidValue
+  } = useDashboard(); // Destructure all the context values
 
   var gaugeTemeprature = 50
   var gaugePhmeter = 8
   var gaugeZuurstof = 8
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTemperature(prevTemp => {
-        const newTemp = prevTemp + (Math.random() - 0.5) * 5;
-        return Math.min(Math.max(newTemp, 0), 50); // Keep temperature between 0 and 50
-      });
-    }, 2000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setTemperature(prevTemp => {
+  //       const newTemp = prevTemp + (Math.random() - 0.5) * 5;
+  //       return Math.min(Math.max(newTemp, 0), 50); // Keep temperature between 0 and 50
+  //     });
+  //   }, 2000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
-  useEffect(() => {
-    setAnimationProgress(0);
-    const animation = setInterval(() => {
-      setAnimationProgress(prev => Math.min(prev + 0.05, 1));
-    }, 50);
+  // useEffect(() => {
+  //   setAnimationProgress(0);
+  //   const animation = setInterval(() => {
+  //     setAnimationProgress(prev => Math.min(prev + 0.05, 1));
+  //   }, 50);
 
-    return () => clearInterval(animation);
-  }, [temperature]);
+  //   return () => clearInterval(animation);
+  // }, [TemperatureValue]);
+
+  function calculateWidth(value,Minimum, Maximum) {
+    
+    const width = value + Minimum / Maximum  * 100;
+    return `${width}%`;
+  }
 
   const gaugeWidthValue = 100; // percentage value as a number
   const gaugeWidth = `${gaugeWidthValue}%`; // percentage value as a string
   const gaugeHeight = 40;
-  const filledWidth = (temperature / 50) * gaugeWidthValue * animationProgress;
+  // const filledWidth = (TemperatureValue / 100) * gaugeWidthValue * animationProgress;
+  const filledWidthTemperature = calculateWidth(TemperatureValue, 30 , 100)
+  const filledWidthPhmeter = calculateWidth(PhMeterValue,0 , 14)
+  const filledWidthZuurstof = calculateWidth(ZuurstofValue,0 , 100)
 
   return (
     <div>
@@ -60,21 +80,21 @@ function QuikData() {
                         <rect
                           x="0"
                           y="0"
-                          width={filledWidth}
+                          width={filledWidthTemperature}
                           height={gaugeHeight}
                           fill="#FF6B6B"
                           rx="10"
                           ry="10"
                         />
                       </svg>
-                      <div className="gaugeText w-1/4 text-2xl font-bold text-gray-700 ml-2">
-                        {temperature.toFixed(1)}
+                      <div className="gaugeText w-1/4 text-2xl font-bold text-qk_red ml-2">
+                        {TemperatureValue.toFixed(1)}
                       </div>
                     </div>
                   </div>
                   <div className="DataText">
                     <h3 className="text-center text-2xl font-bold text-qk_red  my-6">
-                      Tempraturesss
+                      Tempratures
                     </h3>
                   </div>
                 </div>
@@ -115,7 +135,7 @@ function QuikData() {
                         <rect
                           x="0"
                           y="0"
-                          width={filledWidth}
+                          width={filledWidthPhmeter}
                           height={gaugeHeight}
                           fill="#636AE8"
                           rx="10"
@@ -123,7 +143,7 @@ function QuikData() {
                         />
                       </svg>
                       <div className="gaugeText w-1/4 text-2xl font-bold text-qk_purple ml-2 ">
-                        {temperature.toFixed(1)}
+                        {PhMeterValue.toFixed(1)}
                       </div>
                     </div>
                   </div>
@@ -138,8 +158,8 @@ function QuikData() {
                 <div className="p-4">
                   <CircularGauge value={gaugePhmeter} max={100} size={200} color='qk_purple' background='qk_purple_bg' />
                   <div className="DataText">
-                  <h3 className="text-center text-5xl font-bold text-qk_purple my-4 ">
-                  Ph Meter
+                    <h3 className="text-center text-5xl font-bold text-qk_purple my-4 ">
+                      Ph Meter
                     </h3>
                   </div>
                 </div>
@@ -166,20 +186,20 @@ function QuikData() {
                         <rect
                           x="0"
                           y="0"
-                          width={filledWidth}
+                          width={filledWidthZuurstof}
                           height={gaugeHeight}
                           fill="#379AE6"
                           rx="10"
                           ry="10"
                         />
                       </svg>
-                      <div className="gaugeText w-1/4 text-2xl font-bold text-gray-700 ml-2">
-                        {temperature.toFixed(1)}
+                      <div className="gaugeText w-1/4 text-2xl font-bold text-qk_blue ml-2">
+                        {ZuurstofValue.toFixed(1)}
                       </div>
                     </div>
                   </div>
                   <div className="DataText">
-                    <h3 className="text-center text-2xl font-bold text-gray-700 my-2 text-blue-600">
+                    <h3 className="text-center text-2xl font-bold text-qk_blue my-2 ">
                       Zuurstof
                     </h3>
                   </div>
@@ -189,8 +209,8 @@ function QuikData() {
                 <div className="p-4">
                   <CircularGauge value={gaugeZuurstof} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
                   <div className="DataText">
-                  <h3 className="text-center text-5xl font-bold text-qk_blue my-4 ">
-                  Zuurstof
+                    <h3 className="text-center text-5xl font-bold text-qk_blue my-4 ">
+                      Zuurstof
                     </h3>
                   </div>
                 </div>

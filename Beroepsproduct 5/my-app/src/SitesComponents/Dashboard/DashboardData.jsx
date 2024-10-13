@@ -36,8 +36,8 @@ function DashboardData() {
 
   var gaugeTemeprature = TemperatureValue
   var gaugePhmeter = PhMeterValue.toFixed(2)
-  var gaugeZuurstof = 8
-  var gaugeTroebelheid = 20
+  var gaugeZuurstof = ZuurstofValue.toFixed(2)
+  var gaugeTroebelheid = TroebelheidValue.toFixed(2)
 
 
 
@@ -60,7 +60,7 @@ function DashboardData() {
 
   const TemperaturegaugeHeight = `${((gaugeTemeprature + 30) / 100) * 100}%`;
   const TroebelheidgaugeHeight = `${((gaugeTroebelheid) / 100) * 100}%`;
-  const ZuurstofgaugeHeight = `${((gaugeTroebelheid) / 100) * 100}%`;
+  const ZuurstofgaugeHeight = `${((gaugeZuurstof) / 100) * 100}%`;
 
 
   const PHGauge = useRef(null);
@@ -73,7 +73,7 @@ function DashboardData() {
 
       const target = PHGauge.current;
       const opts = {
-        angle: -0.20,
+        angle: -0.00,
         lineWidth: 0.4,
         radiusScale: 1,
         pointer: {
@@ -186,7 +186,7 @@ function DashboardData() {
   ];
 
   // Calculate the position of the pointer
-  const pointerPosition = (clampedValue / 14) * 100;
+  const pointerPosition = (gaugePhmeter / 14) * 100;
 
 
   // Zuurstof Gauge
@@ -198,7 +198,7 @@ function DashboardData() {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
 
-  const handleFullscreen = () => {
+  const handleFullscreen = (gagueNumber) => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
       setIsFullscreen(true);
@@ -245,20 +245,10 @@ function DashboardData() {
               )}
 
 
-              {isFullscreen && (
-                <div className="mt-8">
-                  <h4 className="text-2xl font-semibold mb-2">Additional Information</h4>
-                  <p className="text-lg">Here you can add more text and information that will only be visible in fullscreen mode.</p>
-                  <ul className="list-disc list-inside mt-4">
-                    <li>Humidity: 65%</li>
-                    <li>Pressure: 1013 hPa</li>
-                    <li>Wind Speed: 5 km/h</li>
-                  </ul>
-                </div>
-              )}
-              <div className='flex justify-end'>
 
-                <IconButton onclick={handleFullscreen} >
+              <div className='flex justify-end mt-4'>
+
+                <IconButton onclick={() => handleFullscreen(1)} >
                   <Fullscreen />
                 </IconButton>
               </div>
@@ -296,27 +286,23 @@ function DashboardData() {
                       ))}
                     </div>
                   </div>
-                  <div className="ml-4 text-4xl font-semibold text-center my-6 font-alatsi">{gaugePhmeter}</div>
+                  <div className="ml-4 text-4xl font-semibold text-center my-6 font-alatsi">{gaugePhmeter} Ph</div>
 
                 </div>
               )}
               {Advanced && (
-                <div>
-                  <div className="Gauge justify-center flex lg:w-1/2 sm:w-full">
+                <div className='lg:w-1/2 sm:w-full'>
+                  <div className="Gauge justify-center flex ">
                     <canvas ref={PHGauge} ></canvas>
 
                   </div>
-                  <h3 className="mt-4 text-4xl font-semibold text-center lg:w-1/2 sm:w-full">{gaugePhmeter} PH</h3>
+                  <h3 className="mt-4 text-4xl font-semibold text-center ">{gaugePhmeter} PH</h3>
 
                 </div>
               )}
 
-
-              <div className='flex justify-end'>
-                <button onclick={handleFullscreen}>
-
-                </button>
-                <IconButton onclick={handleFullscreen} >
+              <div className='flex justify-end mt-4'>
+                <IconButton onclick={() => handleFullscreen(2)} >
                   <Fullscreen />
                 </IconButton>
               </div>
@@ -357,6 +343,12 @@ function DashboardData() {
                   <h3 className="mt-4 text-4xl font-semibold text-center ">{gaugeTroebelheid} PH</h3>
                 </div>
               )}
+              <div className='flex justify-end mt-4'>
+
+                <IconButton onclick={() => handleFullscreen(3)} >
+                  <Fullscreen />
+                </IconButton>
+              </div>
             </div>
           </div>
           <div className="col-lg-6">
@@ -374,7 +366,7 @@ function DashboardData() {
                       style={{ height: ZuurstofgaugeHeight }}
                     ></div>
                   </div>
-                  <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTemeprature} Zuurstof</h3>
+                  <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeZuurstof} Zuurstof</h3>
 
                 </div>
 
@@ -386,12 +378,16 @@ function DashboardData() {
                   <div className="Gauge justify-center flex ">
                     <canvas ref={ZuurstofGauge} ></canvas>
                   </div>
-                  <h3 className="mt-4 text-4xl font-semibold  text-center ">{gaugeZuurstof} PH</h3>
+                  <h3 className="mt-4 text-4xl font-semibold  text-center ">{gaugeZuurstof} Zuurstof</h3>
                 </div>
               )}
 
+              <div className='flex justify-end mt-4'>
 
-
+                <IconButton onclick={() => handleFullscreen(4)} >
+                  <Fullscreen />
+                </IconButton>
+              </div>
             </div>
           </div>
         </div>
