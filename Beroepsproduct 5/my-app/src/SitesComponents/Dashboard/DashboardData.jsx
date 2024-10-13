@@ -37,7 +37,7 @@ function DashboardData() {
   var gaugeTemeprature = TemperatureValue
   var gaugePhmeter = PhMeterValue.toFixed(2)
   var gaugeZuurstof = 8
-  var gaugeTroebelheid = 7
+  var gaugeTroebelheid = 20
 
 
 
@@ -58,8 +58,9 @@ function DashboardData() {
     if (gaugeTemeprature > 50) return 'bg-qk_red';
   };
 
-  const TemperaturegaugeHeight = `${((gaugeTemeprature + 30 ) / 100) * 100}%`;
-  const TroebelheidgaugeHeight = `${((gaugeTroebelheid  ) / 100) * 100}%`;
+  const TemperaturegaugeHeight = `${((gaugeTemeprature + 30) / 100) * 100}%`;
+  const TroebelheidgaugeHeight = `${((gaugeTroebelheid) / 100) * 100}%`;
+  const ZuurstofgaugeHeight = `${((gaugeTroebelheid) / 100) * 100}%`;
 
 
   const PHGauge = useRef(null);
@@ -120,13 +121,48 @@ function DashboardData() {
       gauge.maxValue = 14;
       gauge.setMinValue(0);
       gauge.animationSpeed = 32;
-      gauge.set(7);
+      gauge.set(gaugePhmeter);
     } else {
       console.log("Gauge not found")
       // alert("Gauge not found")
     };
 
   }, [Advanced, PHGauge]);
+
+  useEffect(() => {
+    if (Advanced && ZuurstofGauge.current) {
+
+      const opts = {
+        angle: 0,
+        lineWidth: 0.44,
+        radiusScale: 0.88,
+        pointer: {
+          length: 0.6,
+          strokeWidth: 0.013,
+          color: '#000000',
+        },
+        limitMax: false,
+        limitMin: false,
+        colorStart: '#6FADCF',
+        colorStop: '#8FC0DA',
+        strokeColor: '#E0E0E0',
+        generateGradient: true,
+        highDpiSupport: true,
+      };
+
+      const target = ZuurstofGauge.current;
+      const gauge = new Gauge(target).setOptions(opts);
+      gauge.maxValue = 100;
+      gauge.setMinValue(0);
+      gauge.animationSpeed = 99;
+      gauge.set(gaugeZuurstof);
+    } else {
+      console.log("Gauge not found")
+      // alert("Gauge not found")
+    };
+
+  }, [Advanced, ZuurstofGauge]);
+
 
   // Ensure the value is between 0 and 14
   const clampedValue = Math.min(Math.max(7.4, 0), 14);
@@ -155,30 +191,7 @@ function DashboardData() {
 
   // Zuurstof Gauge
   useEffect(() => {
-    const opts = {
-      angle: 0,
-      lineWidth: 0.44,
-      radiusScale: 0.88,
-      pointer: {
-        length: 0.6,
-        strokeWidth: 0.013,
-        color: '#000000',
-      },
-      limitMax: false,
-      limitMin: false,
-      colorStart: '#6FADCF',
-      colorStop: '#8FC0DA',
-      strokeColor: '#E0E0E0',
-      generateGradient: true,
-      highDpiSupport: true,
-    };
 
-    const target = ZuurstofGauge.current;
-    const gauge = new Gauge(target).setOptions(opts);
-    gauge.maxValue = 3000;
-    gauge.setMinValue(0);
-    gauge.animationSpeed = 99;
-    gauge.set(1775);
   }, []);
 
 
@@ -213,17 +226,24 @@ function DashboardData() {
                       style={{ height: TemperaturegaugeHeight }}
                     ></div>
                   </div>
+                  <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTemeprature}°C</h3>
+
                 </div>
+
               )}
 
 
               {Advanced && (
-                <div className="p-4 flex justify-center ">
-                  <CircularGauge value={gaugeTemeprature} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
+                <div className='lg:w-1/2 sm:w-full'>
+
+                  <div className="p-4 flex justify-center ">
+                    <CircularGauge value={gaugeTemeprature} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
+
+                  </div>
+                  <h3 className="mt-4 text-4xl font-semibold text-center ">{gaugeTemeprature}°C</h3>
                 </div>
               )}
 
-              <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTemeprature}°C</h3>
 
               {isFullscreen && (
                 <div className="mt-8">
@@ -237,9 +257,7 @@ function DashboardData() {
                 </div>
               )}
               <div className='flex justify-end'>
-                <button onclick={handleFullscreen}>
 
-                </button>
                 <IconButton onclick={handleFullscreen} >
                   <Fullscreen />
                 </IconButton>
@@ -278,20 +296,21 @@ function DashboardData() {
                       ))}
                     </div>
                   </div>
-                  <div className="ml-4 text-4xl font-semibold text-center my-6 font-alatsi">{clampedValue.toFixed(1)}</div>
+                  <div className="ml-4 text-4xl font-semibold text-center my-6 font-alatsi">{gaugePhmeter}</div>
 
                 </div>
               )}
               {Advanced && (
                 <div>
-                  <div className="Gauge justify-center flex">
+                  <div className="Gauge justify-center flex lg:w-1/2 sm:w-full">
                     <canvas ref={PHGauge} ></canvas>
+
                   </div>
+                  <h3 className="mt-4 text-4xl font-semibold text-center lg:w-1/2 sm:w-full">{gaugePhmeter} PH</h3>
 
                 </div>
               )}
 
-              <h3 className="mt-4 text-4xl font-semibold text-center">{gaugePhmeter} PH</h3>
 
               <div className='flex justify-end'>
                 <button onclick={handleFullscreen}>
@@ -310,16 +329,34 @@ function DashboardData() {
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl '>Troebelheid</h2>
               </div>
-              <div className="Gauge justify-center flex flex-col items-center">
-                <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
-                  <div
-                    className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTroebelheid()}`}
-                    style={{ height: TroebelheidgaugeHeight }}
-                  ></div>
-                </div>
-              </div>
-              <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTroebelheid} PH</h3>
 
+
+              {!Advanced && (
+                <div>
+                  <div className="Gauge justify-center flex flex-col items-center">
+                    <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
+                      <div
+                        className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTroebelheid()}`}
+                        style={{ height: TroebelheidgaugeHeight }}
+                      ></div>
+                    </div>
+                  </div>
+                  <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTroebelheid} PH</h3>
+                </div>
+              )}
+              {Advanced && (
+                <div className='lg:w-1/2 sm:w-full'>
+                  <div className="Gauge justify-center flex flex-col items-center ">
+                    <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
+                      <div
+                        className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTroebelheid()}`}
+                        style={{ height: TroebelheidgaugeHeight }}
+                      ></div>
+                    </div>
+                  </div>
+                  <h3 className="mt-4 text-4xl font-semibold text-center ">{gaugeTroebelheid} PH</h3>
+                </div>
+              )}
             </div>
           </div>
           <div className="col-lg-6">
@@ -328,11 +365,32 @@ function DashboardData() {
               <div className="textHeader mb-2">
                 <h2 className='font-alatsi text-3xl'>Zuurstof</h2>
               </div>
-              <div className="Gauge justify-center flex">
-                <canvas ref={ZuurstofGauge} ></canvas>
-              </div>
+              {!Advanced && (
 
-              <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeZuurstof} PH</h3>
+                <div className="Gauge justify-center flex flex-col items-center">
+                  <div className="relative w-full max-w-16 h-64 bg-gray-300 rounded-full overflow-hidden">
+                    <div
+                      className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTemperature()}`}
+                      style={{ height: ZuurstofgaugeHeight }}
+                    ></div>
+                  </div>
+                  <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTemeprature} Zuurstof</h3>
+
+                </div>
+
+
+              )}
+
+              {Advanced && (
+                <div className='lg:w-1/2 sm:w-full'>
+                  <div className="Gauge justify-center flex ">
+                    <canvas ref={ZuurstofGauge} ></canvas>
+                  </div>
+                  <h3 className="mt-4 text-4xl font-semibold  text-center ">{gaugeZuurstof} PH</h3>
+                </div>
+              )}
+
+
 
             </div>
           </div>
