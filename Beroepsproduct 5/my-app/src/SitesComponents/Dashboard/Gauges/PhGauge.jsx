@@ -119,43 +119,7 @@ function TempGauge() {
 
     }, [Advanced, PHGauge]);
 
-    useEffect(() => {
-        if (Advanced && ZuurstofGauge.current) {
-
-            const opts = {
-                angle: 0,
-                lineWidth: 0.44,
-                radiusScale: 0.88,
-                pointer: {
-                    length: 0.6,
-                    strokeWidth: 0.013,
-                    color: '#000000',
-                },
-                limitMax: false,
-                limitMin: false,
-                colorStart: '#6FADCF',
-                colorStop: '#8FC0DA',
-                strokeColor: '#E0E0E0',
-                generateGradient: true,
-                highDpiSupport: true,
-            };
-
-            const target = ZuurstofGauge.current;
-            const gauge = new Gauge(target).setOptions(opts);
-            gauge.maxValue = 100;
-            gauge.setMinValue(0);
-            gauge.animationSpeed = 99;
-            gauge.set(gaugeZuurstof);
-        } else {
-            console.log("Gauge not found")
-            // alert("Gauge not found")
-        };
-
-    }, [Advanced, ZuurstofGauge]);
-
-
-    // Ensure the value is between 0 and 14
-    const clampedValue = Math.min(Math.max(7.4, 0), 14);
+  
 
     // Generate 14 color blocks for the pH scale
     const colorBlocks = [
