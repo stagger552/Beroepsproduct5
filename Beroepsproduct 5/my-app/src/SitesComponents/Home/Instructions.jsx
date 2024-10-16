@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ReactComponent as Tempratuur } from '../../img/temperature.svg';
 import { ReactComponent as PHmeter } from '../../img/ph-meter.svg';
 import IconButton from "../../IconButton"
@@ -15,6 +15,10 @@ function InfoCards() {
     // const handleCloseFullscreen = () => {
     //   setIsFullscreen(false);
     // };
+
+
+
+
 
     const rowhide = () => {
         const hideRows = document.querySelectorAll(".rowHide");

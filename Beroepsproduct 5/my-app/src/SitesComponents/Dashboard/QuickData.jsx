@@ -19,9 +19,7 @@ function QuikData() {
     setTroebelheidValue
   } = useDashboard(); // Destructure all the context values
 
-  var gaugeTemeprature = 50
-  var gaugePhmeter = 8
-  var gaugeZuurstof = 8
+  
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -103,7 +101,7 @@ function QuikData() {
               {Advanced && (
                 <div className="p-4">
                   <div className='w-full'>
-                    <CircularGauge value={gaugeTemeprature} max={100} size={200} color='qk_red' background='qk_red_bg' />
+                    <CircularGauge value={TemperatureValue} max={100} size={200} color='qk_red' background='qk_red_bg' />
                   </div>
                   <div className="DataText w-full">
                     <h3 className="text-center text-5xl font-bold text-qk_red my-4 ">
@@ -156,7 +154,7 @@ function QuikData() {
               )}
               {Advanced && (
                 <div className="p-4">
-                  <CircularGauge value={gaugePhmeter} max={100} size={200} color='qk_purple' background='qk_purple_bg' />
+                  <CircularGauge value={PhMeterValue} max={100} size={200} color='qk_purple' background='qk_purple_bg' />
                   <div className="DataText">
                     <h3 className="text-center text-5xl font-bold text-qk_purple my-4 ">
                       Ph Meter
@@ -207,7 +205,7 @@ function QuikData() {
               )}
               {Advanced && (
                 <div className="p-4">
-                  <CircularGauge value={gaugeZuurstof} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
+                  <CircularGauge value={ZuurstofValue} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
                   <div className="DataText">
                     <h3 className="text-center text-5xl font-bold text-qk_blue my-4 ">
                       Zuurstof
