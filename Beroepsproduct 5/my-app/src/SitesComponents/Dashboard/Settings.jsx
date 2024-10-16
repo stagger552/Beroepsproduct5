@@ -25,7 +25,8 @@ function Settings() {
     } = useDashboard(); // Destructure all the context values
 
     // Example usage:
-    const OpenAIapiKey = "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"
+    const done = 5
+    const OpenAIapiKey = null
     const AiContext = "Je bent assistent van een boei app. water zal worden genanazlyzeerd met 4 waardes: Tempratuur, PH , Troebelheid en zuurstof meting" +
         "Jij zult een sammenvatting moeten geven van alles waneer gebruiker om vraagt. Maak het kort en zeg wat dit kan betekenen. Maak het kort onder 50 woorden";
 
