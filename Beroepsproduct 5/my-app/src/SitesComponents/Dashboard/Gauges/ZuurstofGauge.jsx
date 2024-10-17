@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Gauge } from 'gaugeJS';
 import IconButton from "../../../IconButton"
 import { ReactComponent as Fullscreen } from "../../../img/fullscreen.svg"
+import { ReactComponent as Smallscreen } from "../../../img/smallscreen.svg"
+
 import { useDashboard } from "../DashboardContext"
 // import { Chart, registerables } from 'chart.js';
 import CircularGauge from '../CircularGauge';
@@ -19,9 +21,13 @@ function TempGauge() {
         ZuurstofValue,
         setZuurstofValue,
         TroebelheidValue,
-        setTroebelheidValue
-    } = useDashboard(); // Destructure all the context values
-
+        setTroebelheidValue,
+        FullscreenState,
+        setFullscreenState,
+        FullscreenGauge,
+        setFullscreenGauge
+      } = useDashboard(); // Destructure all the context values
+    
 
 
     var gaugeTemeprature = TemperatureValue
@@ -185,35 +191,66 @@ function TempGauge() {
     }, []);
 
 
-    const [fullscreenCard, setFullscreenCard] = useState(null); // Track which card is fullscreen
-
+    setFullscreenGauge(FullscreenGauge);
+    setFullscreenState(FullscreenState)
 
     const handleFullscreen = (cardId) => {
-        console.log("fullscreen");
+ 
 
-        // Toggle fullscreen mode
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-            document.body.classList.add('fullscreen-active');
-        } else {
-            document.exitFullscreen();
-            document.body.classList.remove('fullscreen-active');
+        if(FullscreenState)
+        {
+            setFullscreenState(false);
+            setFullscreenGauge(null);
+        }else
+        {
+            setFullscreenState(true);
+            setFullscreenGauge(cardId);
         }
-
-        // Update CSS to make the specified card bigger
-        const card = document.getElementById(cardId);
-        if (card) {
-            card.classList.toggle('fullscreen-mode');
-        }
-    }
-    const consoleLog = () => {
-        console.log("hello")
-        alert("hello")
-    }
+    
+    };
+ 
     return (
         <div>
+            {FullscreenState && (
+                <div>
+                    <div className="textHeader mb-2">
+                        <h2 className='font-alatsi text-3xl'>Zuurstof</h2>
+                    </div>
+                    {!Advanced && (
 
-            {!fullscreenCard && (
+                        <div className="Gauge justify-center flex flex-col items-center">
+                            <div className="relative w-full max-w-16 h-64 bg-gray-300 rounded-full overflow-hidden">
+                                <div
+                                    className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTemperature()}`}
+                                    style={{ height: ZuurstofgaugeHeight }}
+                                ></div>
+                            </div>
+                            <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeZuurstof} Zuurstof</h3>
+
+                        </div>
+
+
+                    )}
+
+                    {Advanced && (
+                        <div className='lg:w-1/2 sm:w-full'>
+                            <div className="Gauge justify-center flex ">
+                                <canvas ref={ZuurstofGauge} ></canvas>
+                            </div>
+                            <h3 className="mt-4 text-4xl font-semibold  text-center ">{gaugeZuurstof} Zuurstof</h3>
+                        </div>
+                    )}
+
+                    <div className='flex justify-end mt-4'>
+
+                        <IconButton onClick={() => handleFullscreen(4)} >
+                            <Smallscreen />
+                        </IconButton>
+                    </div>
+                </div>
+            )}
+
+            {!FullscreenState && (
 
                 <div>
                     <div className="textHeader mb-2">
@@ -246,7 +283,7 @@ function TempGauge() {
 
                     <div className='flex justify-end mt-4'>
 
-                        <IconButton onclick={() => handleFullscreen(4)} >
+                        <IconButton onClick={() => handleFullscreen(4)} >
                             <Fullscreen />
                         </IconButton>
                     </div>

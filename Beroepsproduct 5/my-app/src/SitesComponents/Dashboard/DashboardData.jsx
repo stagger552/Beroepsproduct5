@@ -24,7 +24,11 @@ function DashboardData() {
     ZuurstofValue,
     setZuurstofValue,
     TroebelheidValue,
-    setTroebelheidValue
+    setTroebelheidValue,
+    FullscreenState,
+    setFullscreenState,
+    FullscreenGauge,
+    setFullscreenGauge
   } = useDashboard(); // Destructure all the context values
 
 
@@ -34,27 +38,38 @@ function DashboardData() {
       setPhMeterValue(prevPh => (prevPh + 0.1 > 14 ? 0 : prevPh + 0.1));
       setZuurstofValue(prevOxygen => (prevOxygen + 0.1 > 10 ? 0 : prevOxygen + 0.1));
       setTroebelheidValue(prevTurbidity => (prevTurbidity + 0.1 > 10 ? 0 : prevTurbidity + 0.1));
+
     }, 1000); // Update values every second
 
     return () => clearInterval(timer);
   }, [setTemperatureValue, setPhMeterValue, setZuurstofValue, setTroebelheidValue]);
 
-  const [fullscreenCard, setFullscreenCard] = useState(null); // Track which card is fullscreen
-
   
+  const handleFullscreen = (cardId) => {
+    setFullscreenState((prevState) => !prevState);
+    setFullscreenGauge(cardId);
+  };
+  setFullscreenGauge(false);
+  setFullscreenState(null)
   return (
     <div className='container'>
+      <button onClick={handleFullscreen}>Test fullscreen</button>
 
-      {fullscreenCard && (
+      {FullscreenState && (
         <div className="row">
           <div className="col-lg-12">
             <div className={`Card bg-white border-0 p-6 rounded-lg w-full  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between}`}>
+              
+              {FullscreenGauge === 2 && <PhGauge />}
 
+              {FullscreenGauge === 1 && <TempGauge />}
+              {FullscreenGauge === 3 && <TroebelheidGauge />}
+              {FullscreenGauge === 4 && <ZuurstofGauge />}
             </div>
           </div>
         </div>
       )}
-      {!fullscreenCard && (
+      {!FullscreenState && (
 
         <div>
           <div className="row">
@@ -81,7 +96,7 @@ function DashboardData() {
             <div className="col-lg-6">
 
               <div className={`Card bg-white border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
-                <ZuurstofGauge />
+              <ZuurstofGauge />
               </div>
             </div>
           </div>

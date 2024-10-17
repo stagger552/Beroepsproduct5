@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Gauge } from 'gaugeJS';
 import IconButton from "../../../IconButton"
 import { ReactComponent as Fullscreen } from "../../../img/fullscreen.svg"
+import { ReactComponent as Smallscreen } from "../../../img/smallscreen.svg"
+
 import { useDashboard } from "./../DashboardContext"
 // import { Chart, registerables } from 'chart.js';
 import CircularGauge from './../CircularGauge';
@@ -19,9 +21,12 @@ function TempGauge() {
         ZuurstofValue,
         setZuurstofValue,
         TroebelheidValue,
-        setTroebelheidValue
+        setTroebelheidValue,
+        FullscreenState,
+        setFullscreenState,
+        FullscreenGauge,
+        setFullscreenGauge
     } = useDashboard(); // Destructure all the context values
-
 
 
     var gaugeTemeprature = TemperatureValue
@@ -48,14 +53,9 @@ function TempGauge() {
         if (gaugeTemeprature > 50) return 'bg-qk_red';
     };
 
-    const TemperaturegaugeHeight = `${((gaugeTemeprature + 30) / 100) * 100}%`;
-    const TroebelheidgaugeHeight = `${((gaugeTroebelheid) / 100) * 100}%`;
-    const ZuurstofgaugeHeight = `${((gaugeZuurstof) / 100) * 100}%`;
 
 
     const PHGauge = useRef(null);
-    const ZuurstofGauge = useRef(null);
-
 
     // PH Meter Gauge
     useEffect(() => {
@@ -119,7 +119,7 @@ function TempGauge() {
 
     }, [Advanced, PHGauge]);
 
-  
+
 
     // Generate 14 color blocks for the pH scale
     const colorBlocks = [
@@ -143,32 +143,79 @@ function TempGauge() {
     const pointerPosition = (gaugePhmeter / 14) * 100;
 
 
-    const [fullscreenCard, setFullscreenCard] = useState(null); // Track which card is fullscreen
-
+    setFullscreenGauge(FullscreenGauge);
+    setFullscreenState(FullscreenState)
 
     const handleFullscreen = (cardId) => {
-        console.log("fullscreen");
 
-        // Toggle fullscreen mode
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-            document.body.classList.add('fullscreen-active');
+
+        if (FullscreenState) {
+            setFullscreenState(false);
+            setFullscreenGauge(null);
         } else {
-            document.exitFullscreen();
-            document.body.classList.remove('fullscreen-active');
+            setFullscreenState(true);
+            setFullscreenGauge(cardId);
         }
 
-        // Update CSS to make the specified card bigger
-        const card = document.getElementById(cardId);
-        if (card) {
-            card.classList.toggle('fullscreen-mode');
-        }
-    }
- 
+    };
+
     return (
         <div>
+            {FullscreenState && (
+                <div>
+                    <div className="textHeader mb-2">
+                        <h2 className='font-alatsi text-3xl '>Ph Meter</h2>
+                    </div>
+                    {!Advanced && (
+                        <div>
+                            <div className="flex justify-center items-center">
+                                <div className="w-12 h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+                                    {colorBlocks.map((block, index) => (
+                                        <div
+                                            key={index}
+                                            className="absolute w-full"
+                                            style={{
+                                                backgroundColor: block.color,
+                                                height: '30px', // 100% / 14
+                                                bottom: `${index * 7.14}%`,
+                                            }}
+                                        />
+                                    ))}
+                                    <div
+                                        className="absolute left-0 w-full h-1 bg-black"
+                                        style={{ bottom: `${pointerPosition}%` }}
+                                    />
+                                </div>
+                                <div className="ml-4 flex flex-col justify-between h-64">
+                                    {colorBlocks.slice().reverse().map((block, index) => (
+                                        <div key={index} className="text-xs font-roboto">{block.label}</div>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="ml-4 text-4xl font-semibold text-center my-6 font-alatsi">{gaugePhmeter} Ph</div>
 
-            {!fullscreenCard && (
+                        </div>
+                    )}
+                    {Advanced && (
+                        <div className='lg:w-1/2 sm:w-full'>
+                            <div className="Gauge justify-center flex ">
+                                <canvas ref={PHGauge} ></canvas>
+
+                            </div>
+                            <h3 className="mt-4 text-4xl font-semibold text-center ">{gaugePhmeter} PH</h3>
+
+                        </div>
+                    )}
+
+                    <div className='flex justify-end mt-4'>
+                        <IconButton onClick={() => handleFullscreen(2)} >
+                            <Smallscreen />
+                        </IconButton>
+                    </div>
+                </div>
+            )}
+
+            {!FullscreenState && (
 
                 <div>
                     <div className="textHeader mb-2">
@@ -216,7 +263,7 @@ function TempGauge() {
                     )}
 
                     <div className='flex justify-end mt-4'>
-                        <IconButton onclick={() => handleFullscreen(2)} >
+                        <IconButton onClick={() => handleFullscreen(2)} >
                             <Fullscreen />
                         </IconButton>
                     </div>

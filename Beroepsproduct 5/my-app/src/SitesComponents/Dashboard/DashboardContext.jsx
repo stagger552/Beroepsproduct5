@@ -8,6 +8,8 @@ export const DashboardProvider = ({ children }) => {
   const [PhMeterValue, setPhMeterValue] = useState(8);
   const [ZuurstofValue, setZuurstofValue] = useState(9);
   const [TroebelheidValue, setTroebelheidValue] = useState(7);
+  const [FullscreenState, setFullscreenState] = useState(false);
+  const [FullscreenGauge, setFullscreenGauge] = useState(null);
 
   return (
     <DashboardContext.Provider value={{ 
@@ -20,7 +22,11 @@ export const DashboardProvider = ({ children }) => {
       ZuurstofValue, 
       setZuurstofValue, 
       TroebelheidValue, 
-      setTroebelheidValue
+      setTroebelheidValue,
+      FullscreenState,
+      setFullscreenState,
+      FullscreenGauge,
+      setFullscreenGauge
     }}>
       {children}
     </DashboardContext.Provider>
