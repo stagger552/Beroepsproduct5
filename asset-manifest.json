@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Beroepsproduct5/static/css/main.e46a6233.css",
-    "main.js": "/Beroepsproduct5/static/js/main.59918d85.js",
+    "main.css": "/Beroepsproduct5/static/css/main.24ff7aa5.css",
+    "main.js": "/Beroepsproduct5/static/js/main.681e5bde.js",
     "static/js/453.ed3810f9.chunk.js": "/Beroepsproduct5/static/js/453.ed3810f9.chunk.js",
     "static/media/gentle-ocean-waves-birdsong.mp3": "/Beroepsproduct5/static/media/gentle-ocean-waves-birdsong.1f0288384f202346b052.mp3",
     "static/media/Alatsi-Regular.ttf": "/Beroepsproduct5/static/media/Alatsi-Regular.8f3df35372bace9c8b65.ttf",
@@ -21,12 +21,12 @@
     "static/media/sound-Mid.svg": "/Beroepsproduct5/static/media/sound-Mid.1465d9d2f27dee893fdd7844718549b9.svg",
     "static/media/moon.svg": "/Beroepsproduct5/static/media/moon.e2222d35ddc4eed2746efd03bacf55e6.svg",
     "static/media/Sun.svg": "/Beroepsproduct5/static/media/Sun.75ad86a59ac3f9e2f8a8b4a1a28e8a7a.svg",
-    "main.e46a6233.css.map": "/Beroepsproduct5/static/css/main.e46a6233.css.map",
-    "main.59918d85.js.map": "/Beroepsproduct5/static/js/main.59918d85.js.map",
+    "main.24ff7aa5.css.map": "/Beroepsproduct5/static/css/main.24ff7aa5.css.map",
+    "main.681e5bde.js.map": "/Beroepsproduct5/static/js/main.681e5bde.js.map",
     "453.ed3810f9.chunk.js.map": "/Beroepsproduct5/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e46a6233.css",
-    "static/js/main.59918d85.js"
+    "static/css/main.24ff7aa5.css",
+    "static/js/main.681e5bde.js"
   ]
 }
