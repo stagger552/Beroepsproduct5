@@ -5,6 +5,7 @@ import Infocards from "./SitesComponents/Home/Instructions";
 import HeaderMain from "./SitesComponents/Home/HeaderMain";
 import LoadingScreen from "./LoadingScreen";
 import React from 'react';
+import { HeaderProvider } from "./headerContext";
 
 function Home() {
     const [loading, setLoading] = React.useState(true);
@@ -21,24 +22,26 @@ function Home() {
 
     return (
         <div>
-            {loading ? (
-                <LoadingScreen />
-            ) : (
-                <div className="min-h-screen flex flex-col">
-                    {/* Header */}
-                    <Header />
+            <HeaderProvider>
 
-                    {/* Main content */}
-                    <div className="flex-grow">
-                        <HeaderMain />
-                        <HomeMain />
-                        <Infocards />
+                {loading ? (
+                    <LoadingScreen />
+                ) : (
+                    <div className="min-h-screen flex flex-col">
+                        {/* Header */}
+                        <Header />
+
+                        {/* Main content */}
+                        <div className="flex-grow">
+                            <HeaderMain />
+                            <HomeMain />
+                            <Infocards />
+                        </div>
+                        {/* Footer */}
+                        <Footer />
                     </div>
-
-                    {/* Footer */}
-                    <Footer />
-                </div>
-            )}
+                )}
+            </HeaderProvider>
 
         </div>
 
