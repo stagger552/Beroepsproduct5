@@ -214,7 +214,7 @@ function TempGauge() {
             {FullscreenState && (
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl'>Zuurstof</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white'>Zuurstof</h2>
                     </div>
                     {!Advanced && (
 
@@ -225,7 +225,7 @@ function TempGauge() {
                                     style={{ height: ZuurstofgaugeHeight }}
                                 ></div>
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeZuurstof} Zuurstof</h3>
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeZuurstof} Zuurstof</h3>
 
                         </div>
 
@@ -254,7 +254,7 @@ function TempGauge() {
 
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl'>Zuurstof</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white'>Zuurstof</h2>
                     </div>
                     {!Advanced && (
 
@@ -265,7 +265,7 @@ function TempGauge() {
                                     style={{ height: ZuurstofgaugeHeight }}
                                 ></div>
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeZuurstof} Zuurstof</h3>
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeZuurstof} Zuurstof</h3>
 
                         </div>
 
@@ -277,7 +277,7 @@ function TempGauge() {
                             <div className="Gauge justify-center flex ">
                                 <canvas ref={ZuurstofGauge} ></canvas>
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold  text-center ">{gaugeZuurstof} Zuurstof</h3>
+                            <h3 className="mt-4 text-4xl font-semibold  text-center dark:text-white">{gaugeZuurstof} Zuurstof</h3>
                         </div>
                     )}
 

@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useHeader } from "../../headerContext"
 
 function Battery() {
   const [batteryLevel, setBatteryLevel] = useState(100);
@@ -22,13 +23,15 @@ function Battery() {
     if (level > 10) return '#ed4e40';
     return 'darkred';
   };
+
+  const { Darkmode, setDarkmode } = useHeader();
+
+  setDarkmode(Darkmode);
   return (
 
-    <div className='Battery bg-white w-full p-5 rounded-lg my-12'>
-      <div className="text">
-        <h3 className='font-alatsi text-3xl'>Batterij</h3>
+    <div className={`Battery ${Darkmode ? 'dark:bg-zwart' : 'bg-white'} w-full p-5 rounded-lg my-12`}>
+      <h3 className='font-alatsi text-5xl dark:text-white'>Batterij</h3>
 
-      </div>
       <div className="batterydata p-3 my-4 mx-auto rounded-lg w-full bg-beige min-h-60">
         <h5 className='font-roboto text-lg text-center'>Battery level</h5>
         <h3 className='font-alatsi weight-bold text-5xl text-center my-4'>{batteryLevel}%</h3>
@@ -39,16 +42,16 @@ function Battery() {
           ></div>
 
         </div>
-        {batteryLevel === 100 &&(
+        {batteryLevel === 100 && (
           <h3 className='font-alatsi text-3xl text-center text-green-400'>Batterij Vol</h3>
         )}
-          {batteryLevel <= 99  &&  batteryLevel > 50 &&(
+        {batteryLevel <= 99 && batteryLevel > 50 && (
           <h3 className='font-alatsi text-3xl text-center text-green-400'>Batterij Voldoende geladen</h3>
         )}
-        {batteryLevel <= 40  &&  batteryLevel > 20 &&(
+        {batteryLevel <= 40 && batteryLevel > 20 && (
           <h3 className='font-alatsi text-3xl text-center text-green-400'>Batterij Erg Laag</h3>
         )}
-         {batteryLevel <= 20  &&  batteryLevel > 10 &&(
+        {batteryLevel <= 20 && batteryLevel > 10 && (
           <h3 className='font-alatsi text-3xl text-center text-green-400'>Batterij Bijna Leeg, vervang batterijen Aub</h3>
         )}
         {batteryLevel === 0 && (

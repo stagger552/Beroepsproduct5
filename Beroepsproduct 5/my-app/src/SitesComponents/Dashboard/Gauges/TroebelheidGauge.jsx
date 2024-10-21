@@ -215,7 +215,7 @@ function TempGauge() {
             {FullscreenState && (
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl '>Troebelheid</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white'>Troebelheid</h2>
                     </div>
 
 
@@ -257,7 +257,7 @@ function TempGauge() {
 
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl '>Troebelheid</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white'>Troebelheid</h2>
                     </div>
 
 
@@ -271,7 +271,7 @@ function TempGauge() {
                                     ></div>
                                 </div>
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTroebelheid} PH</h3>
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeTroebelheid} Troebel</h3>
                         </div>
                     )}
                     {Advanced && (
@@ -284,7 +284,7 @@ function TempGauge() {
                                     ></div>
                                 </div>
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center ">{gaugeTroebelheid} PH</h3>
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeTroebelheid} Troebel</h3>
                         </div>
                     )}
                     <div className='flex justify-end mt-4'>

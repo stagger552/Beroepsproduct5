@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { ReactComponent as Boei } from './img/boei.svg';
 import IconButton from "./IconButton"
 import { Link } from 'react-router-dom';
-
+import { useHeader } from './headerContext';
 //Svg 
 import { ReactComponent as Moon } from "./img/moon.svg"
 import { ReactComponent as Zon } from "./img/Sun.svg"
@@ -18,18 +18,21 @@ import soundFile from "./Sound/gentle-ocean-waves-birdsong.mp3"
 
 function Header() {
 
+    const { Darkmode, setDarkmode } = useHeader();
 
+    setDarkmode(Darkmode);
+
+    
     const navItems = [
         { name: 'Home', path: '/' },
         { name: 'Dashboard', path: '/dashboard' },
         // Add more items here if needed
     ];
-    const [darkMode, setDarkMode] = useState(false);
 
 
-    const toggleDarkMode = () => {
-        setDarkMode(!darkMode);
-        document.documentElement.classList.toggle('dark', !darkMode);
+    const toggleDarkmode = () => {
+        setDarkmode(!Darkmode);
+        document.documentElement.classList.toggle('dark', !Darkmode);
     };
 
     const audioRef = useRef(null);
@@ -39,7 +42,7 @@ function Header() {
     })
     const [currentSound, setCurrentSound] = useState(localStorage.getItem("soundWave") || '0');
 
-   
+
 
     const ToggleSound = (() => {
         let newSoundSetting;
@@ -85,12 +88,13 @@ function Header() {
         }
     };
 
+
     useEffect(() => {
         handleSoundSettings(); // Check sound settings when component mounts
     }, []);
 
     return (
-        <div className="container-fluid  bg-lightblue mb-16">
+        <div className="container-fluid  bg-lightblue mb-16 dark:bg-zwart" >
             <div className="container">
                 <div className="row">
                     <div className="col-lg-4 flex justify-between items-center">
@@ -101,7 +105,7 @@ function Header() {
                                     <Link
                                         key={index}
                                         to={item.path}
-                                        className="text-xl font-alatsi font-medium text-gray-800 p-2 rounded-lg hover:bg-white  transition"
+                                        className="text-xl font-alatsi font-medium text-gray-800 p-2 rounded-lg transition dark:text-white"
                                     >
                                         {item.name}
                                     </Link>
@@ -113,14 +117,14 @@ function Header() {
                     <div className="col-lg-4 flex items-center">
                         <Boei className='max-w-20' />
                         <Link to={'/'}>
-                            <h4 className='text-5xl font-bold font-alatsi ml-4 text-center'>Arduino Metingen</h4>
+                            <h4 className='text-5xl font-bold font-alatsi ml-4 text-center dark:text-white'>Arduino Metingen</h4>
                         </Link>
                     </div>
 
-                    <div className="col-lg-4 flex justify-between items-center hover:bg-green ">
+                    <div className="col-lg-4 flex justify-between items-center  ">
 
-                        <IconButton onClick={ToggleTheme()} >
-                            <Zon />
+                        <IconButton onClick={toggleDarkmode}>
+                            {Darkmode ? <Moon /> : <Zon />}
                         </IconButton>
 
                         <IconButton onClick={ToggleSound}>

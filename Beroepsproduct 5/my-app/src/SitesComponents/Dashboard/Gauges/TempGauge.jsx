@@ -77,7 +77,7 @@ function TempGauge() {
 
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl '>Temperaturesss</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white '>Temperaturesss</h2>
                     </div>
                     {!Advanced && (
                         <div className="Gauge justify-center flex flex-col items-center">
@@ -87,7 +87,7 @@ function TempGauge() {
                                     style={{ height: TemperaturegaugeHeight }}
                                 ></div>
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTemeprature}°C</h3>
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeTemeprature}°C</h3>
 
                         </div>
 
@@ -101,7 +101,7 @@ function TempGauge() {
                                 <CircularGauge value={gaugeTemeprature} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
 
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center ">{gaugeTemeprature}°C</h3>
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeTemeprature}°C</h3>
                         </div>
                     )}
 
@@ -123,7 +123,7 @@ function TempGauge() {
 
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl '>Temperaturesss</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white '>Temperaturesss</h2>
                     </div>
                     {!Advanced && (
                         <div className="Gauge justify-center flex flex-col items-center">
@@ -133,7 +133,7 @@ function TempGauge() {
                                     style={{ height: TemperaturegaugeHeight }}
                                 ></div>
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTemeprature}°C</h3>
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeTemeprature}°C</h3>
 
                         </div>
 
@@ -147,7 +147,7 @@ function TempGauge() {
                                 <CircularGauge value={gaugeTemeprature} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
 
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center ">{gaugeTemeprature}°C</h3>
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeTemeprature}°C</h3>
                         </div>
                     )}
 

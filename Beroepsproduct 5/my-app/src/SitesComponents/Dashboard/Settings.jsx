@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import SideBar from "../../Sidebar"
 import { useDashboard } from "./DashboardContext"
+import { useHeader } from '../../headerContext';
 import QuickAlert from '../../QuickAlert';
 import swal from 'sweetalert';
+
 
 function Settings() {
 
@@ -11,6 +13,11 @@ function Settings() {
     const [showAlert, setShowAlert] = useState(false);  // State to control visibility of the alert
     const [alertMessage, setAlertMessage] = useState(''); // Store the response from OpenAI
 
+
+    const { Darkmode, setDarkmode } = useHeader();
+
+    setDarkmode(Darkmode);
+    
     const {
         Advanced,
         setAdvanced,
@@ -102,40 +109,36 @@ function Settings() {
     return (
         <div>
 
-            <div className="container">
+            <div className={`container ${Darkmode ? 'dark' : 'light'}`}>
                 <div className="row my-4">
                     <div className="col-lg-4 flex justify-center items-center my-2">
-                        <select name="Boei" className='text-center text-zwart bg-lightblue w-full rounded-lg p-2 max-w-72 w-full font-alatsi h-70px'>
+                        <select name="Boei" className='text-center text-zwart bg-lightblue w-full rounded-lg p-2 max-w-72 w-full font-alatsi h-70px dark:bg-zwart dark:text-white' >
                             <option value="NL">Boei 1</option>
                         </select>
                     </div>
                     <div className="col-lg-4 flex justify-center items-center my-2">
                         <input type="checkbox" id="toggle" class="toggleCheckbox" onClick={switchMode} />
                         <label for="toggle" class='toggleContainer'>
-                            <div>Default</div>
-                            <div>Geavanceerd</div>
+                            <div className=' dark:text-white  text-zwart'>Default</div>
+                            <div  className=' dark:text-white  text-zwart'>Geavanceerd</div>
                         </label>
-                        {Advanced && (
-                            <h1>
-                                Geavanceerd
-                            </h1>
-                        )}
+                       
                     </div>
                     <div className="col-lg-4 my-2">
                         <div className="Button flex justify-center items-center">
-                            <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3' onClick={openSideBar} SideIsOpen={SideIsOpen}>
+                            <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3 dark:bg-zwart dark:text-white' onClick={openSideBar} SideIsOpen={SideIsOpen}>
                                 <h5 className='font-alatsi'>
                                     Ai chatbot
                                 </h5>
                             </button>
                             {/* Sidebar Component */}
                             <SideBar SideIsOpen={SideIsOpen} toggleSidebar={openSideBar} />
-                            <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3' onClick={GetSamenvatting}>
+                            <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3 dark:bg-zwart dark:text-white' onClick={GetSamenvatting}>
                                 <h5 className='font-alatsi'>
                                     Samenvatting
                                 </h5>
                             </button>
-                            <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3'>
+                            <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3 dark:bg-zwart dark:text-white' >
                                 <h5 className='font-alatsi'>
                                     Analysis
                                 </h5>

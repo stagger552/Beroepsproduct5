@@ -4,6 +4,8 @@ import { Gauge } from 'gaugeJS';
 import IconButton from "../../IconButton"
 import { ReactComponent as Fullscreen } from "../../img/fullscreen.svg"
 import { useDashboard } from "./DashboardContext"
+
+import { useHeader} from "../../headerContext"
 // import { Chart, registerables } from 'chart.js';
 import CircularGauge from './CircularGauge';
 
@@ -14,6 +16,10 @@ import TroebelheidGauge from "./Gauges/TroebelheidGauge";
 
 function DashboardData() {
 
+  const { Darkmode, setDarkmode } = useHeader();
+
+  setDarkmode(Darkmode);
+  
   const {
     Advanced,
     setAdvanced,
@@ -56,13 +62,13 @@ function DashboardData() {
       <button onClick={handleFullscreen}>Test fullscreen</button>
 
       {FullscreenState && (
-        <div className="row">
+        <div className="row dark">
           <div className="col-lg-12">
-            <div className={`Card bg-white border-0 p-6 rounded-lg w-full  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between}`}>
+          <div className={`Card    ${Darkmode ? 'bg-zwart' : 'bg-white'}  w-full border-0 p-6 rounded-lg m-auto mb-5 w-auto min-h-96 flex flex-col justify-between `}>              
               
-              {FullscreenGauge === 2 && <PhGauge />}
 
               {FullscreenGauge === 1 && <TempGauge />}
+              {FullscreenGauge === 2 && <PhGauge />}
               {FullscreenGauge === 3 && <TroebelheidGauge />}
               {FullscreenGauge === 4 && <ZuurstofGauge />}
             </div>
@@ -74,7 +80,7 @@ function DashboardData() {
         <div>
           <div className="row">
             <div className="col-lg-6">
-              <div className={`Card bg-white border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
+              <div className={`Card  ${Darkmode ? 'bg-zwart' : 'bg-white'} border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
                 <TempGauge />
 
 
@@ -82,20 +88,20 @@ function DashboardData() {
             </div>
             <div className="col-lg-6">
 
-              <div className={`Card bg-white border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
+              <div className={`Card  ${Darkmode ? 'bg-zwart' : 'bg-white'} border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
                 <PhGauge />
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-lg-6">
-              <div className={`Card bg-white border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
+              <div className={`Card  ${Darkmode ? 'bg-zwart' : 'bg-white'} border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
                 <TroebelheidGauge />
               </div>
             </div>
             <div className="col-lg-6">
 
-              <div className={`Card bg-white border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
+              <div className={`Card  ${Darkmode ? 'bg-zwart' : 'bg-white'} border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
               <ZuurstofGauge />
               </div>
             </div>

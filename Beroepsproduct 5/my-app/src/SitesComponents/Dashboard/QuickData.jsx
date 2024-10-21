@@ -2,10 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDashboard } from "./DashboardContext"
 import CircularGauge from './CircularGauge';
+import { useHeader } from "../../headerContext"
 
 function QuikData() {
-  const [temperature, setTemperature] = useState(29);
-  const [animationProgress, setAnimationProgress] = useState(0);
+  const { Darkmode, setDarkmode } = useHeader();
+
+  setDarkmode(Darkmode);
   const {
     Advanced,
     setAdvanced,
@@ -19,7 +21,7 @@ function QuikData() {
     setTroebelheidValue
   } = useDashboard(); // Destructure all the context values
 
-  
+
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -41,9 +43,9 @@ function QuikData() {
   //   return () => clearInterval(animation);
   // }, [TemperatureValue]);
 
-  function calculateWidth(value,Minimum, Maximum) {
-    
-    const width = value + Minimum / Maximum  * 100;
+  function calculateWidth(value, Minimum, Maximum) {
+
+    const width = value + Minimum / Maximum * 100;
     return `${width}%`;
   }
 
@@ -51,16 +53,16 @@ function QuikData() {
   const gaugeWidth = `${gaugeWidthValue}%`; // percentage value as a string
   const gaugeHeight = 40;
   // const filledWidth = (TemperatureValue / 100) * gaugeWidthValue * animationProgress;
-  const filledWidthTemperature = calculateWidth(TemperatureValue, 30 , 100)
-  const filledWidthPhmeter = calculateWidth(PhMeterValue,0 , 14)
-  const filledWidthZuurstof = calculateWidth(ZuurstofValue,0 , 100)
+  const filledWidthTemperature = calculateWidth(TemperatureValue, 30, 100)
+  const filledWidthPhmeter = calculateWidth(PhMeterValue, 0, 14)
+  const filledWidthZuurstof = calculateWidth(ZuurstofValue, 0, 100)
 
   return (
     <div>
       <div className="container my-7">
         <div className="row">
           <div className="col-lg-4 flex justify-center items-center">
-            <div className="bg-white h-full border-0 rounded-lg  max-w-lg m-auto mb-5 w-full  h-48 flex flex-col items-center justify-center">
+            <div className={`QuickData ${Darkmode ? 'dark:bg-zwart' : 'bg-white'} h-full border-0 rounded-lg  max-w-lg m-auto mb-5 w-full  h-48 flex flex-col items-center justify-center dark:bg-zwart`}>
               {!Advanced && (
                 <div className="DataGauge w-full  flex flex-col items-center">
                   <div className="Gauge w-full">
@@ -114,7 +116,7 @@ function QuikData() {
             </div>
           </div>
           <div className="col-lg-4 ">
-            <div className="bg-white border-0 h-full  rounded-lg  max-w-lg m-auto mb-5 w-full h-48 flex flex-col items-center justify-center">
+            <div className={`QuickData ${Darkmode ? 'dark:bg-zwart' : 'bg-white'} h-full border-0 rounded-lg  max-w-lg m-auto mb-5 w-full  h-48 flex flex-col items-center justify-center dark:bg-zwart`}>
               {!Advanced && (
 
                 <div className="DataGauge w-full  flex flex-col items-center">
@@ -165,7 +167,7 @@ function QuikData() {
             </div>
           </div>
           <div className="col-lg-4 ">
-            <div className="bg-white border-0  h-full rounded-lg  max-w-lg m-auto mb-5 w-full h-48 flex flex-col items-center justify-center">
+            <div className={`QuickData ${Darkmode ? 'dark:bg-zwart' : 'bg-white'} h-full border-0 rounded-lg  max-w-lg m-auto mb-5 w-full  h-48 flex flex-col items-center justify-center dark:bg-zwart`}>
               {!Advanced && (
 
                 <div className="DataGauge w-full flex flex-col items-center">

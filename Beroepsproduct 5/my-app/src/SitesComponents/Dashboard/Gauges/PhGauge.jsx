@@ -164,7 +164,7 @@ function TempGauge() {
             {FullscreenState && (
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl '>Ph Meter</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white'>Ph Meter</h2>
                     </div>
                     {!Advanced && (
                         <div>
@@ -192,7 +192,7 @@ function TempGauge() {
                                     ))}
                                 </div>
                             </div>
-                            <div className="ml-4 text-4xl font-semibold text-center my-6 font-alatsi">{gaugePhmeter} Ph</div>
+                            <div className="ml-4 text-4xl font-semibold text-center my-6 font-alatsi dark:text-white">{gaugePhmeter} Ph</div>
 
                         </div>
                     )}
@@ -219,7 +219,7 @@ function TempGauge() {
 
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl '>Ph Meter</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white'>Ph Meter</h2>
                     </div>
                     {!Advanced && (
                         <div>
@@ -247,7 +247,7 @@ function TempGauge() {
                                     ))}
                                 </div>
                             </div>
-                            <div className="ml-4 text-4xl font-semibold text-center my-6 font-alatsi">{gaugePhmeter} Ph</div>
+                            <div className="ml-4 text-4xl font-semibold text-center my-6 font-alatsi dark:text-white">{gaugePhmeter} Ph</div>
 
                         </div>
                     )}
@@ -257,7 +257,7 @@ function TempGauge() {
                                 <canvas ref={PHGauge} ></canvas>
 
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center ">{gaugePhmeter} PH</h3>
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugePhmeter} PH</h3>
 
                         </div>
                     )}
