@@ -27,7 +27,7 @@ function Home() {
                 {loading ? (
                     <LoadingScreen />
                 ) : (
-                    <div className="min-h-screen flex flex-col">
+                    <div className="min-h-screen flex flex-col bg-beige dark:bg-zinc-800">
                         {/* Header */}
                         <Header />
 

@@ -14,12 +14,12 @@ function Dashboard() {
         <HeaderProvider>
             <DashboardProvider>
             <div className={`bg-beige dark:bg-zwart `}>
-                    <div className="min-h-screen flex flex-col bg-beige dark:bg-gray-800">
+                    <div className="min-h-screen flex flex-col bg-beige dark:bg-zinc-800">
                         {/* Header */}
                         <Header />
 
                         {/* Main content */}
-                        <div className="flex-grow dark:bg-gray-800">
+                        <div className="flex-grow ">
                             <Settings />
                             <QuickData />
                             <DashboardData />
