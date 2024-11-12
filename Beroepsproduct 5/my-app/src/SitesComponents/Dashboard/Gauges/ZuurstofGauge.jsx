@@ -9,7 +9,11 @@ import { useDashboard } from "../DashboardContext"
 // import { Chart, registerables } from 'chart.js';
 import CircularGauge from '../CircularGauge';
 
+import { useTranslation } from 'react-i18next'; // Import useTranslation
+
 function TempGauge() {
+
+    const { t } = useTranslation(); // Add translation hook
 
     const {
         Advanced,
@@ -254,7 +258,7 @@ function TempGauge() {
 
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl dark:text-white'>Zuurstof</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white'> {t('Zuurstof')}</h2>
                     </div>
                     {!Advanced && (
 

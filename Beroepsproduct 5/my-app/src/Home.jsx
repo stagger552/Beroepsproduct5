@@ -6,7 +6,7 @@ import HeaderMain from "./SitesComponents/Home/HeaderMain";
 import LoadingScreen from "./LoadingScreen";
 import React from 'react';
 import { HeaderProvider } from "./headerContext";
-
+import { LanguageProvider } from "./LanguangeContext";
 function Home() {
     const [loading, setLoading] = React.useState(true);
 
@@ -23,24 +23,25 @@ function Home() {
     return (
         <div>
             <HeaderProvider>
+                <LanguageProvider>
+                    {loading ? (
+                        <LoadingScreen />
+                    ) : (
+                        <div className="min-h-screen flex flex-col bg-beige dark:bg-zinc-800">
+                            {/* Header */}
+                            <Header />
 
-                {loading ? (
-                    <LoadingScreen />
-                ) : (
-                    <div className="min-h-screen flex flex-col bg-beige dark:bg-zinc-800">
-                        {/* Header */}
-                        <Header />
-
-                        {/* Main content */}
-                        <div className="flex-grow">
-                            <HeaderMain />
-                            <HomeMain />
-                            <Infocards />
+                            {/* Main content */}
+                            <div className="flex-grow">
+                                <HeaderMain />
+                                <HomeMain />
+                                <Infocards />
+                            </div>
+                            {/* Footer */}
+                            <Footer />
                         </div>
-                        {/* Footer */}
-                        <Footer />
-                    </div>
-                )}
+                    )}
+                </LanguageProvider>
             </HeaderProvider>
 
         </div>

@@ -9,7 +9,13 @@ import { useDashboard } from "./../DashboardContext"
 // import { Chart, registerables } from 'chart.js';
 import CircularGauge from './../CircularGauge';
 
+import { useTranslation } from 'react-i18next'; // Import useTranslation
+
+
+
 function TempGauge() {
+
+    const { t } = useTranslation(); // Add translation hook
 
     const {
         Advanced,
@@ -53,18 +59,16 @@ function TempGauge() {
 
     //alert("Fullscreen value: " + FullscreenState + " Gauge value: " + FullscreenGauge) 
     const handleFullscreen = (cardId) => {
- 
 
-        if(FullscreenState)
-        {
+
+        if (FullscreenState) {
             setFullscreenState(false);
             setFullscreenGauge(null);
-        }else
-        {
+        } else {
             setFullscreenState(true);
             setFullscreenGauge(cardId);
         }
-    
+
     };
     const consoleLog = () => {
         console.log("hello")
@@ -77,7 +81,9 @@ function TempGauge() {
 
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl dark:text-white '>Temperaturesss</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white '>
+                            {t('temperatures')}
+                        </h2>
                     </div>
                     {!Advanced && (
                         <div className="Gauge justify-center flex flex-col items-center">
@@ -123,7 +129,9 @@ function TempGauge() {
 
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl dark:text-white '>Temperaturesss</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white '>
+                            {t('temperature')}
+                        </h2>
                     </div>
                     {!Advanced && (
                         <div className="Gauge justify-center flex flex-col items-center">

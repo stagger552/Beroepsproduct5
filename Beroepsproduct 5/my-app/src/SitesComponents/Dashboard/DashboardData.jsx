@@ -1,13 +1,16 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Gauge } from 'gaugeJS';
-import IconButton from "../../IconButton"
-import { ReactComponent as Fullscreen } from "../../img/fullscreen.svg"
 import { useDashboard } from "./DashboardContext"
 
 import { useHeader} from "../../headerContext"
 // import { Chart, registerables } from 'chart.js';
-import CircularGauge from './CircularGauge';
+
+import i18n from 'i18next';
+import { I18nextProvider } from 'react-i18next';
+import { initReactI18next } from 'react-i18next';
+
+import EN from "../../Translation/EN/translation.json";
+import NL from "../../Translation/NL/translation.json";
 
 import TempGauge from './Gauges/TempGauge';
 import PhGauge from "./Gauges/PhGauge";
@@ -15,6 +18,8 @@ import ZuurstofGauge from "./Gauges/ZuurstofGauge";
 import TroebelheidGauge from "./Gauges/TroebelheidGauge";
 
 function DashboardData() {
+  const savedLanguage = localStorage.getItem('language') || 'en';
+
 
   const { Darkmode, setDarkmode } = useHeader();
 
@@ -59,7 +64,6 @@ function DashboardData() {
   setFullscreenState(null)
   return (
     <div className='container'>
-      <button onClick={handleFullscreen}>Test fullscreen</button>
 
       {FullscreenState && (
         <div className="row dark">

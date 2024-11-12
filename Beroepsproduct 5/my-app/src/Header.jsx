@@ -95,7 +95,7 @@ function Header() {
 
     return (
         <div className="fixed z-50 container-fluid  bg-lightblue mb-16 dark:bg-zwart" >
-            <div className="container">
+            <div className="container ">
                 <div className="row">
                     <div className="col-lg-4 flex justify-between items-center">
                         <nav>

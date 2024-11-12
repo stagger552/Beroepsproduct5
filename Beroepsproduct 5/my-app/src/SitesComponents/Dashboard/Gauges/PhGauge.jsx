@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, createContext } from 'react';
 import { Gauge } from 'gaugeJS';
 import IconButton from "../../../IconButton"
 import { ReactComponent as Fullscreen } from "../../../img/fullscreen.svg"
@@ -7,9 +7,14 @@ import { ReactComponent as Smallscreen } from "../../../img/smallscreen.svg"
 
 import { useDashboard } from "./../DashboardContext"
 // import { Chart, registerables } from 'chart.js';
-import CircularGauge from './../CircularGauge';
+import { useTranslation } from 'react-i18next';
 
 function TempGauge() {
+
+    const LanguageContext = createContext();
+
+    const { t } = useTranslation(); // Add translation hook
+
 
     const {
         Advanced,
@@ -164,7 +169,7 @@ function TempGauge() {
             {FullscreenState && (
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl dark:text-white'>Ph Meter</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white'>{t('Ph meter')}</h2>
                     </div>
                     {!Advanced && (
                         <div>
@@ -219,7 +224,7 @@ function TempGauge() {
 
                 <div>
                     <div className="textHeader mb-2">
-                        <h2 className='font-alatsi text-3xl dark:text-white'>Ph Meter</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white'> {t('Ph meter')}</h2>
                     </div>
                     {!Advanced && (
                         <div>

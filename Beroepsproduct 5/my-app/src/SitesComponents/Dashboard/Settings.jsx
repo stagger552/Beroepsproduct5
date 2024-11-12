@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import SideBar from "../../Sidebar"
 import { useDashboard } from "./DashboardContext"
@@ -33,7 +32,7 @@ function Settings() {
 
     // Example usage:
     const done = 5
-    const OpenAIapiKey = null
+    const OpenAIapiKey = "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"
     const AiContext = "Je bent assistent van een boei app. water zal worden genanazlyzeerd met 4 waardes: Tempratuur, PH , Troebelheid en zuurstof meting" +
         "Jij zult een sammenvatting moeten geven van alles waneer gebruiker om vraagt. Maak het kort en zeg wat dit kan betekenen. Maak het kort onder 50 woorden";
 
@@ -50,36 +49,24 @@ function Settings() {
     async function callOpenAI() {
         const Aiprompt = `Geef mij een samenvatting: van deze data en informatie die ik goed kan gberuiken Data nu: Tempratuur ${TemperatureValue} , PH ${PhMeterValue} , Troebelheid ${TroebelheidValue} , Zuurstof ${ZuurstofValue} `;
 
-        const url = "https://api.openai.com/v1/chat/completions";
-
-        // Prepare the headers
-        const headers = {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${OpenAIapiKey}`
-        };
-
-        // Prepare the body with your parameters
-        const body = {
-            model: "gpt-4o-mini", // Assuming 'gpt-4-mini' is available; adjust based on OpenAI model availability
-            messages: [
-                { role: "user", content: AiContext },  // Add system context
-                { role: "user", content: Aiprompt }      // User input
-            ]
-        };
-
         try {
-            const response = await fetch(url, {
-                method: "POST",
-                headers: headers,
-                body: JSON.stringify(body)
+            const response = await fetch('http://localhost:5000//api/callOpenAI', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    prompt: Aiprompt,
+                    context: AiContext
+                })
             });
-
+    
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
+    
             const data = await response.json();
-            return data.choices[0].message.content;  // Return the AI response text
+            return data;  // Return the AI response text
         } catch (error) {
             console.error("Error calling OpenAI API:", error);
             return null;
@@ -126,13 +113,13 @@ function Settings() {
                     </div>
                     <div className="col-lg-4 my-2">
                         <div className="Button flex justify-center items-center">
-                            <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3 dark:bg-zwart dark:text-white' onClick={openSideBar} SideIsOpen={SideIsOpen}>
+                            <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3 dark:bg-zwart dark:text-white' onClick={openSideBar}>
                                 <h5 className='font-alatsi'>
                                     Ai chatbot
                                 </h5>
                             </button>
-                            {/* Sidebar Component */}
-                            <SideBar SideIsOpen={SideIsOpen} toggleSidebar={openSideBar} />
+                            {/* Pass the state and toggle function to Sidebar */}
+                            <SideBar isOpen={SideIsOpen} toggleSidebar={openSideBar} />
                             <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3 dark:bg-zwart dark:text-white' onClick={GetSamenvatting}>
                                 <h5 className='font-alatsi'>
                                     Samenvatting

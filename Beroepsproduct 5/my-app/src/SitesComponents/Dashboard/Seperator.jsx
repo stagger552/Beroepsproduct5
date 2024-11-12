@@ -6,7 +6,7 @@ function Seperator() {
   const test = "Baan"
 
   return (
-    <div className="container-fluid  bg-lightblue h-80 my-6">
+    <div className="container-fluid  bg-lightblue dark:bg-zwart h-80 my-6">
       <div className="container">
         <div className="row">
           <div className="col-lg-3 flex justify-center items-center">
