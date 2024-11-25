@@ -1,0 +1,14 @@
+{
+    "Home": "Ikhaya",
+    "Dashboard" : "Ipaneli",
+    "temperature": "Izinga lokushisa",
+    "Ph meter": "I-Ph-mita",
+    "Troebelheid": "Ukwahluka",
+    "Zuurstof" : "I-Oxygen",
+    "TempratuurText" : "I-sensor ye-temperatuure ilinganisa ngokuchanekileyo izinga lokushisa lamanzi. Oku kubalulekile kuba izinga lokushisa linempembelelo enkulu kwiinkqubo ze-biology kunye nomgangatho wamanzi. I-sensor ibonelela ngezilingo ezikhawulezayo nezithembekileyo, ezifanelekileyo kulawulo lwezikhathi zangempela kunye nophando lwezinguquko zoshiso.",
+    "PhSensorText":"I-sensor ye-pH ilinganisa umphunga wamanzi ngokuhlalutya umxholo we-ion ye-hydrogen (H+). Oku kubalulekile ukutolika utshintsho kwimeko ye-chemistry kunye nokuchonga ukungcola okungenzeka. Ngolwazi oluchanekileyo nolungqinelanayo, i-sensor isekela ukuphathwa kwamanzi ngokuhlala.",
+    "TroebelheidText":"I-sensor ye-oxygen ilinganisa umphumo wokuphosa kwe-oxygen emanzini, into ebucayi ebomini kumphakathi wezakhamuzi zamanzi. I-sensor ibonelela ngedatha yesikhumbuzo ngokuphosa kwe-oxygen, okuvumela ukubonisa ukungaphumeleli ngokukhawuleza.",
+    "ZuurstofText":"I-sensor ye-turbidity iqinisekisa ukukhanya kwamanzi ngokulinganisa ubungakanani bokukhanya okudlula emanzini. Oku kusiza ekuchongeni ukungcola okanye iqumbe emanzini, oku kubaluleke kakhulu ekuhloleni umgangatho wamanzi.",
+    "Verbonden": "Ixhunyiwe",
+    "Niet verbonden": "Ayixhunyiwanga"
+}

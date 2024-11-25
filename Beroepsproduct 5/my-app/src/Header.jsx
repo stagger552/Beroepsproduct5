@@ -14,9 +14,13 @@ import { ReactComponent as SoundOff } from "./img/sound-Off.svg"
 
 //mp 3
 import soundFile from "./Sound/gentle-ocean-waves-birdsong.mp3"
+import { useTranslation } from 'react-i18next'; // Import useTranslation
 
 
 function Header() {
+
+    const { t } = useTranslation(); // Add translation hook
+
 
     const { Darkmode, setDarkmode } = useHeader();
 
@@ -24,8 +28,8 @@ function Header() {
 
     
     const navItems = [
-        { name: 'Home', path: '/' },
-        { name: 'Dashboard', path: '/dashboard' },
+        { name:  t('Home'), path: '/' },
+        { name: t('Dashboard'), path: '/dashboard' },
         // Add more items here if needed
     ];
 

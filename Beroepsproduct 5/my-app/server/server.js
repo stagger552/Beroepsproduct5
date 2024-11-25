@@ -1,19 +1,55 @@
 const express = require('express');
 const app = express();
+const ttn = require('ttn');
+const WebSocket = require('ws');
+const http = require('http');
 
 const i18n = require('i18n');
+require('dotenv').config();
 
-// Set up i18n
-i18n.configure({
-  locales: ['en', 'fr', 'es'],
-  directory: './locales',
-  defaultLocale: 'en'
+// Create an HTTP server
+const server = http.createServer(app);
+
+// Create a WebSocket server
+const wss = new WebSocket.Server({ server });
+
+// TTN configuration
+const appID = process.env.TTN_APP_ID;
+const accessKey = process.env.TTN_ACCESS_KEY;
+const ttnClient = new ttn.DataClient(appID, accessKey, 'eu1.cloud.thethings.network');
+
+// WebSocket connections
+const clients = new Set();
+
+// Handle WebSocket connections
+wss.on('connection', (ws) => {
+  clients.add(ws);
+  
+  ws.on('close', () => {
+    clients.delete(ws);
+  });
 });
 
-// Set up server-side rendering
-app.set('view engine', 'ejs');
-app.set('views', './views');
+// Function to send data to all connected WebSocket clients
+function broadcastToClients(data) {
+  clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(data));
+    }
+  });
+}
 
+// Listen for uplink messages from TTN
+ttnClient.on('uplink', function (devID, payload) {
+  console.log('Received uplink from ', devID);
+  console.log(payload);
+  
+  // Broadcast the received data to all connected clients
+  broadcastToClients({ type: 'uplink', devID, payload });
+});
+
+// Start the TTN client
+ttnClient.start();
 
 
 app.get('/lang/:lang', (req, res) => {
@@ -47,7 +83,7 @@ app.get('/', (req, res) => {
   // Add a new endpoint for OpenAI API requests
   app.post('/api/callOpenAI', async (req, res) => {
     const { prompt, context } = req.body; // Expecting prompt and context in the request body
-    const OpenAIapiKey = "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"; // Move this to a secure location in production
+    const OpenAIapiKey = process.env.OPENAI_API_KEY; // Use the API key from the environment variable
 
     const url = "https://api.openai.com/v1/chat/completions";
     const headers = {

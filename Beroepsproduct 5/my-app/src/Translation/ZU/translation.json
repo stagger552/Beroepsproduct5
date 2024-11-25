@@ -1,0 +1,14 @@
+{
+    "Home": "Ikhaya",
+    "Dashboard" : "Ipaneli",
+    "temperature": "Izinga lokushisa",
+    "Ph meter": "I-Ph-meter",
+    "Troebelheid": "Ukucaca",
+    "Zuurstof" : "I-Oxygen",
+    "TempratuurText" : "I-sensor yokushisa inikeza izilinganiso ezichanekileyo zezinga lokushisa lamanzi. Lokhu kubalulekile ngoba izinga lokushisa linethonya elikhulu ezinqubweni ze-biological kanye nasekuphuculeni umkhiqizo wamanzi. I-sensor inikeza izilinganiso ezisheshayo nezithembekile, ezinconyelwe ukumisa imvelo ngezikhathi zangempela kanye nokuhlaziywa kwezinguquko zoshisa.",
+    "PhSensorText":"I-sensor ye-pH ilinganisa izinga le-acidity lamanzi ngokuhlaziya inani lama-ion e-hydrogen (H+). Lokhu kubalulekile ekutholeni izinguquko kumkhakha we-chemical balance kanye nokuthola ukungcola okungenzeka. Ngokunemba nangokushesha, i-sensor isekela ukuphathwa kwezakhiwo zamanzi eziphilayo.",
+    "TroebelheidText":"I-sensor ye-oxygen ilinganisa isamba se-oxygen esixubile emanzini, okuyinto ebalulekile empilweni yokuhlala kwezilwane zamanzi. I-sensor inikeza idatha yesikhathi sangempela yokulawula amazinga e-oxygen, okuvumela ukugxila kuzinkinga ngokushesha.",
+    "ZuurstofText":"I-sensor ye-turbidity ihlola ukukhanya kwamanzi ngokulinganisa ubungako bokukhanya obudlula emanzini. Lokhu kusiza ekutholeni ukungcola noma amaqembu emanzini, okuyinto ebaluleke kakhulu ekuhloleni umphumela wamanzi.",
+    "Verbonden": "Ixhumeke",
+    "Niet verbonden": "Aixhunywanga"
+}

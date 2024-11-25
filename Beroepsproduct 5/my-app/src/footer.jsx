@@ -10,7 +10,8 @@ const pages = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
 
 function Footer() {
 
-    const { translations, setLanguage } = useLanguage();
+    const { t } = useTranslation(); // Add translation hook
+
 
     const { Darkmode, setDarkmode } = useHeader();
 

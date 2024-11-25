@@ -6,6 +6,8 @@ import QuickData from './SitesComponents/Dashboard/QuickData'
 import DashboardData from './SitesComponents/Dashboard/DashboardData'
 import Seperator from './SitesComponents/Dashboard/Seperator'
 import ArduinoData from './SitesComponents/Dashboard/ArduinoData'
+import MetingSettings from './SitesComponents/Dashboard/MetingSettings'
+
 import { DashboardProvider } from "./SitesComponents/Dashboard/DashboardContext"
 import { HeaderProvider } from "./headerContext";
 import { LanguageProvider } from "./LanguangeContext";
@@ -23,6 +25,7 @@ function Dashboard() {
 
                             {/* Main content */}
                             <div className="flex-grow mt-16">
+                                <MetingSettings/>
                                 <Settings />
                                 <QuickData />
                                 <DashboardData />

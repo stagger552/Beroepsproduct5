@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SideBar from "../../Sidebar"
+import SideBar from "./Sidebar"
 import { useDashboard } from "./DashboardContext"
 import { useHeader } from '../../headerContext';
 import QuickAlert from '../../QuickAlert';
@@ -104,18 +104,17 @@ function Settings() {
                         </select>
                     </div>
                     <div className="col-lg-4 flex justify-center items-center my-2">
-                        <input type="checkbox" id="toggle" class="toggleCheckbox" onClick={switchMode} />
-                        <label for="toggle" class='toggleContainer'>
-                            <div className=' dark:text-white  text-zwart'>Default</div>
-                            <div  className=' dark:text-white  text-zwart'>Geavanceerd</div>
+                        <input type="checkbox" id="settings-toggle" className="toggleCheckbox" onClick={switchMode} />
+                        <label htmlFor="settings-toggle" className='toggleContainer'>
+                            <div className='dark:text-white text-zwart'>Default</div>
+                            <div className='dark:text-white text-zwart'>Geavanceerd</div>
                         </label>
-                       
                     </div>
                     <div className="col-lg-4 my-2">
                         <div className="Button flex justify-center items-center">
                             <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3 dark:bg-zwart dark:text-white' onClick={openSideBar}>
                                 <h5 className='font-alatsi'>
-                                    Ai chatbot
+                                    Menu
                                 </h5>
                             </button>
                             {/* Pass the state and toggle function to Sidebar */}

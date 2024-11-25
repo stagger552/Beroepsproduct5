@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { ReactComponent as Tempratuur } from '../../img/temperature.svg';
 import { ReactComponent as PHmeter } from '../../img/ph-meter.svg';
+import Troebelheid from '../../img/TroebelheidSensor.png';
+import Zuurstof from '../../img/ZuurstofSensor.png';
+
 import IconButton from "../../IconButton"
+
+import { useTranslation } from 'react-i18next'; // Import useTranslation
+
 // import {ReactComponent as Smallscreen} from "../../img/small-screen.svg"
 
 function InfoCards() {
 
-    // const [isFullscreen, setIsFullscreen] = useState(false);
-
-    // const handleFullscreen = () => {
-    //   setIsFullscreen(true);
-    // };
-
-    // const handleCloseFullscreen = () => {
-    //   setIsFullscreen(false);
-    // };
-
-
-
-
+    const { t } = useTranslation(); // Add translation hook
 
     const rowhide = () => {
         const hideRows = document.querySelectorAll(".rowHide");
@@ -49,13 +43,12 @@ function InfoCards() {
                         </div>
                         <div className="InstructionTextlg:w-1/2 md:w-full m-auto pr-10 dark:text-white">
                             <div className={`text-5xl font-alatsi font-bold mb-4 `}>
-                                Temperature 5
+                                {t('temperatures')}
+
                             </div>
                             <div className="textCard font-roboto">
-                                Duis cillum cupidatat pariatur veniam culpa laboris id.
-                                Ad non ut cillum consequat ad mollit commodo irure aliqua
-                                consequat esse eu id eiusmod. Cupidatat occaecat deserunt
-                                exercitation excepteur consequat incididunt id reprehenderit.
+                            {t('TempratuurText')}
+
                             </div>
                         </div>
                         <div className='flex justify-end'>
@@ -72,13 +65,11 @@ function InfoCards() {
                         </div>
                         <div className="InstructionTextlg:w-1/2 md:w-full m-auto pr-10 dark:text-white">
                             <div className={`text-5xl font-alatsi font-bold mb-4 `}>
-                                PH meter
+                                {t('Ph meter')}
                             </div>
                             <div className="textCard font-roboto">
-                                Duis cillum cupidatat pariatur veniam culpa laboris id.
-                                Ad non ut cillum consequat ad mollit commodo irure aliqua
-                                consequat esse eu id eiusmod. Cupidatat occaecat deserunt
-                                exercitation excepteur consequat incididunt id reprehenderit.
+                            {t('PhSensorText')}
+
                             </div>
                         </div>
                     </div>
@@ -88,18 +79,16 @@ function InfoCards() {
             <div className="row infocards rowHide flex transition duration-300 ease-in-out transform">
                 <div className="col-lg-6 ">
                     <div className={`card p-4 border-5 dark:bg-zwart border-green shadow-lg max-w-lg min-h-lg m-auto mb-5`}>
-                        <div className="InstructionsIcon lg:w-1/2 md:w-5/12 ">
-                            <Tempratuur className=' w-full h-full ' />
+                        <div className="InstructionsIcon lg:w-1/2 md:w-5/12">
+                            <img src={Troebelheid} alt="Troebelheid Sensor" className='w-full h-full' />
                         </div>
                         <div className="InstructionTextlg:w-1/2 md:w-full m-auto pr-10 dark:text-white">
                             <div className={`text-5xl font-alatsi font-bold mb-4 `}>
-                                Temperature 5
+                                {t('Troebelheid')}
                             </div>
                             <div className="textCard font-roboto">
-                                Duis cillum cupidatat pariatur veniam culpa laboris id.
-                                Ad non ut cillum consequat ad mollit commodo irure aliqua
-                                consequat esse eu id eiusmod. Cupidatat occaecat deserunt
-                                exercitation excepteur consequat incididunt id reprehenderit.
+                            {t('TroebelheidText')}
+
                             </div>
                         </div>
                         <div className='flex justify-end'>
@@ -112,17 +101,16 @@ function InfoCards() {
                 <div className="col-lg-6 ">
                     <div className={`card p-4 border-5 dark:bg-zwart border-green shadow-lg max-w-lg min-h-lg m-auto mb-5`}>
                         <div className="InstructionsIcon lg:w-1/2 md:w-5/12 ">
-                            <PHmeter className=' w-full h-full' />
+                            <div className="w-full h-full ">
+                                <img src={Zuurstof} alt="Zuurstof Sensor" className='w-full h-full' />
+                            </div>
                         </div>
                         <div className="InstructionTextlg:w-1/2 md:w-full m-auto pr-10 dark:text-white">
                             <div className={`text-5xl font-alatsi font-bold mb-4 `}>
-                                PH meter
+                                {t('Zuurstof')}
                             </div>
                             <div className="textCard font-roboto">
-                                Duis cillum cupidatat pariatur veniam culpa laboris id.
-                                Ad non ut cillum consequat ad mollit commodo irure aliqua
-                                consequat esse eu id eiusmod. Cupidatat occaecat deserunt
-                                exercitation excepteur consequat incididunt id reprehenderit.
+                            {t('ZuurstofText')}
                             </div>
                         </div>
                     </div>

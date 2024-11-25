@@ -1,8 +1,21 @@
 {
+    "Home": "Home",
+    "Dashboard" : "Dashboard",
     "temperature": "Temperature",
     "Ph meter": "Ph Meter",
     "Troebelheid": "Concentration",
-    "Zuurstof" : "Oxygen"
+    "Zuurstof" : "Oxygen",
+    "TempratuurText" : "The temperature sensor accurately measures the water’s temperature, which significantly impacts biological processes and water quality. It provides fast and reliable readings, making it ideal for real-time monitoring and analysis of temperature changes.",
+    "PhSensorText":"The pH sensor measures the acidity of water by analyzing the concentration of hydrogen ions (H+). This is essential for detecting changes in chemical balance and potential contamination. With accurate and immediate measurements, the sensor supports sustainable water management.",
+    "TroebelheidText":"The oxygen sensor measures the amount of dissolved oxygen in water, a critical parameter for aquatic ecosystems. It provides real-time data to monitor oxygen levels, allowing for the quick detection of disturbances.",
+    "ZuurstofText":"The turbidity sensor measures water clarity by detecting the amount of light passing through it. This helps identify contamination or particles in the water, which is crucial for maintaining water quality.",
+    "Verbonden": "Connected",
+    "Niet verbonden": "Disconnected"
+    
+    
+
+    
+    
 
    
 }
