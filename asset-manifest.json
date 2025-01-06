@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Beroepsproduct5/static/css/main.24ff7aa5.css",
-    "main.js": "/Beroepsproduct5/static/js/main.681e5bde.js",
+    "main.css": "/Beroepsproduct5/static/css/main.43fb88cc.css",
+    "main.js": "/Beroepsproduct5/static/js/main.df765367.js",
     "static/js/453.ed3810f9.chunk.js": "/Beroepsproduct5/static/js/453.ed3810f9.chunk.js",
     "static/media/gentle-ocean-waves-birdsong.mp3": "/Beroepsproduct5/static/media/gentle-ocean-waves-birdsong.1f0288384f202346b052.mp3",
     "static/media/Alatsi-Regular.ttf": "/Beroepsproduct5/static/media/Alatsi-Regular.8f3df35372bace9c8b65.ttf",
@@ -10,6 +10,8 @@
     "static/media/Roboto-BoldItalic.ttf": "/Beroepsproduct5/static/media/Roboto-BoldItalic.3fcf599c8a6c05a2c712.ttf",
     "static/media/Roboto-Black.ttf": "/Beroepsproduct5/static/media/Roboto-Black.4afbed674a5252ead176.ttf",
     "static/media/ArduinoUno.png": "/Beroepsproduct5/static/media/ArduinoUno.a5e791d68121b27c0fe1.png",
+    "static/media/TroebelheidSensor.png": "/Beroepsproduct5/static/media/TroebelheidSensor.2c3a2033241405901342.png",
+    "static/media/ZuurstofSensor.png": "/Beroepsproduct5/static/media/ZuurstofSensor.e3c63c08f9a0ca4f3d86.png",
     "static/media/boei.svg": "/Beroepsproduct5/static/media/boei.79901461528f2e7998015452cc15b575.svg",
     "static/media/ph-meter.svg": "/Beroepsproduct5/static/media/ph-meter.f8a127279a8f776934cd8a126177ce25.svg",
     "static/media/temperature.svg": "/Beroepsproduct5/static/media/temperature.c67071cf71849e65a8efb8c060088b83.svg",
@@ -21,12 +23,12 @@
     "static/media/sound-Mid.svg": "/Beroepsproduct5/static/media/sound-Mid.1465d9d2f27dee893fdd7844718549b9.svg",
     "static/media/moon.svg": "/Beroepsproduct5/static/media/moon.e2222d35ddc4eed2746efd03bacf55e6.svg",
     "static/media/Sun.svg": "/Beroepsproduct5/static/media/Sun.75ad86a59ac3f9e2f8a8b4a1a28e8a7a.svg",
-    "main.24ff7aa5.css.map": "/Beroepsproduct5/static/css/main.24ff7aa5.css.map",
-    "main.681e5bde.js.map": "/Beroepsproduct5/static/js/main.681e5bde.js.map",
+    "main.43fb88cc.css.map": "/Beroepsproduct5/static/css/main.43fb88cc.css.map",
+    "main.df765367.js.map": "/Beroepsproduct5/static/js/main.df765367.js.map",
     "453.ed3810f9.chunk.js.map": "/Beroepsproduct5/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.24ff7aa5.css",
-    "static/js/main.681e5bde.js"
+    "static/css/main.43fb88cc.css",
+    "static/js/main.df765367.js"
   ]
 }
