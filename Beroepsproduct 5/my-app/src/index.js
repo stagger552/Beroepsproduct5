@@ -14,6 +14,8 @@ import { initReactI18next } from 'react-i18next';
 import EN from "./Translation/EN/translation.json";
 import NL from "./Translation/NL/translation.json";
 
+import keycloak from "./keycloak";
+
 // Get the saved language from localStorage, or default to 'en'
 const savedLanguage = localStorage.getItem('language')
 alert(savedLanguage)
@@ -29,16 +31,40 @@ i18n
     interpolation: { escapeValue: false }
   });
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <I18nextProvider i18n={i18n}>
-
+  
+  const root = ReactDOM.createRoot(document.getElementById("root")); // Creëer de root
+  root.render(
+    <React.StrictMode>
       <App />
-    </I18nextProvider>
+    </React.StrictMode>
+  );
+  
 
-  </React.StrictMode>
-);
+
+
+keycloak
+.init({
+  onLoad: "login-required",
+  checkLoginIframe: false, // Schakel iframe checks uit
+})
+.then((authenticated) => {
+  console.log("Authenticated:", authenticated);
+  if (authenticated) {
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+  } else {
+    console.log("Not authenticated, redirecting to login.");
+    keycloak.login();
+  }
+})
+.catch((error) => {
+  console.error("Keycloak initialization failed:", error);
+});
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

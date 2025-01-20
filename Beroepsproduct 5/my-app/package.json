@@ -16,6 +16,7 @@
     "i18next": "^23.16.4",
     "jscharting": "^3.4.0",
     "jscharting-react": "^1.4.2",
+    "keycloak-js": "^26.1.0",
     "leaflet": "^1.9.4",
     "nice-waves": "^1.0.1",
     "path-browserify": "^1.0.1",

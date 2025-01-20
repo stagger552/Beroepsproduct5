@@ -2,6 +2,7 @@
 import React from 'react';
 import Home from './Home';  // Import the Dashboard component
 import Dashboard from './Dashboard';  // Import the Dashboard component
+import Callback from './Callback';  // Add the Callback component
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 
@@ -11,6 +12,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
       <Routes>
         <Route path="/" element={<Home />} />          {/* Homepage */}
         <Route path="/Dashboard" element={<Dashboard />} /> {/* Dashboard page */}
+        <Route path="/callback" element={<Callback />} /> {/* Keycloak callback */}
       </Routes>
     </Router >
   )
