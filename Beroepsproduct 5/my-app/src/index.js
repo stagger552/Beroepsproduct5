@@ -55,6 +55,18 @@ keycloak
         <App />
       </React.StrictMode>
     );
+    const clientRoles = Object.entries(keycloak.resourceAccess || {}).reduce(
+      (roles, [client, access]) => {
+        return [...roles, ...access.roles];
+      },
+      []
+    );
+
+    // Store client roles in session storage
+    sessionStorage.setItem('clientRoles', JSON.stringify(clientRoles));
+
+    // Optional: Log the roles to the console
+    console.log('Client Roles:', clientRoles);
   } else {
     console.log("Not authenticated, redirecting to login.");
     keycloak.login();
