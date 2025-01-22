@@ -1,27 +1,74 @@
 
 import React from 'react';
-import Home from './Home';  // Import the Dashboard component
-import Dashboard from './Dashboard';  // Import the Dashboard component
-import Callback from './Callback';  // Add the Callback component
-import Logging from './Logging';
-import Geschiedenis from './Geschiedenis';
+import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './Home';  // Homepage component
+import Dashboard from './Dashboard';  // Dashboard component
+import Callback from './Callback';  // Keycloak callback component
+import Logging from './Logging';  // Logging page
+import Geschiedenis from './Geschiedenis';  // History page
 
+// Role-based Route Protection
+const ProtectedRoute = ({ children, requiredRoles }) => {
+  const clientRoles = JSON.parse(sessionStorage.getItem('clientRoles')) || [];
+  const clientUserName = sessionStorage.getItem('clientName')
+  const location = useLocation();
 
+  // Check if the user has at least one required role
+  const hasAccess = requiredRoles.some((role) => clientRoles.includes(role));
+      const logData = {
+        LOG_GEBRUIKER: clientUserName, // Gebruiker ID
+        LOG_ACTIE: `Visited ${location.pathname}`, // Bezochte pagina
+        LOG_TIJD: new Date().toISOString(), // Tijdstempel in ISO-formaat
+      };
 
-/******  1217d872-85b9-44e7-acef-7cb2db122df9  *******/function App() {
+      // Verkrijg bestaande logs uit localStorage
+      const logs = JSON.parse(localStorage.getItem('pageLogs')) || [];
+
+      // Voeg nieuwe log toe aan bestaande logs
+      logs.push(logData);
+
+      // Sla de bijgewerkte logs op in localStorage
+      localStorage.setItem('pageLogs', JSON.stringify(logs));
+
+  return hasAccess ? children : <Navigate to="/" replace />;
+};
+
+function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />          {/* Homepage */}
-        <Route path="/Dashboard" element={<Dashboard />} /> {/* Dashboard page */}
+        <Route path="/" element={<Home />} /> {/* Homepage */}
         <Route path="/callback" element={<Callback />} /> {/* Keycloak callback */}
-        <Route path="/Geschiedenis" element={<Geschiedenis />} /> {/* Keycloak callback */}
-        <Route path="/Logging" element={<Logging />} /> {/* Logging page */}
+        
+        {/* Protected Routes */}
+        <Route
+          path="/Dashboard"
+          element={
+            <ProtectedRoute requiredRoles={['Operator']}>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Geschiedenis"
+          element={
+            <ProtectedRoute requiredRoles={['Operator']}>
+              <Geschiedenis />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Logging"
+          element={
+            <ProtectedRoute requiredRoles={['Operator']}>
+              <Logging />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-    </Router >
-  )
+    </Router>
+  );
 }
 
 export default App;
