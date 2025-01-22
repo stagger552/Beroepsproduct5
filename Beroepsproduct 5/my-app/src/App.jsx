@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import Home from './Home';  // Homepage component
 import Dashboard from './Dashboard';  // Dashboard component
@@ -11,9 +11,25 @@ import Geschiedenis from './Geschiedenis';  // History page
 // Role-based Route Protection
 const ProtectedRoute = ({ children, requiredRoles }) => {
   const clientRoles = JSON.parse(sessionStorage.getItem('clientRoles')) || [];
+  const clientUserName = sessionStorage.getItem('clientName')
+  const location = useLocation();
 
   // Check if the user has at least one required role
   const hasAccess = requiredRoles.some((role) => clientRoles.includes(role));
+      const logData = {
+        LOG_GEBRUIKER: clientUserName, // Gebruiker ID
+        LOG_ACTIE: `Visited ${location.pathname}`, // Bezochte pagina
+        LOG_TIJD: new Date().toISOString(), // Tijdstempel in ISO-formaat
+      };
+
+      // Verkrijg bestaande logs uit localStorage
+      const logs = JSON.parse(localStorage.getItem('pageLogs')) || [];
+
+      // Voeg nieuwe log toe aan bestaande logs
+      logs.push(logData);
+
+      // Sla de bijgewerkte logs op in localStorage
+      localStorage.setItem('pageLogs', JSON.stringify(logs));
 
   return hasAccess ? children : <Navigate to="/" replace />;
 };

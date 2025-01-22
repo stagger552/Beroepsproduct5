@@ -64,6 +64,8 @@ keycloak
 
     // Store client roles in session storage
     sessionStorage.setItem('clientRoles', JSON.stringify(clientRoles));
+    const username = keycloak.tokenParsed.preferred_username;
+    sessionStorage.setItem('clientName',username);
 
     // Optional: Log the roles to the console
   } else {
