@@ -66,7 +66,6 @@ keycloak
     sessionStorage.setItem('clientRoles', JSON.stringify(clientRoles));
 
     // Optional: Log the roles to the console
-    console.log('Client Roles:', clientRoles);
   } else {
     console.log("Not authenticated, redirecting to login.");
     keycloak.login();
