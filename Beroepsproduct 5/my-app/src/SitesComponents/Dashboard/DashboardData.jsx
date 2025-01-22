@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDashboard } from "./DashboardContext"
 
-import { useHeader} from "../../headerContext"
+import { useHeader } from "../../headerContext"
 // import { Chart, registerables } from 'chart.js';
 
 import i18n from 'i18next';
@@ -24,7 +24,7 @@ function DashboardData() {
   const { Darkmode, setDarkmode } = useHeader();
 
   setDarkmode(Darkmode);
-  
+
   const {
     Advanced,
     setAdvanced,
@@ -43,23 +43,13 @@ function DashboardData() {
   } = useDashboard(); // Destructure all the context values
 
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTemperatureValue(prevTemp => (prevTemp + 1 > 100 ? -40 : prevTemp + 1));
-      setPhMeterValue(prevPh => (prevPh + 0.1 > 14 ? 0 : prevPh + 0.1));
-      setZuurstofValue(prevOxygen => (prevOxygen + 0.1 > 10 ? 0 : prevOxygen + 0.1));
-      setTroebelheidValue(prevTurbidity => (prevTurbidity + 0.1 > 10 ? 0 : prevTurbidity + 0.1));
+  if(TemperatureValue == null)
+  {
+    TemperatureValue = "Niet verbonden"
+  }
 
-    }, 1000); // Update values every second
 
-    return () => clearInterval(timer);
-  }, [setTemperatureValue, setPhMeterValue, setZuurstofValue, setTroebelheidValue]);
 
-  
-  const handleFullscreen = (cardId) => {
-    setFullscreenState((prevState) => !prevState);
-    setFullscreenGauge(cardId);
-  };
   setFullscreenGauge(false);
   setFullscreenState(null)
   return (
@@ -68,8 +58,8 @@ function DashboardData() {
       {FullscreenState && (
         <div className="row dark">
           <div className="col-lg-12">
-          <div className={`Card    ${Darkmode ? 'bg-zwart' : 'bg-white'}  w-full border-0 p-6 rounded-lg m-auto mb-5 w-auto min-h-96 flex flex-col justify-between `}>              
-              
+            <div className={`Card    ${Darkmode ? 'bg-zwart' : 'bg-white'}  w-full border-0 p-6 rounded-lg m-auto mb-5 w-auto min-h-96 flex flex-col justify-between `}>
+
 
               {FullscreenGauge === 1 && <TempGauge />}
               {FullscreenGauge === 2 && <PhGauge />}
@@ -106,7 +96,7 @@ function DashboardData() {
             <div className="col-lg-6">
 
               <div className={`Card  ${Darkmode ? 'bg-zwart' : 'bg-white'} border-0 p-6 rounded-lg  m-auto mb-5 w-auto min-h-96 flex flex-col justify-between ${Advanced ? '' : 'max-w-72'}`}>
-              <ZuurstofGauge />
+                <ZuurstofGauge />
               </div>
             </div>
           </div>

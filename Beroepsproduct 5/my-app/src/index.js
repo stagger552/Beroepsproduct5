@@ -18,7 +18,6 @@ import keycloak from "./keycloak";
 
 // Get the saved language from localStorage, or default to 'en'
 const savedLanguage = localStorage.getItem('language')
-alert(savedLanguage)
 i18n
   .use(initReactI18next)
   .init({
