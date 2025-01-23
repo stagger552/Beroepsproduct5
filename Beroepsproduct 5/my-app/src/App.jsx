@@ -8,17 +8,19 @@ import Callback from './Callback';  // Keycloak callback component
 import Logging from './Logging';  // Logging page
 import Geschiedenis from './Geschiedenis';  // History page
 
+const CryptoJS = require("crypto-js");
 // Role-based Route Protection
 const ProtectedRoute = ({ children, requiredRoles }) => {
   const clientRoles = JSON.parse(sessionStorage.getItem('clientRoles')) || [];
   const clientUserName = sessionStorage.getItem('clientName')
   const location = useLocation();
+  const secretKey = "superveiligwachtwoord";
 
   // Check if the user has at least one required role
   const hasAccess = requiredRoles.some((role) => clientRoles.includes(role));
       const logData = {
-        LOG_GEBRUIKER: clientUserName, // Gebruiker ID
-        LOG_ACTIE: `Visited ${location.pathname}`, // Bezochte pagina
+        LOG_GEBRUIKER: CryptoJS.AES.encrypt(clientUserName, secretKey).toString(), 
+        LOG_ACTIE: CryptoJS.AES.encrypt(`Visited ${location.pathname}`, secretKey).toString(), // Bezochte pagina
         LOG_TIJD: new Date().toISOString(), // Tijdstempel in ISO-formaat
       };
 

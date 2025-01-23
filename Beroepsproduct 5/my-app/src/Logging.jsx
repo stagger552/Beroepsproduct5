@@ -3,9 +3,11 @@ import Footer from "./footer";
 import React, { useEffect, useState } from 'react';
 import { HeaderProvider } from "./headerContext";
 import { LanguageProvider } from "./LanguangeContext";
+const CryptoJS = require("crypto-js");
 
+// const socket = new WebSocket('ws://141.144.200.89:1880/ws/boei');
 
-const socket = new WebSocket('ws://141.144.200.89:1880/ws/boei');
+/* 
 
 
 socket.onopen = (event) => {
@@ -34,7 +36,7 @@ socket.onclose = (event) => {
     } else {
         console.error('Verbinding abrupt gesloten');
     }
-};
+}; */
 
     const dataWeb = [
     {
@@ -84,13 +86,39 @@ socket.onclose = (event) => {
     function Logging() {
         // State om logs op te slaan
         const [logs, setLogs] = useState([]);
-    
         useEffect(() => {
+            const secretKey = "superveiligwachtwoord"; // Zorg dat dit overeenkomt met de encryptiesleutel
+            const encryptedLogs = JSON.parse(localStorage.getItem("pageLogs")) || []; // Ophalen van de JSON
+    
+            // Decrypt specifieke velden in de logs
+            const decryptedLogs = encryptedLogs.map((log) => ({
+                ...log, // Neem alle niet-versleutelde velden over
+                LOG_GEBRUIKER: decryptField(log.LOG_GEBRUIKER, secretKey),
+                LOG_ACTIE: decryptField(log.LOG_ACTIE, secretKey),
+            }));
+    
+            setLogs(decryptedLogs); // Opslaan in de state
+        }, []);
+    
+        // Helperfunctie voor decryptie
+        const decryptField = (encryptedValue, secretKey) => {
+            try {
+                const bytes = CryptoJS.AES.decrypt(encryptedValue, secretKey);
+                return bytes.toString(CryptoJS.enc.Utf8); // Converteer naar tekst
+            } catch (error) {
+                console.error("Fout bij decryptie:", error);
+                return "Decryptie mislukt"; // Fallback
+            }
+        };
+
+        
+    
+        /* useEffect(() => {
             // Haal logs op uit sessionStorage
             //const storedLogs = JSON.parse(sessionStorage.getItem('Logs')) || [];
             const storedLogs = JSON.parse(localStorage.getItem('pageLogs')) || [];
             setLogs(storedLogs); // Zet de logs in de state
-        }, []);
+        }, []); */
     
         return (
             <HeaderProvider>
