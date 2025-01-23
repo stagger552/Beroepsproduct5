@@ -7,14 +7,14 @@ import { LanguageProvider } from "./LanguangeContext";
 
 const socket = new WebSocket('ws://141.144.200.89:1880/ws/boei');
 
-// Eventlistener voor succesvolle verbinding
+
 socket.onopen = (event) => {
     console.log('Verbonden met de WebSocket-server');
-    // Stuur een bericht naar de server
+    
     socket.send('Hallo server!');
 };
 
-// Eventlistener voor ontvangen berichten
+
 socket.onmessage = (event) => {
     console.log('Bericht ontvangen van server:', event.data);
     sessionStorage.setItem('Logs', JSON.stringify(event.data))
@@ -22,12 +22,12 @@ socket.onmessage = (event) => {
     
 };
 
-// Eventlistener voor fouten
+
 socket.onerror = (event) => {
     console.error('WebSocket-fout opgetreden:', event);
 };
 
-// Eventlistener voor gesloten verbinding
+
 socket.onclose = (event) => {
     if (event.wasClean) {
         console.log(`Verbinding netjes gesloten, code: ${event.code}, reden: ${event.reason}`);

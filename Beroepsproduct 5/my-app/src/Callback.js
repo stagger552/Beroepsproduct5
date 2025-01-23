@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import keycloak from './keycloak'; // Importeer je Keycloak-instantie
+import keycloak from './keycloak';
 
 const Callback = () => {
   useEffect(() => {
     keycloak
-      .login({ redirectUri: window.location.href }) // Zorg ervoor dat de URL correct wordt doorgegeven
+      .login({ redirectUri: window.location.href })
       .then(() => {
         window.location.href = '/Dashboard';  // Verwijs naar de dashboardpagina na succesvolle inlog
       })

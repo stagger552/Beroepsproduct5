@@ -45,7 +45,7 @@ i18n
 keycloak
 .init({
   onLoad: "login-required",
-  checkLoginIframe: false, // Schakel iframe checks uit
+  checkLoginIframe: false, 
 })
 .then((authenticated) => {
   console.log("Authenticated:", authenticated);
@@ -67,7 +67,6 @@ keycloak
     const username = keycloak.tokenParsed.preferred_username;
     sessionStorage.setItem('clientName',username);
 
-    // Optional: Log the roles to the console
   } else {
     console.log("Not authenticated, redirecting to login.");
     keycloak.login();
