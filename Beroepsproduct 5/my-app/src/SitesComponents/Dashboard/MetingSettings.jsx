@@ -53,28 +53,28 @@ function MetingSettings() {
     async function callOpenAI() {
         const Aiprompt = `Geef mij een samenvatting: van deze data en informatie die ik goed kan gberuiken Data nu: Tempratuur ${TemperatureValue} , PH ${PhMeterValue} , Troebelheid ${TroebelheidValue} , Zuurstof ${ZuurstofValue} `;
 
-        try {
-            const response = await fetch('http://localhost:5000//api/callOpenAI', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    prompt: Aiprompt,
-                    context: AiContext
-                })
-            });
+        // try {
+        //     const response = await fetch('http://localhost:5000//api/callOpenAI', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             prompt: Aiprompt,
+        //             context: AiContext
+        //         })
+        //     });
     
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+        //     if (!response.ok) {
+        //         throw new Error(`HTTP error! status: ${response.status}`);
+        //     }
     
-            const data = await response.json();
-            return data;  // Return the AI response text
-        } catch (error) {
-            console.error("Error calling OpenAI API:", error);
-            return null;
-        }
+        //     const data = await response.json();
+        //     return data;  // Return the AI response text
+        // } catch (error) {
+        //     console.error("Error calling OpenAI API:", error);
+        //     return null;
+        // }
     }
 
     const GetSamenvatting = async () => {
@@ -98,27 +98,7 @@ function MetingSettings() {
         }
     }
 
-    const checkConnection = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/StartConnection');
-            if (response.ok) {
-                setIsConnected(true);
-                setConnectionMessage(t('Verbonden')); // Use translation for connected message
-            } else {
-                setIsConnected(false);
-                setConnectionMessage(t('Niet verbonden')); // Use translation for not connected message
-            }
-        } catch (error) {
-            console.error("Connection error:", error);
-            setIsConnected(false);
-            setConnectionMessage(t('Niet verbonden')); // Use translation for not connected message
-        }
-    };
 
-
-    useEffect(() => {
-        checkConnection(); // Check connection when component mounts
-    }, []);
 
     return (
         <div>

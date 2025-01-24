@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Gauge } from 'gaugeJS';
 import IconButton from "../../../IconButton"
@@ -10,6 +9,29 @@ import { useDashboard } from "../DashboardContext"
 import CircularGauge from '../CircularGauge';
 
 import { useTranslation } from 'react-i18next'; // Import useTranslation
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+// Register ChartJS components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function TempGauge() {
 
@@ -269,7 +291,7 @@ function TempGauge() {
                                     style={{ height: ZuurstofgaugeHeight }}
                                 ></div>
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeZuurstof} Zuurstof</h3>
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeZuurstof} {t('Zuurstof')}</h3>
 
                         </div>
 

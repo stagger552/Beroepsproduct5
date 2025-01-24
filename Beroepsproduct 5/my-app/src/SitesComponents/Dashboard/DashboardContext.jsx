@@ -4,60 +4,69 @@ const DashboardContext = createContext();
 
 export const DashboardProvider = ({ children }) => {
   const [Advanced, setAdvanced] = useState(false);
-  const [TemperatureValue, setTemperatureValue] = useState(null);
-  const [PhMeterValue, setPhMeterValue] = useState(null);
-  const [ZuurstofValue, setZuurstofValue] = useState(null);
-  const [TroebelheidValue, setTroebelheidValue] = useState(null);
+
+  const [TemperatureValue, setTemperatureValue] = useState(0);
+  const [PhMeterValue, setPhMeterValue] = useState(0);
+  const [ZuurstofValue, setZuurstofValue] = useState(0);
+  const [TroebelheidValue, setTroebelheidValue] = useState(0);
+
   const [FullscreenState, setFullscreenState] = useState(false);
-  const [FullscreenGauge, setFullscreenGauge] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [FullscreenGauge, setFullscreenGauge] = useState(false);
+
+
   const [ReceivedAt, setReceivedAt] = useState(null);
 
 
+  // Function to fetch sensor data from the API
   const fetchSensorData = async () => {
-    setLoading(true);
-    setError(null);
+
     try {
+
+      // Make API request to fetch sensor data
       const response = await fetch('node-3-caaue0bmd0gcaabv.germanywestcentral-01.azurewebsites.net/data');
       const data = await response.json();
       
       if (data.error) {
-        // Handle the "No data available" case
-        setTemperatureValue(null);
-        setPhMeterValue(null);
-        setTroebelheidValue(null);
-        setError(data.error);
+
+        console.log("Error met het ophallen")
+
+        // If API returns an error, clear all sensor values and set error message
+        setTemperatureValue(0);
+        setPhMeterValue(0);
+        setTroebelheidValue(0);
       } else {
-        // Update sensor values from the API response
+
+        console.log("Iets ontvangen")
+        // If successful, update sensor values with data from API response
         setTemperatureValue(data.decodedPayload.temperature);
         setPhMeterValue(data.decodedPayload.pH);
         setTroebelheidValue(data.decodedPayload.turbidity);
         setReceivedAt(data.decodedPayload.receivedAt);
-
       }
       
     } catch (err) {
-      setError('Failed to fetch sensor data');
+      // If fetch fails, set error message and clear sensor values
       console.error('Error fetching data:', err);
-      // Set values to null on error
-      setTemperatureValue(null);
-      setPhMeterValue(null);
-      setTroebelheidValue(null);
+    
+      console.error('Error message fetching', err.message);
+      console.log('Error message fetching', err.message);
+
+
     } finally {
-      setLoading(false);
+      // Always set loading back to false when done
     }
   };
 
   // Fetch data when component mounts
   useEffect(() => {
+    console.log("Start sensordata get")
     fetchSensorData();
     
-    // Set up interval to fetch data every 30 seconds
-    const interval = setInterval(fetchSensorData, 30000);
+    // // Set up interval to fetch data every 30 seconds
+    // const interval = setInterval(fetchSensorData, 30000);
     
-    // Cleanup interval on unmount
-    return () => clearInterval(interval);
+    // // Cleanup interval on unmount
+    // return () => clearInterval(interval);
   }, []);
 
   return (
@@ -76,9 +85,8 @@ export const DashboardProvider = ({ children }) => {
       setFullscreenState,
       FullscreenGauge,
       setFullscreenGauge,
-      loading,
-      error,
-      fetchSensorData // Exposing the fetch function so it can be called from components
+      ReceivedAt,
+      setReceivedAt,
     }}>
       {children}
     </DashboardContext.Provider>

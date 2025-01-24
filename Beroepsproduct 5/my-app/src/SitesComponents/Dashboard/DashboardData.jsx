@@ -45,7 +45,7 @@ function DashboardData() {
 
   if(TemperatureValue == null)
   {
-    TemperatureValue = "Niet verbonden"
+    setTemperatureValue("Niet verbonden")
   }
 
 

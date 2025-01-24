@@ -88,7 +88,7 @@ function QuikData() {
                         />
                       </svg>
                       <div className="gaugeText w-1/4 text-2xl font-bold text-qk_red ml-2">
-                        {TemperatureValue.toFixed(1)}
+                        {/* {TemperatureValue.toFixed(1)} */}
                       </div>
                     </div>
                   </div>
@@ -143,7 +143,7 @@ function QuikData() {
                         />
                       </svg>
                       <div className="gaugeText w-1/4 text-2xl font-bold text-qk_purple ml-2 ">
-                        {PhMeterValue.toFixed(1)}
+                        {/* {PhMeterValue.toFixed(1)} */}
                       </div>
                     </div>
                   </div>
@@ -194,7 +194,7 @@ function QuikData() {
                         />
                       </svg>
                       <div className="gaugeText w-1/4 text-2xl font-bold text-qk_blue ml-2">
-                        {ZuurstofValue.toFixed(1)}
+                        {/* {ZuurstofValue.toFixed(1)} */}
                       </div>
                     </div>
                   </div>

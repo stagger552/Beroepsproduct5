@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, createContext } from 'react';
 import { Gauge } from 'gaugeJS';
 import IconButton from "../../../IconButton"
@@ -8,6 +7,29 @@ import { ReactComponent as Smallscreen } from "../../../img/smallscreen.svg"
 import { useDashboard } from "./../DashboardContext"
 // import { Chart, registerables } from 'chart.js';
 import { useTranslation } from 'react-i18next';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import { useState } from 'react';
+
+// Register ChartJS components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function TempGauge() {
 
@@ -35,29 +57,12 @@ function TempGauge() {
 
 
     var gaugeTemeprature = TemperatureValue
-    var gaugePhmeter = PhMeterValue.toFixed(2)
-    var gaugeZuurstof = ZuurstofValue.toFixed(2)
-    var gaugeTroebelheid = TroebelheidValue.toFixed(2)
 
 
 
-    const getColorTemperature = () => {
-        // if (gaugeTemeprature < -40 && gaugeTemeprature > 0) return 'bg-blue-500';
-        // if (gaugeTemeprature <= 0 && gaugeTemeprature >= 20) return 'bg-yellow-300';
-        // if (gaugeTemeprature < 20) return 'bg-red-300';
-
-        if (gaugeTemeprature < 0) return 'bg-qk_blue';
-        if (gaugeTemeprature > 0) return 'bg-qk_red';
-    };
-    const getColorTroebelheid = () => {
-        // if (gaugeTemeprature < -40 && gaugeTemeprature > 0) return 'bg-blue-500';
-        // if (gaugeTemeprature <= 0 && gaugeTemeprature >= 20) return 'bg-yellow-300';
-        // if (gaugeTemeprature < 20) return 'bg-red-300';
-
-        if (gaugeTemeprature < 50) return 'bg-qk_blue';
-        if (gaugeTemeprature > 50) return 'bg-qk_red';
-    };
-
+    var gaugePhmeter = PhMeterValue
+    // var gaugeZuurstof = ZuurstofValue.toFixed(2)
+    // var gaugeTroebelheid = TroebelheidValue.toFixed(2)
 
 
     const PHGauge = useRef(null);
@@ -164,6 +169,75 @@ function TempGauge() {
 
     };
 
+    // Add these new states
+    const [timeLabels, setTimeLabels] = useState([]);
+    const [phData, setPhData] = useState([]);
+    const [stats, setStats] = useState({
+        average: 0,
+        minimum: Infinity,
+        maximum: -Infinity
+    });
+
+    // Add useEffect for updating the graph and stats
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimeLabels(prevLabels => {
+                const newLabels = [...prevLabels];
+                newLabels.push(new Date().toLocaleTimeString());
+                if (newLabels.length > 10) newLabels.shift();
+                return newLabels;
+            });
+
+            setPhData(prevData => {
+                const newData = [...prevData];
+                newData.push(gaugePhmeter);
+                if (newData.length > 10) newData.shift();
+                
+                // Calculate statistics
+                const avg = newData.reduce((a, b) => a + b, 0) / newData.length;
+                const min = Math.min(...newData);
+                const max = Math.max(...newData);
+                
+                setStats({
+                    average: avg.toFixed(2),
+                    minimum: min.toFixed(2),
+                    maximum: max.toFixed(2)
+                });
+                
+                return newData;
+            });
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [gaugePhmeter]);
+
+    // Add chart configuration
+    const chartData = {
+        labels: timeLabels,
+        datasets: [
+            {
+                label: 'pH Value',
+                data: phData,
+                borderColor: '#22C55E',
+                tension: 0.1
+            }
+        ]
+    };
+
+    const chartOptions = {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: false,
+                min: 0,
+                max: 14
+            }
+        },
+        animation: {
+            duration: 0
+        }
+    };
+
     return (
         <div>
             {FullscreenState && (
@@ -202,13 +276,36 @@ function TempGauge() {
                         </div>
                     )}
                     {Advanced && (
-                        <div className='lg:w-1/2 sm:w-full'>
-                            <div className="Gauge justify-center flex ">
-                                <canvas ref={PHGauge} ></canvas>
-
+                        <div className='w-full'>
+                            <div className='w-1/2 inline-block'>
+                                <div className="Gauge justify-center flex">
+                                    <canvas ref={PHGauge}></canvas>
+                                </div>
+                                <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugePhmeter} pH</h3>
+                                
+                                {/* Add statistics display */}
+                                <div className="mt-4 text-center dark:text-white">
+                                    <div className="grid grid-cols-3 gap-4 p-4">
+                                        <div>
+                                            <p className="font-semibold">{t('minimum')}</p>
+                                            <p>{stats.minimum} pH</p>
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold">{t('average')}</p>
+                                            <p>{stats.average} pH</p>
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold">{t('maximum')}</p>
+                                            <p>{stats.maximum} pH</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center ">{gaugePhmeter} PH</h3>
-
+                            <div className='w-1/2 inline-block'>
+                                <div className="mt-4 p-4">
+                                    <Line data={chartData} options={chartOptions} />
+                                </div>
+                            </div>
                         </div>
                     )}
 
@@ -257,13 +354,36 @@ function TempGauge() {
                         </div>
                     )}
                     {Advanced && (
-                        <div className='lg:w-1/2 sm:w-full'>
-                            <div className="Gauge justify-center flex ">
-                                <canvas ref={PHGauge} ></canvas>
-
+                        <div className='w-full'>
+                            <div className='w-1/2 inline-block'>
+                                <div className="Gauge justify-center flex">
+                                    <canvas ref={PHGauge}></canvas>
+                                </div>
+                                <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugePhmeter} pH</h3>
+                                
+                                {/* Add statistics display */}
+                                <div className="mt-4 text-center dark:text-white">
+                                    <div className="grid grid-cols-3 gap-4 p-4">
+                                        <div>
+                                            <p className="font-semibold">{t('minimum')}</p>
+                                            <p>{stats.minimum} pH</p>
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold">{t('average')}</p>
+                                            <p>{stats.average} pH</p>
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold">{t('maximum')}</p>
+                                            <p>{stats.maximum} pH</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugePhmeter} PH</h3>
-
+                            <div className='w-1/2 inline-block'>
+                                <div className="mt-4 p-4">
+                                    <Line data={chartData} options={chartOptions} />
+                                </div>
+                            </div>
                         </div>
                     )}
 
