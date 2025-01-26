@@ -43,13 +43,6 @@ function DashboardData() {
   } = useDashboard(); // Destructure all the context values
 
 
-  if(TemperatureValue == null)
-  {
-    setTemperatureValue("Niet verbonden")
-  }
-
-
-
   setFullscreenGauge(false);
   setFullscreenState(null)
   return (
