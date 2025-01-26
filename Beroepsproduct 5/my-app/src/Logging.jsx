@@ -5,90 +5,37 @@ import { HeaderProvider } from "./headerContext";
 import { LanguageProvider } from "./LanguangeContext";
 const CryptoJS = require("crypto-js");
 
-// const socket = new WebSocket('ws://141.144.200.89:1880/ws/boei');
+const socket = new WebSocket('ws://141.144.200.89:1880/ws/log');
 
-/* 
-
-
-socket.onopen = (event) => {
-    console.log('Verbonden met de WebSocket-server');
-    
-    socket.send('Hallo server!');
+// Wanneer de WebSocket verbinding maakt
+socket.onopen = () => {
+    console.log('Verbonden met WebSocket');
+    // Stuur een bericht naar de WebSocket In node zodra de verbinding is gemaakt
+    socket.send(JSON.stringify({ status: "connected" }));
 };
 
-
+// Luister naar berichten van de WebSocket
 socket.onmessage = (event) => {
-    console.log('Bericht ontvangen van server:', event.data);
-    sessionStorage.setItem('Logs', JSON.stringify(event.data))
-
-    
+    console.log('Ontvangen data:', event.data);
+    // Als de data in een string-formaat is, converteren we deze eerst naar een object
+    const data = JSON.parse(event.data);
+    sessionStorage.setItem("pageLogs", JSON.stringify(data)); // Opslaan in sessionStorage
 };
 
 
-socket.onerror = (event) => {
-    console.error('WebSocket-fout opgetreden:', event);
-};
-
-
-socket.onclose = (event) => {
-    if (event.wasClean) {
-        console.log(`Verbinding netjes gesloten, code: ${event.code}, reden: ${event.reason}`);
-    } else {
-        console.error('Verbinding abrupt gesloten');
-    }
-}; */
-
-    const dataWeb = [
-    {
-    "ID_BOEI": 2,
-    "ID_KOPPELING": 1002,
-    "ID_SENSOR": 102,
-    "SENSOR_WAARDE": "60",
-    "SENSOR_TYPE_INFO": "Vochtigheid",
-    "ID_LOCATIE": 2,
-    "LONGITUDE": 52.3667,
-    "LATITUDE": 4.8945,
-    "ID_MEETIN": 2002,
-    "MEETING_TIJDSTIP": "2023-10-02T14:10:00.000Z",
-    "MEETING_WAARDE": "60",
-    "ID_SENSOR_1": 102,
-    "LOG_ID": 2,
-    "LOG_GEBRUIKER": "user",
-    "LOG_TIJD": "2023-10-02T14:00:00.000Z",
-    "LOG_ACTIE": "Sensor 102 gekoppeld aan Boei 2"
-    },
-    {
-    "ID_BOEI": 3,
-    "ID_KOPPELING": 1003,
-    "ID_SENSOR": 103,
-    "SENSOR_WAARDE": "1020",
-    "SENSOR_TYPE_INFO": "Luchtdruk",
-    "ID_LOCATIE": 3,
-    "LONGITUDE": 48.8566,
-    "LATITUDE": 2.3522000000000003,
-    "ID_MEETIN": 2003,
-    "MEETING_TIJDSTIP": "2023-10-03T16:15:00.000Z",
-    "MEETING_WAARDE": "1020",
-    "ID_SENSOR_1": 103,
-    "LOG_ID": 3,
-    "LOG_GEBRUIKER": "admin",
-    "LOG_TIJD": "2023-10-03T16:00:00.000Z",
-    "LOG_ACTIE": "Locatie 3 toegevoegd"
-    }
-    ];
-
-    sessionStorage.setItem('Logs', JSON.stringify(dataWeb));
-
-
-
+// WebSocket foutmelding
+socket.onerror = (error) => {
+    console.error('WebSocket fout:', error);
+}
     
     
     function Logging() {
+        
         // State om logs op te slaan
         const [logs, setLogs] = useState([]);
         useEffect(() => {
             const secretKey = "superveiligwachtwoord"; // Zorg dat dit overeenkomt met de encryptiesleutel
-            const encryptedLogs = JSON.parse(localStorage.getItem("pageLogs")) || []; // Ophalen van de JSON
+            const encryptedLogs = JSON.parse(sessionStorage.getItem("pageLogs")) || []; // Ophalen van de JSON
     
             // Decrypt specifieke velden in de logs
             const decryptedLogs = encryptedLogs.map((log) => ({
@@ -111,14 +58,6 @@ socket.onclose = (event) => {
             }
         };
 
-        
-    
-        /* useEffect(() => {
-            // Haal logs op uit sessionStorage
-            //const storedLogs = JSON.parse(sessionStorage.getItem('Logs')) || [];
-            const storedLogs = JSON.parse(localStorage.getItem('pageLogs')) || [];
-            setLogs(storedLogs); // Zet de logs in de state
-        }, []); */
     
         return (
             <HeaderProvider>
