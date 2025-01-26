@@ -18,20 +18,57 @@ const ProtectedRoute = ({ children, requiredRoles }) => {
 
   // Check if the user has at least one required role
   const hasAccess = requiredRoles.some((role) => clientRoles.includes(role));
-      const logData = {
+      /* const logData = {
         LOG_GEBRUIKER: CryptoJS.AES.encrypt(clientUserName, secretKey).toString(), 
         LOG_ACTIE: CryptoJS.AES.encrypt(`Visited ${location.pathname}`, secretKey).toString(), // Bezochte pagina
         LOG_TIJD: new Date().toISOString(), // Tijdstempel in ISO-formaat
-      };
+      }; */
+
+      const logData = {
+        LOG_GEBRUIKER: CryptoJS.AES.encrypt(clientUserName, secretKey).toString(), 
+        LOG_ACTIE: CryptoJS.AES.encrypt(`Visited ${location.pathname}`, secretKey).toString(), // Bezochte pagina
+        LOG_TIJD: new Date().toISOString().replace(/\.\d{3}Z$/, ''), // Verwijder milliseconden en "Z"
+    };
+    
+    const postData = {
+        query: `
+            INSERT INTO Loggin (id, gebruiker, tijd, actie) 
+            VALUES (
+                (SELECT NVL(MAX(id), 0) + 1 FROM Loggin), 
+                '${logData.LOG_GEBRUIKER}', 
+                TO_DATE('${logData.LOG_TIJD}', 'YYYY-MM-DD"T"HH24:MI:SS'), 
+                '${logData.LOG_ACTIE}'
+            )
+        `
+    };
+    
+    // Voeg de query toe via fetch of via een andere methode, bijvoorbeeld:
+    fetch('http://141.144.200.89:1880/sql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Ontvangen data:', data);
+    })
+    .catch(error => {
+        console.error('Fout bij het versturen van POST-verzoek:', error);
+    });
+    
+    
 
       // Verkrijg bestaande logs uit localStorage
-      const logs = JSON.parse(localStorage.getItem('pageLogs')) || [];
+      //const logs = JSON.parse(localStorage.getItem('pageLogs')) || [];
 
       // Voeg nieuwe log toe aan bestaande logs
-      logs.push(logData);
+      //logs.push(logData);
 
       // Sla de bijgewerkte logs op in localStorage
-      localStorage.setItem('pageLogs', JSON.stringify(logs));
+      //localStorage.setItem('pageLogs', JSON.stringify(logs));
+
 
   return hasAccess ? children : <Navigate to="/" replace />;
 };
