@@ -43,44 +43,37 @@ const CryptoJS = require("crypto-js");
                             {/* Header */}
                             <Header />
     
-                            <div className="container">
+                            <div className="container z-50 mt-60">
                                 <div className="row">
-                                    <div className="col-lg-12">
+                                    <div className="col-lg-12 text-7xl font-roboto">
                                         <h2>
                                             Boei aanmaken
                                         </h2>
                                     </div>
                                 </div>
 
+                              
                                 <div className="row">
-                                    <div className="col-lg-12">
-                                        <h2>
-                                            Boei aanmaken
-                                        </h2>
+                                    <div className="col-lg-12 mb-4">
+                                       <input type="number" className="w-full min-h-8  p-3" placeholder="BoeiID" />
                                     </div>
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-lg-12">
-                                       <input type="number" className="w-full min-h-8 max-w-64 p-3" placeholder="BoeiID" />
+                                    <div className="col-lg-12 mb-4">
+                                       <input type="number" className="w-full min-h-8  p-3" placeholder="Latitude" />
                                     </div>
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-lg-12">
-                                       <input type="number" className="w-full min-h-8 max-w-64 p-3" placeholder="Latitude" />
+                                    <div className="col-lg-12 mb-4">
+                                       <input type="number" className="w-full min-h-8  p-3" placeholder="Longitude" />
                                     </div>
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-lg-12">
-                                       <input type="number" className="w-full min-h-8 max-w-64 p-3" placeholder="Longitude" />
-                                    </div>
-                                </div>
-
-                                <div className="row">
-                                    <div className="col-lg-12">
-                                       <Button> Boei aanmaken</Button>
+                                    <div className="col-lg-12 mb-4 ">
+                                       <button className="bg-lightblue dark:bg-white dark:text-zwart text-zwart font-alatsi text-1xl p-4 m-auto block "> Boei aanmaken</button>
                                     </div>
                                 </div>
                             </div>

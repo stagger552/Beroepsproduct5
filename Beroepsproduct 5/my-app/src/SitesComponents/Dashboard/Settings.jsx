@@ -4,19 +4,23 @@ import { useDashboard } from "./DashboardContext"
 import { useHeader } from '../../headerContext';
 import QuickAlert from '../../QuickAlert';
 import swal from 'sweetalert';
+import { useNavigate } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next'; // Import useTranslation
 
 function Settings() {
 
     const [SideIsOpen, setIsOpen] = useState(false);
     const [showAlert, setShowAlert] = useState(false);  // State to control visibility of the alert
     const [alertMessage, setAlertMessage] = useState(''); // Store the response from OpenAI
-
-
     const { Darkmode, setDarkmode } = useHeader();
 
+    const { t } = useTranslation(); // Add translation hook
+
+    const navigate = useNavigate();
+
     setDarkmode(Darkmode);
-    
+
     const {
         Advanced,
         setAdvanced,
@@ -41,7 +45,7 @@ function Settings() {
     }
 
     async function callOpenAI() {
-       
+
     }
 
     const GetSamenvatting = async () => {
@@ -77,27 +81,30 @@ function Settings() {
                     <div className="col-lg-4 flex justify-center items-center my-2">
                         <input type="checkbox" id="settings-toggle" className="toggleCheckbox" onClick={switchMode} />
                         <label htmlFor="settings-toggle" className='toggleContainer'>
-                            <div className='dark:text-white text-zwart'>Default</div>
-                            <div className='dark:text-white text-zwart'>Geavanceerd</div>
+                            <div className='dark:text-white text-zwart'>{t('Normaal')}</div>
+                            <div className='dark:text-white text-zwart'>{t('Geavanceerd')}</div>
                         </label>
                     </div>
                     <div className="col-lg-4 my-2">
                         <div className="Button flex justify-center items-center">
                             <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3 dark:bg-zwart dark:text-white' onClick={openSideBar}>
                                 <h5 className='font-alatsi'>
-                                    Menu
+                                    {t('Menu')}
                                 </h5>
                             </button>
                             {/* Pass the state and toggle function to Sidebar */}
                             <SideBar isOpen={SideIsOpen} toggleSidebar={openSideBar} />
                             <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3 dark:bg-zwart dark:text-white' onClick={GetSamenvatting}>
                                 <h5 className='font-alatsi'>
-                                    Samenvatting
+                                    {t('Samenvatting')}
                                 </h5>
                             </button>
-                            <button className='bg-lightblue p-2 rounded-lg mx-1 w-1/3 dark:bg-zwart dark:text-white' >
+                            <button 
+                                className='bg-lightblue p-2 rounded-lg mx-1 w-1/3 dark:bg-zwart dark:text-white'
+                                onClick={() => navigate('/CreateBoei')}
+                            >
                                 <h5 className='font-alatsi'>
-                                    Create Boei
+                                    {t('Boei aanmaken')}
                                 </h5>
                             </button>
 

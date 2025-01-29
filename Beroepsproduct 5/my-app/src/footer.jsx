@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { useLanguage } from './LanguangeContext';
 
 
-const pages = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
 
 
 function Footer() {
 
     const { t } = useTranslation(); // Add translation hook
 
+    const pages = [t('Home'), t('Dashboard'), t('Loggen'), t('Geschiedenis')];
 
     const { Darkmode, setDarkmode } = useHeader();
 

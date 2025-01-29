@@ -55,9 +55,34 @@ function TempGauge() {
         ReceivedAt,
         setReceivedAt,
         Meting,
-        setMeting
+        setMeting,
+        temperatureUnit
     } = useDashboard(); // Destructure all the context values
 
+    const convertTemperature = (celsius) => {
+        switch (temperatureUnit) {
+            case 'Fahrenheit':
+                return (celsius * 9/5) + 32;
+            case 'Kelvin':
+                return celsius + 273.15;
+            default:
+                return celsius;
+        }
+    };
+
+    const getUnitSymbol = () => {
+        switch (temperatureUnit) {
+            case 'Fahrenheit':
+                return '°F';
+            case 'Kelvin':
+                return 'K';
+            default:
+                return '°C';
+        }
+    };
+
+    const displayTemperature = convertTemperature(TemperatureValue).toFixed(1);
+    const unitSymbol = getUnitSymbol();
 
     const getColorTemperature = () => {
         // if (TemperatureValue < -40 && TemperatureValue > 0) return 'bg-blue-500';
@@ -186,7 +211,7 @@ function TempGauge() {
                             <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">
 
                                 {Meting ? (
-                                    <>{TemperatureValue} PH</>
+                                    <>{displayTemperature} {unitSymbol}</>
                                 ) : (
                                     <>{t('Geen meting')}</>
                                 )}
@@ -210,7 +235,7 @@ function TempGauge() {
                                 )}
                                 <h3 className="mt-4 text-4xl font-semibold text-center ">
                                     {Meting ? (
-                                        <>{TemperatureValue} PH</>
+                                        <>{displayTemperature} {unitSymbol}</>
                                     ) : (
                                         <>{t('Geen meting')}</>
                                     )}
@@ -225,15 +250,15 @@ function TempGauge() {
                                         <div className="grid grid-cols-3 gap-4 p-4">
                                             <div>
                                                 <p className="font-semibold">{t('Minimaal')}</p>
-                                                <p>{stats.minimum} pH</p>
+                                                <p>{stats.minimum} {unitSymbol}</p>
                                             </div>
                                             <div>
                                                 <p className="font-semibold">{t('Gemiddeld')}</p>
-                                                <p>{stats.average} pH</p>
+                                                <p>{stats.average} {unitSymbol}</p>
                                             </div>
                                             <div>
                                                 <p className="font-semibold">{t('Maximaal')}</p>
-                                                <p>{stats.maximum} pH</p>
+                                                <p>{stats.maximum} {unitSymbol}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -286,7 +311,7 @@ function TempGauge() {
                             )}
                             <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">
                                 {Meting ? (
-                                    <>{TemperatureValue} PH</>
+                                    <>{displayTemperature} {unitSymbol}</>
                                 ) : (
                                     <>{t('Geen meting')}</>
                                 )}
@@ -309,7 +334,7 @@ function TempGauge() {
                                 <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">
 
                                     {Meting ? (
-                                        <>{TemperatureValue} PH</>
+                                        <>{displayTemperature} {unitSymbol}</>
                                     ) : (
                                         <>{t('Geen meting')}</>
                                     )}
@@ -322,15 +347,15 @@ function TempGauge() {
                                         <div className="grid grid-cols-3 gap-4 p-4">
                                             <div>
                                                 <p className="font-semibold">{t('minimum')}</p>
-                                                <p>{stats.minimum}°C</p>
+                                                <p>{stats.minimum} {unitSymbol}</p>
                                             </div>
                                             <div>
                                                 <p className="font-semibold">{t('average')}</p>
-                                                <p>{stats.average}°C</p>
+                                                <p>{stats.average} {unitSymbol}</p>
                                             </div>
                                             <div>
                                                 <p className="font-semibold">{t('maximum')}</p>
-                                                <p>{stats.maximum}°C</p>
+                                                <p>{stats.maximum} {unitSymbol}</p>
                                             </div>
                                         </div>
                                     </div>

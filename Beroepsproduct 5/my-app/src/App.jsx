@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
@@ -7,6 +6,7 @@ import Dashboard from './Dashboard';  // Dashboard component
 import Callback from './Callback';  // Keycloak callback component
 import Logging from './Logging';  // Logging page
 import Geschiedenis from './Geschiedenis';  // History page
+import CreateBoei from './Boei maken';  // Add this import
 
 const CryptoJS = require("crypto-js");
 // Role-based Route Protection
@@ -102,6 +102,14 @@ function App() {
           element={
             <ProtectedRoute requiredRoles={['Operator']}>
               <Logging />
+            </ProtectedRoute>
+          }
+        />
+           <Route
+          path="/CreateBoei"
+          element={
+            <ProtectedRoute requiredRoles={['Operator']}>
+              <CreateBoei />
             </ProtectedRoute>
           }
         />
