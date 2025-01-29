@@ -14,14 +14,13 @@ function MetingSettings() {
     const [SideIsOpen, setIsOpen] = useState(false);
     const [showAlert, setShowAlert] = useState(false);  // State to control visibility of the alert
     const [alertMessage, setAlertMessage] = useState(''); // Store the response from OpenAI
-    const [isConnected, setIsConnected] = useState(false); // State to track connection status
-    const [connectionMessage, setConnectionMessage] = useState('Niet verbonden'); // Initial message
+
 
 
     const { Darkmode, setDarkmode } = useHeader();
 
     setDarkmode(Darkmode);
-    
+
     const {
         Advanced,
         setAdvanced,
@@ -32,23 +31,40 @@ function MetingSettings() {
         ZuurstofValue,
         setZuurstofValue,
         TroebelheidValue,
-        setTroebelheidValue
+        setTroebelheidValue,
+        FullscreenState,
+        setFullscreenState,
+        FullscreenGauge,
+        setFullscreenGauge,
+        ReceivedAt,
+        setReceivedAt,
+        Meting,
+        setMeting
     } = useDashboard(); // Destructure all the context values
 
-    // Example usage:
-    const done = 5
-    const OpenAIapiKey = "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"
-    const AiContext = "Je bent assistent van een boei app. water zal worden genanazlyzeerd met 4 waardes: Tempratuur, PH , Troebelheid en zuurstof meting" +
-        "Jij zult een sammenvatting moeten geven van alles waneer gebruiker om vraagt. Maak het kort en zeg wat dit kan betekenen. Maak het kort onder 50 woorden";
-
+    const [isConnected, setIsConnected] = useState(Meting); // State to track connection status
 
     const openSideBar = () => {
         console.log("open sidebar")
         setIsOpen(!SideIsOpen);
     }
     const switchMeting = () => {
-     console.log("switch meting")  
+        try {
+            console.log("switch meting")
+
+            if (isConnected) {
+                setIsConnected(false)
+                setMeting(false)
+            } else {
+                setIsConnected(true)
+                setMeting(true)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
+
+
 
     async function callOpenAI() {
         const Aiprompt = `Geef mij een samenvatting: van deze data en informatie die ik goed kan gberuiken Data nu: Tempratuur ${TemperatureValue} , PH ${PhMeterValue} , Troebelheid ${TroebelheidValue} , Zuurstof ${ZuurstofValue} `;
@@ -64,11 +80,11 @@ function MetingSettings() {
         //             context: AiContext
         //         })
         //     });
-    
+
         //     if (!response.ok) {
         //         throw new Error(`HTTP error! status: ${response.status}`);
         //     }
-    
+
         //     const data = await response.json();
         //     return data;  // Return the AI response text
         // } catch (error) {
@@ -76,6 +92,8 @@ function MetingSettings() {
         //     return null;
         // }
     }
+
+    console.log(ReceivedAt)
 
     const GetSamenvatting = async () => {
         console.log("start samenvatting")
@@ -105,7 +123,7 @@ function MetingSettings() {
 
             <div className={`container ${Darkmode ? 'dark' : 'light'}`}>
                 <div className="row my-4">
-                    
+
                     <div className="col-lg-4 flex justify-center items-center my-2">
                         <input type="checkbox" id="meting-toggle" className="toggleCheckbox" onClick={switchMeting} />
                         <label htmlFor="meting-toggle" className='toggleContainer'>
@@ -115,10 +133,13 @@ function MetingSettings() {
                     </div>
                     <div className="col-lg-4 my-2">
                         <div className={`text-center w-full h-full rounded-full  text-white p-4  ${isConnected ? 'bg-lime-500' : 'bg-qk_red'}`}>
-                            <h5 className='dark:text-white  text-zwart font-roboto  text- '>                           
-                                 {connectionMessage} 
+                            <h5 className='dark:text-white  text-zwart font-roboto  text- '>
+                                {isConnected ? 'Verbonden' : 'Niet verbonden'}
                             </h5>
                         </div>
+                    </div>
+                    <div className="col-lg-4">
+                        <h1 className='dark:text-white text-zwart text-l block m-auto'>Laatste meting: {ReceivedAt}</h1>
                     </div>
                 </div>
 

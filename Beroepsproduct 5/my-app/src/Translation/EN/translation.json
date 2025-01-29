@@ -10,7 +10,15 @@
     "TroebelheidText":"The oxygen sensor measures the amount of dissolved oxygen in water, a critical parameter for aquatic ecosystems. It provides real-time data to monitor oxygen levels, allowing for the quick detection of disturbances.",
     "ZuurstofText":"The turbidity sensor measures water clarity by detecting the amount of light passing through it. This helps identify contamination or particles in the water, which is crucial for maintaining water quality.",
     "Verbonden": "Connected",
-    "Niet verbonden": "Disconnected"
+    "Niet verbonden": "Disconnected",
+    "Loggen": "Logging",
+    "Minimaal": "Minimal",
+    "Gemiddeld": "Average",
+    "Maximaal": "Maximal",
+    "Geschiedenis": "History",
+    "Geen meting": "No measurement"
+
+
     
     
 

@@ -39,7 +39,12 @@ function DashboardData() {
     FullscreenState,
     setFullscreenState,
     FullscreenGauge,
-    setFullscreenGauge
+    setFullscreenGauge,
+    ReceivedAt,
+    setReceivedAt,
+    Meting,
+    setMeting
+
   } = useDashboard(); // Destructure all the context values
 
 

@@ -30,7 +30,7 @@ function Header() {
     const navItems = [
         { name:  t('Home'), path: '/' },
         { name: t('Dashboard'), path: '/dashboard' },
-        { name: t('Logging'), path: '/Logging' },
+        { name: t('Loggen'), path: '/Logging' },
         { name: t('Geschiedenis'), path: '/Geschiedenis' },
 
         // Add more items here if needed

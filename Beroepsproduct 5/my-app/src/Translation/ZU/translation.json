@@ -10,5 +10,13 @@
     "TroebelheidText":"I-sensor ye-oxygen ilinganisa isamba se-oxygen esixubile emanzini, okuyinto ebalulekile empilweni yokuhlala kwezilwane zamanzi. I-sensor inikeza idatha yesikhathi sangempela yokulawula amazinga e-oxygen, okuvumela ukugxila kuzinkinga ngokushesha.",
     "ZuurstofText":"I-sensor ye-turbidity ihlola ukukhanya kwamanzi ngokulinganisa ubungako bokukhanya obudlula emanzini. Lokhu kusiza ekutholeni ukungcola noma amaqembu emanzini, okuyinto ebaluleke kakhulu ekuhloleni umphumela wamanzi.",
     "Verbonden": "Ixhumeke",
-    "Niet verbonden": "Aixhunywanga"
+    "Loggen": "Ngena",
+    "Niet verbonden": "Aixhunywanga",
+    "Minimaal": "Okuncane",
+    "Gemiddeld": "Isilinganiso",
+    "Maximaal": "Okukhulu",
+    "Geschiedenis": "Umlando",
+    "Geen meting": "Akukho ukukalwa"
+
+
 }

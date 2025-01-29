@@ -10,6 +10,14 @@
     "TroebelheidText": "Die suurstofsensor meet die hoeveelheid opgeloste suurstof in water, 'n belangrike parameter vir akwatiese ekosisteme. Dit verskaf intydse data om suurstofvlakke te monitor en versteurings vinnig op te spoor.",
     "ZuurstofText": "Die troebelheidsensor meet die helderheid van water deur die hoeveelheid lig wat daardeur gaan, te bepaal. Dit help om besoedeling of deeltjies in die water op te spoor, wat van kardinale belang is om waterkwaliteit te handhaaf.",
      "Verbonden": "Verbind",
-    "Niet verbonden": "Nie verbind nie"
+     "Loggen": "Teken in",
+     "Geschiedenis": "Geskiedenis",
+
+    "Niet verbonden": "Nie verbind nie",
+    "Minimaal": "Minimaal",
+    "Gemiddeld": "Gemiddeld",
+    "Maximaal": "Maksimaal",
+    "Geen meting": "Geen meting"
+
     
 }

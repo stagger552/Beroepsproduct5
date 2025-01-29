@@ -51,22 +51,24 @@ function TempGauge() {
         FullscreenState,
         setFullscreenState,
         FullscreenGauge,
-        setFullscreenGauge
-
+        setFullscreenGauge,
+        ReceivedAt,
+        setReceivedAt,
+        Meting,
+        setMeting
     } = useDashboard(); // Destructure all the context values
 
-    var gaugeTemeprature = TemperatureValue
 
     const getColorTemperature = () => {
-        // if (gaugeTemeprature < -40 && gaugeTemeprature > 0) return 'bg-blue-500';
-        // if (gaugeTemeprature <= 0 && gaugeTemeprature >= 20) return 'bg-yellow-300';
-        // if (gaugeTemeprature < 20) return 'bg-red-300';
+        // if (TemperatureValue < -40 && TemperatureValue > 0) return 'bg-blue-500';
+        // if (TemperatureValue <= 0 && TemperatureValue >= 20) return 'bg-yellow-300';
+        // if (TemperatureValue < 20) return 'bg-red-300';
 
-        if (gaugeTemeprature < 0) return 'bg-qk_blue';
-        if (gaugeTemeprature > 0) return 'bg-qk_red';
+        if (TemperatureValue < 0) return 'bg-qk_blue';
+        if (TemperatureValue > 0) return 'bg-qk_red';
     };
 
-    const TemperaturegaugeHeight = `${((gaugeTemeprature + 30) / 100) * 100}%`;
+    const TemperaturegaugeHeight = `${((TemperatureValue + 30) / 100) * 100}%`;
 
     setFullscreenGauge(FullscreenGauge);
     setFullscreenState(FullscreenState)
@@ -173,12 +175,22 @@ function TempGauge() {
                     {!Advanced && (
                         <div className="Gauge justify-center flex flex-col items-center">
                             <div className="relative w-full max-w-16 h-64 bg-gray-300 rounded-full overflow-hidden">
-                                <div
-                                    className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTemperature()}`}
-                                    style={{ height: TemperaturegaugeHeight }}
-                                ></div>
+                                {Meting && (
+
+                                    <div
+                                        className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTemperature()}`}
+                                        style={{ height: TemperaturegaugeHeight }}
+                                    ></div>
+                                )}
                             </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeTemeprature}°C</h3>
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">
+
+                                {Meting ? (
+                                    <>{TemperatureValue} PH</>
+                                ) : (
+                                    <>{t('Geen meting')}</>
+                                )}
+                            </h3>
 
 
                         </div>
@@ -190,34 +202,52 @@ function TempGauge() {
                     {Advanced && (
                         <div className='w-full'>
                             <div className='w-1/2 inline-block'>
-                                <div className="p-4 flex justify-center ">
-                                    <CircularGauge value={gaugeTemeprature} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
-                                </div>
-                                <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeTemeprature}°C</h3>
+                                {Meting && (
+
+                                    <div className="p-4 flex justify-center ">
+                                        <CircularGauge value={TemperatureValue} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
+                                    </div>
+                                )}
+                                <h3 className="mt-4 text-4xl font-semibold text-center ">
+                                    {Meting ? (
+                                        <>{TemperatureValue} PH</>
+                                    ) : (
+                                        <>{t('Geen meting')}</>
+                                    )}
+                                </h3>
+
 
                                 {/* Add statistics display */}
-                                <div className="mt-4 text-center ">
-                                    <div className="grid grid-cols-3 gap-4 p-4">
-                                        <div>
-                                            <p className="font-semibold">{t('minimum')}</p>
-                                            <p>{stats.minimum}°C</p>
-                                        </div>
-                                        <div>
-                                            <p className="font-semibold">{t('average')}</p>
-                                            <p>{stats.average}°C</p>
-                                        </div>
-                                        <div>
-                                            <p className="font-semibold">{t('maximum')}</p>
-                                            <p>{stats.maximum}°C</p>
+
+                                {Meting && (
+
+                                    <div className="mt-4 text-center dark:text-white">
+                                        <div className="grid grid-cols-3 gap-4 p-4">
+                                            <div>
+                                                <p className="font-semibold">{t('Minimaal')}</p>
+                                                <p>{stats.minimum} pH</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold">{t('Gemiddeld')}</p>
+                                                <p>{stats.average} pH</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold">{t('Maximaal')}</p>
+                                                <p>{stats.maximum} pH</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                )}
+
                             </div>
-                            <div className='w-1/2 inline-block'>
-                                <div className="mt-4 p-4">
-                                    <Line data={chartData} options={chartOptions} />
+                            {Meting && (
+
+                                <div className='w-1/2 inline-block'>
+                                    <div className="mt-4 p-4">
+                                        <Line data={chartData} options={chartOptions} />
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     )}
 
@@ -227,7 +257,6 @@ function TempGauge() {
                             <Smallscreen />
                         </IconButton>
 
-                        <button onClick={consoleLog}>Klick mij</button>
                     </div>
 
 
@@ -247,13 +276,21 @@ function TempGauge() {
                     </div>
                     {!Advanced && (
                         <div className="Gauge justify-center flex flex-col items-center">
-                            <div className="relative w-full max-w-16 h-64 bg-gray-300 rounded-full overflow-hidden">
-                                <div
-                                    className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTemperature()}`}
-                                    style={{ height: TemperaturegaugeHeight }}
-                                ></div>
-                            </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeTemeprature}°C</h3>
+                            {Meting && (
+                                <div className="relative w-full max-w-16 h-64 bg-gray-300 rounded-full overflow-hidden">
+                                    <div
+                                        className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTemperature()}`}
+                                        style={{ height: TemperaturegaugeHeight }}
+                                    ></div>
+                                </div>
+                            )}
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">
+                                {Meting ? (
+                                    <>{TemperatureValue} PH</>
+                                ) : (
+                                    <>{t('Geen meting')}</>
+                                )}
+                            </h3>
 
                         </div>
 
@@ -263,33 +300,50 @@ function TempGauge() {
                     {Advanced && (
                         <div className='w-full'>
                             <div className='w-1/2 inline-block'>
-                                <div className="p-4 flex justify-center ">
-                                    <CircularGauge value={gaugeTemeprature} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
-                                </div>
-                                <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeTemeprature}°C</h3>
+                                {Meting && (
+
+                                    <div className="p-4 flex justify-center ">
+                                        <CircularGauge value={TemperatureValue} max={100} size={200} color='qk_blue' background='qk_blue_bg' />
+                                    </div>
+                                )}
+                                <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">
+
+                                    {Meting ? (
+                                        <>{TemperatureValue} PH</>
+                                    ) : (
+                                        <>{t('Geen meting')}</>
+                                    )}
+                                </h3>
 
                                 {/* Add statistics display */}
-                                <div className="mt-4 text-center dark:text-white">
-                                    <div className="grid grid-cols-3 gap-4 p-4">
-                                        <div>
-                                            <p className="font-semibold">{t('minimum')}</p>
-                                            <p>{stats.minimum}°C</p>
-                                        </div>
-                                        <div>
-                                            <p className="font-semibold">{t('average')}</p>
-                                            <p>{stats.average}°C</p>
-                                        </div>
-                                        <div>
-                                            <p className="font-semibold">{t('maximum')}</p>
-                                            <p>{stats.maximum}°C</p>
+                                {Meting && (
+
+                                    <div className="mt-4 text-center dark:text-white">
+                                        <div className="grid grid-cols-3 gap-4 p-4">
+                                            <div>
+                                                <p className="font-semibold">{t('minimum')}</p>
+                                                <p>{stats.minimum}°C</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold">{t('average')}</p>
+                                                <p>{stats.average}°C</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold">{t('maximum')}</p>
+                                                <p>{stats.maximum}°C</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+
+                                )}
                             </div>
                             <div className='w-1/2 inline-block'>
-                                <div className="mt-4 p-4">
-                                    <Line data={chartData} options={chartOptions} />
-                                </div>
+                                {Meting && (
+
+                                    <div className="mt-4 p-4">
+                                        <Line data={chartData} options={chartOptions} />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     )}
@@ -302,7 +356,6 @@ function TempGauge() {
                             <Fullscreen />
                         </IconButton>
 
-                        <button onClick={consoleLog}>Klick mij</button>
                     </div>
 
 

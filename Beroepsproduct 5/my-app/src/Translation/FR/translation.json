@@ -1,7 +1,6 @@
 {
-    
     "Home": "Accueil",
-    "Dashboard" : "Tableau de bord",
+    "Dashboard": "Tableau de bord",
     "temperature": "Température",
     "Ph meter": "pH Mètre",
     "Troebelheid": "Turbidité",
@@ -10,6 +9,14 @@
     "PhSensorText": "Le capteur de pH mesure l'acidité de l'eau en analysant la concentration des ions hydrogène (H+). Cela est essentiel pour détecter les changements dans l'équilibre chimique et les éventuelles contaminations. Grâce à des mesures précises et immédiates, le capteur soutient une gestion durable de l'eau.",
     "TroebelheidText": "Le capteur d'oxygène mesure la quantité d'oxygène dissous dans l'eau, un paramètre crucial pour les écosystèmes aquatiques. Il fournit des données en temps réel pour surveiller les niveaux d'oxygène et détecter rapidement les perturbations.",
     "ZuurstofText": "Le capteur de turbidité mesure la clarté de l'eau en détectant la quantité de lumière qui la traverse. Cela permet d'identifier les contaminations ou les particules dans l'eau, ce qui est essentiel pour maintenir une bonne qualité de l'eau.",
- "Verbonden": "Connecté",
-    "Niet verbonden": "Déconnecté"
+    "Verbonden": "Connecté",
+    "Loggen": "Se connecter",
+    "Geschiedenis": "Historique",
+
+    "Niet verbonden": "Déconnecté",
+    "Minimaal": "Minimal",
+    "Gemiddeld": "Moyen",
+    "Maximaal": "Maximal",
+    "Geen meting": "Aucune mesure"
+
 }

@@ -11,26 +11,26 @@ import CircularGauge from '../CircularGauge';
 import { useTranslation } from 'react-i18next'; // Import useTranslation
 
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
 // Register ChartJS components
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
 );
 
 function TempGauge() {
@@ -51,7 +51,11 @@ function TempGauge() {
         FullscreenState,
         setFullscreenState,
         FullscreenGauge,
-        setFullscreenGauge
+        setFullscreenGauge,
+        ReceivedAt,
+        setReceivedAt,
+        Meting,
+        setMeting
 
     } = useDashboard(); // Destructure all the context values
 
@@ -84,18 +88,18 @@ function TempGauge() {
                 const newData = [...prevData];
                 newData.push(gaugeTroebelheid);
                 if (newData.length > 10) newData.shift();
-                
+
                 // Calculate statistics
                 const avg = newData.reduce((a, b) => a + b, 0) / newData.length;
                 const min = Math.min(...newData);
                 const max = Math.max(...newData);
-                
+
                 setStats({
                     average: avg.toFixed(1),
                     minimum: min.toFixed(1),
                     maximum: max.toFixed(1)
                 });
-                
+
                 return newData;
             });
         }, 1000);
@@ -145,18 +149,16 @@ function TempGauge() {
     setFullscreenState(FullscreenState)
 
     const handleFullscreen = (cardId) => {
- 
 
-        if(FullscreenState)
-        {
+
+        if (FullscreenState) {
             setFullscreenState(false);
             setFullscreenGauge(null);
-        }else
-        {
+        } else {
             setFullscreenState(true);
             setFullscreenGauge(cardId);
         }
-    
+
     };
     const consoleLog = () => {
         console.log("hello")
@@ -167,26 +169,14 @@ function TempGauge() {
             {FullscreenState && (
                 <div>
                     <div className="textHeader mb-2">
-                    <h2 className='font-alatsi text-3xl dark:text-white'> {t('Troebelheid')}</h2>
+                        <h2 className='font-alatsi text-3xl dark:text-white'> {t('Troebelheid')}</h2>
                     </div>
 
 
                     {!Advanced && (
                         <div>
-                            <div className="Gauge justify-center flex flex-col items-center">
-                                <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
-                                    <div
-                                        className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTroebelheid()}`}
-                                        style={{ height: TroebelheidgaugeHeight }}
-                                    ></div>
-                                </div>
-                            </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center">{gaugeTroebelheid} PH</h3>
-                        </div>
-                    )}
-                    {Advanced && (
-                        <div className='w-full'>
-                            <div className='w-1/2 inline-block'>
+                            {Meting && (
+
                                 <div className="Gauge justify-center flex flex-col items-center">
                                     <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
                                         <div
@@ -195,32 +185,66 @@ function TempGauge() {
                                         ></div>
                                     </div>
                                 </div>
-                                <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">
-                                    {gaugeTroebelheid} NTU
-                                </h3>
-                                
-                                {/* Add statistics display */}
-                                <div className="mt-4 text-center dark:text-white">
-                                    <div className="grid grid-cols-3 gap-4 p-4">
-                                        <div>
-                                            <p className="font-semibold">{t('minimum')}</p>
-                                            <p>{stats.minimum} NTU</p>
-                                        </div>
-                                        <div>
-                                            <p className="font-semibold">{t('average')}</p>
-                                            <p>{stats.average} NTU</p>
-                                        </div>
-                                        <div>
-                                            <p className="font-semibold">{t('maximum')}</p>
-                                            <p>{stats.maximum} NTU</p>
+                            )}
+                            <h3 className="mt-4 text-4xl font-semibold text-center">
+
+                                {Meting ? (
+                                    <>{gaugeTroebelheid} NTU</>
+                                ) : (
+                                    "Geen meting"
+                                )}
+                            </h3>
+                        </div>
+                    )}
+                    {Advanced && (
+                        <div className='w-full'>
+                            <div className='w-1/2 inline-block'>
+                                {Meting && (
+
+                                    <div className="Gauge justify-center flex flex-col items-center">
+                                        <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
+                                            <div
+                                                className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTroebelheid()}`}
+                                                style={{ height: TroebelheidgaugeHeight }}
+                                            ></div>
                                         </div>
                                     </div>
-                                </div>
+                                )}
+                                <h3 className="mt-4 text-4xl font-semibold text-center ">
+                                    {Meting ? (
+                                        <>{gaugeTroebelheid} NTU</>
+                                    ) : (
+                                        "Geen meting"
+                                    )}
+                                </h3>
+
+                                {Meting && (
+
+                                    <div className="mt-4 text-center dark:text-white">
+                                        <div className="grid grid-cols-3 gap-4 p-4">
+                                            <div>
+                                                <p className="font-semibold">{t('Minimaal')}</p>
+                                                <p>{stats.minimum} pH</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold">{t('Gemiddeld')}</p>
+                                                <p>{stats.average} pH</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold">{t('Maximaal')}</p>
+                                                <p>{stats.maximum} pH</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                             <div className='w-1/2 inline-block'>
-                                <div className="mt-4 p-4">
-                                    <Line data={chartData} options={chartOptions} />
-                                </div>
+                                {Meting && (
+
+                                    <div className="mt-4 p-4">
+                                        <Line data={chartData} options={chartOptions} />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     )}
@@ -242,54 +266,77 @@ function TempGauge() {
 
                     {!Advanced && (
                         <div>
-                            <div className="Gauge justify-center flex flex-col items-center">
-                                <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
-                                    <div
-                                        className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTroebelheid()}`}
-                                        style={{ height: TroebelheidgaugeHeight }}
-                                    ></div>
+                            {Meting && (
+
+                                <div className="Gauge justify-center flex flex-col items-center">
+                                    <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
+
+
+                                        <div
+                                            className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTroebelheid()}`}
+                                            style={{ height: TroebelheidgaugeHeight }}
+                                        ></div>
+
+                                    </div>
+
                                 </div>
-                            </div>
-                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">{gaugeTroebelheid} Troebel</h3>
+                            )}
+                            <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">
+                                {Meting ? (
+                                    <>{gaugeTroebelheid} NTU</>
+                                ) : (
+                                    "Geen meting"
+                                )}</h3>
                         </div>
                     )}
                     {Advanced && (
                         <div className='w-full'>
                             <div className='w-1/2 inline-block'>
-                                <div className="Gauge justify-center flex flex-col items-center">
-                                    <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
-                                        <div
-                                            className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTroebelheid()}`}
-                                            style={{ height: TroebelheidgaugeHeight }}
-                                        ></div>
+                                {Meting && (
+
+                                    <div className="Gauge justify-center flex flex-col items-center">
+                                        <div className="relative w-full max-w-64 h-64 bg-gray-300 rounded-full overflow-hidden">
+                                            <div
+                                                className={`absolute bottom-0 w-full transition-all duration-300 ease-in-out ${getColorTroebelheid()}`}
+                                                style={{ height: TroebelheidgaugeHeight }}
+                                            ></div>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                                 <h3 className="mt-4 text-4xl font-semibold text-center dark:text-white">
-                                    {gaugeTroebelheid} NTU
+                                    {Meting ? (
+                                        <>{gaugeTroebelheid} NTU</>
+                                    ) : (
+                                        "Geen meting"
+                                    )}
                                 </h3>
-                                
-                                {/* Add statistics display */}
-                                <div className="mt-4 text-center dark:text-white">
-                                    <div className="grid grid-cols-3 gap-4 p-4">
-                                        <div>
-                                            <p className="font-semibold">{t('minimum')}</p>
-                                            <p>{stats.minimum} NTU</p>
-                                        </div>
-                                        <div>
-                                            <p className="font-semibold">{t('average')}</p>
-                                            <p>{stats.average} NTU</p>
-                                        </div>
-                                        <div>
-                                            <p className="font-semibold">{t('maximum')}</p>
-                                            <p>{stats.maximum} NTU</p>
+                                {Meting && (
+
+                                    <div className="mt-4 text-center dark:text-white">
+                                        <div className="grid grid-cols-3 gap-4 p-4">
+                                            <div>
+                                                <p className="font-semibold">{t('minimum')}</p>
+                                                <p>{stats.minimum} NTU</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold">{t('average')}</p>
+                                                <p>{stats.average} NTU</p>
+                                            </div>
+                                            <div>
+                                                <p className="font-semibold">{t('maximum')}</p>
+                                                <p>{stats.maximum} NTU</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                             <div className='w-1/2 inline-block'>
-                                <div className="mt-4 p-4">
-                                    <Line data={chartData} options={chartOptions} />
-                                </div>
+                                {Meting && (
+
+                                    <div className="mt-4 p-4">
+                                        <Line data={chartData} options={chartOptions} />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     )}

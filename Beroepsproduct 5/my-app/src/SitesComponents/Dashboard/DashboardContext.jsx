@@ -16,6 +16,7 @@ export const DashboardProvider = ({ children }) => {
 
 
   const [ReceivedAt, setReceivedAt] = useState(null);
+  const [Meting, setMeting] = useState(false);
 
   var Responseresult = null
 
@@ -62,7 +63,7 @@ export const DashboardProvider = ({ children }) => {
       "https://node-3-caaue0bmd0gcaabv.germanywestcentral-01.azurewebsites.net/data";
 
     try {
-      const response = await axios.get(proxyUrl + apiUrl, {
+      const response = await axios.get(apiUrl, {
         headers: {
           "Content-Type": "application/json",
           Cookie:
@@ -80,7 +81,7 @@ export const DashboardProvider = ({ children }) => {
         setTemperatureValue(response.data.decodedPayload.temperature);
         setPhMeterValue(response.data.decodedPayload.pH);
         setTroebelheidValue(response.data.decodedPayload.turbidity);
-        setReceivedAt(response.data.decodedPayload.receivedAt);
+        setReceivedAt( formatDateTime( response.data.receivedAt));
       }
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -89,86 +90,28 @@ export const DashboardProvider = ({ children }) => {
   };
  
   useEffect(() => {
-    // async function fetchData() {
-    //     try {
-    //         const config = {
-    //             method: 'get',
-    //             url: 'https://node-3-caaue0bmd0gcaabv.germanywestcentral-01.azurewebsites.net/data',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Cookie': 'ARRAffinity=f713f0f1cb2d612cbe6f58d71b77f1092aa9f759c3a958fb9d0a879c478aeb7d; ARRAffinitySameSite=f713f0f1cb2d612cbe6f58d71b77f1092aa9f759c3a958fb9d0a879c478aeb7d',
-    //                 'Access-Control-Allow-Origin': '*'
-    //             },
-    //             withCredentials: true,
-    //             crossDomain: true
-    //         };
-
-    //         const response = await axios(config);
-    //         console.log('Raw response:', response.data);
-
-    //         if (response.data.error) {
-    //             console.log('Error fetching data');
-    //             setTemperatureValue(0);
-    //             setPhMeterValue(0);
-    //             setTroebelheidValue(0);
-    //         } else {
-    //             console.log('Data received:', response.data);
-    //             setTemperatureValue(response.data.decodedPayload?.temperature || 0);
-    //             setPhMeterValue(response.data.decodedPayload?.pH || 0);
-    //             setTroebelheidValue(response.data.decodedPayload?.turbidity || 0);
-    //             setReceivedAt(response.data.decodedPayload?.receivedAt || null);
-    //         }
-    //     } catch (err) {
-    //         console.error('Error details:', {
-    //             message: err.message,
-    //             code: err.code,
-    //             response: err.response
-    //         });
-    //         // Fallback to fetch if axios fails
-    //         try {
-    //             const myHeaders = new Headers();
-    //             myHeaders.append("Content-Type", "application/json");
-    //             myHeaders.append("Cookie", "ARRAffinity=f713f0f1cb2d612cbe6f58d71b77f1092aa9f759c3a958fb9d0a879c478aeb7d; ARRAffinitySameSite=f713f0f1cb2d612cbe6f58d71b77f1092aa9f759c3a958fb9d0a879c478aeb7d");
-
-    //             const requestOptions = {
-    //                 method: "GET",
-    //                 headers: myHeaders,
-    //                 redirect: "follow",
-    //                 credentials: 'include'
-    //             };
-
-    //             const response = await fetch("https://node-3-caaue0bmd0gcaabv.germanywestcentral-01.azurewebsites.net/data", requestOptions);
-    //             const data = await response.json();
-                
-    //             if (data.error) {
-    //                 setTemperatureValue(0);
-    //                 setPhMeterValue(0);
-    //                 setTroebelheidValue(0);
-    //             } else {
-    //                 setTemperatureValue(data.decodedPayload?.temperature || 0);
-    //                 setPhMeterValue(data.decodedPayload?.pH || 0);
-    //                 setTroebelheidValue(data.decodedPayload?.turbidity || 0);
-    //                 setReceivedAt(data.decodedPayload?.receivedAt || null);
-    //             }
-    //         } catch (fetchErr) {
-    //             console.error('Both axios and fetch failed:', fetchErr);
-    //         }
-    //     }
-    // }
-
-    // fetchData();
-    
-    // // Set up interval to fetch every 30 seconds
-    // const interval = setInterval(fetchData, 30000);
-    
-    // // Cleanup on unmount
-    // return () => clearInterval(interval);
+  
 
     fetchData();
 
+    const interval = setInterval(fetchData, 5000);
+
+  
 
 }, []); // Empty dependency array ensures this runs only once
 
+const formatDateTime = (timestamp) => {
+    if (!timestamp) return '';
+    const date = new Date(timestamp);
+    return date.toLocaleString('nl-NL', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+};
 
   return (
     <DashboardContext.Provider value={{
@@ -188,6 +131,8 @@ export const DashboardProvider = ({ children }) => {
       setFullscreenGauge,
       ReceivedAt,
       setReceivedAt,
+      Meting,
+      setMeting
     }}>
       {children}
     </DashboardContext.Provider>

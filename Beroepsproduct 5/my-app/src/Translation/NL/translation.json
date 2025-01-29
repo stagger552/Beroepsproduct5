@@ -3,12 +3,14 @@
     "Dashboard" : "Paneel",
     "temperature": "Temperatuur",
     "Ph meter": "Ph-meter",
-    "Troebelheid": "Concentration",
+    "Troebelheid": "Troebelheid",
     "Zuurstof" : "Zuurstof",
     "TempratuurText" : "De temperatuursensor meet nauwkeurig de temperatuur van het water. Dit is belangrijk omdat temperatuur veel invloed heeft op biologische processen en de waterkwaliteit. De sensor biedt snelle en betrouwbare metingen, ideaal voor real-time monitoring en analyse van temperatuurveranderingen.",
     "PhSensorText":"De pH-sensor meet de zuurgraad van het water door de concentratie waterstofionen (H+) te analyseren. Dit is essentieel om veranderingen in chemische balans en mogelijke vervuiling te detecteren. Met nauwkeurige en directe metingen ondersteunt de sensor duurzaam waterbeheer.",
     "TroebelheidText":"De zuurstofsensor meet de hoeveelheid opgeloste zuurstof in het water, een kritieke parameter voor het leven in aquatische ecosystemen. De sensor biedt real-time data om zuurstofniveaus te monitoren, waardoor het mogelijk is om verstoringen snel te signaleren.",
-    "ZuurstofText":"De troebelheidssensor bepaalt de helderheid van water door de hoeveelheid licht die door het water gaat te meten. Dit helpt bij het detecteren van vervuiling of deeltjes in het water, wat cruciaal is voor het bewaken van de waterkwaliteit."
+    "ZuurstofText":"De troebelheidssensor bepaalt de helderheid van water door de hoeveelheid licht die door het water gaat te meten. Dit helpt bij het detecteren van vervuiling of deeltjes in het water, wat cruciaal is voor het bewaken van de waterkwaliteit.",
+    "Geen meting": "Geen meting"
+
 
     
 }

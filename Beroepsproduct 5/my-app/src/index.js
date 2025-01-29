@@ -13,6 +13,12 @@ import { initReactI18next } from 'react-i18next';
 
 import EN from "./Translation/EN/translation.json";
 import NL from "./Translation/NL/translation.json";
+import AF from "./Translation/AF/translation.json";
+import FR from "./Translation/FR/translation.json";
+import XH from "./Translation/XH/translation.json";
+import ZU from "./Translation/ZU/translation.json";
+
+
 
 import keycloak from "./keycloak";
 
@@ -23,7 +29,11 @@ i18n
   .init({
     resources: {
       en: { translation: EN },
-      nl: { translation: NL }
+      nl: { translation: NL },
+      af: { translation: AF },
+      fr: { translation: FR },
+      xh: { translation: XH },
+      zu: { translation: ZU }
     },
     lng: savedLanguage,
     fallbackLng: 'nl',
