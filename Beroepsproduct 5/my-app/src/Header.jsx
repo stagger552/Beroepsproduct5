@@ -6,36 +6,26 @@ import { useHeader } from './headerContext';
 //Svg 
 import { ReactComponent as Moon } from "./img/moon.svg"
 import { ReactComponent as Zon } from "./img/Sun.svg"
-
 import { ReactComponent as SoundMax } from "./img/sound-Full.svg"
 import { ReactComponent as SoundMid } from "./img/sound-Mid.svg"
 import { ReactComponent as SoundOff } from "./img/sound-Off.svg"
 
-
 //mp 3
 import soundFile from "./Sound/gentle-ocean-waves-birdsong.mp3"
 import { useTranslation } from 'react-i18next'; // Import useTranslation
-
+import keycloak from './keycloak'; // Zorg ervoor dat je Keycloak instelt
 
 function Header() {
-
     const { t } = useTranslation(); // Add translation hook
-
-
     const { Darkmode, setDarkmode } = useHeader();
-
     setDarkmode(Darkmode);
 
-    
     const navItems = [
-        { name:  t('Home'), path: '/' },
+        { name: t('Home'), path: '/' },
         { name: t('Dashboard'), path: '/dashboard' },
         { name: t('Loggen'), path: '/Logging' },
         { name: t('Geschiedenis'), path: '/Geschiedenis' },
-
-        // Add more items here if needed
     ];
-
 
     const toggleDarkmode = () => {
         setDarkmode(!Darkmode);
@@ -44,12 +34,7 @@ function Header() {
 
     const audioRef = useRef(null);
 
-    const ToggleTheme = (() => {
-
-    })
     const [currentSound, setCurrentSound] = useState(localStorage.getItem("soundWave") || '0');
-
-
 
     const ToggleSound = (() => {
         let newSoundSetting;
@@ -71,12 +56,11 @@ function Header() {
         if (newSoundSetting === '1' || newSoundSetting === '2') {
             playSound(newSoundSetting);
         }
-    })
-
+    });
 
     const playSound = (volumeLevel) => {
         if (audioRef.current) {
-            audioRef.current.volume = volumeLevel === '1' ? 0.5 : 1.0; // Set volume based on localStorage
+            audioRef.current.volume = volumeLevel === '1' ? 0.5 : 1.0;
             audioRef.current.play().catch(error => {
                 console.log("Error playing audio:", error);
             });
@@ -84,29 +68,41 @@ function Header() {
             console.error("Audio element is not loaded or accessible");
         }
     };
+
     const handleSoundSettings = () => {
         const soundSetting = localStorage.getItem('SoundWave');
-
         if (!soundSetting) {
-            // Initialize with default setting if no soundWave in localStorage
             localStorage.setItem('SoundWave', 2);
         } else if (soundSetting === '1' || soundSetting === '2') {
             playSound(soundSetting);
         }
     };
 
+    const handleLogout = () => {
+        const baseUrl = `${keycloak.authServerUrl}/realms/${keycloak.realm}/protocol/openid-connect/logout`;
+        const redirectUri = `${window.location.origin}/`; // Terug naar de homepagina
+    
+        // Stel de volledige logout-URL samen
+        const logoutUrl = `${baseUrl}?redirect_uri=${encodeURIComponent(redirectUri)}`;
+    
+        // Redirect naar de Keycloak-logoutpagina
+        window.location.href = logoutUrl;
+    };
+    
+    
+    
+    
 
     useEffect(() => {
         handleSoundSettings(); // Check sound settings when component mounts
     }, []);
 
     return (
-        <div className="fixed z-50 container-fluid  bg-lightblue mb-16 dark:bg-zwart" >
-            <div className="container ">
+        <div className="fixed z-50 container-fluid bg-lightblue mb-16 dark:bg-zwart">
+            <div className="container">
                 <div className="row">
                     <div className="col-lg-4 flex justify-between items-center">
                         <nav>
-                            {/* Navigation */}
                             <nav className="flex space-x-6 ">
                                 {navItems.map((item, index) => (
                                     <Link
@@ -124,12 +120,13 @@ function Header() {
                     <div className="col-lg-4 flex items-center">
                         <Boei className='max-w-20' />
                         <Link to={'/'}>
-                            <h4 className='text-5xl font-bold font-alatsi ml-4 text-center dark:text-white'>Arduino Metingen</h4>
+                            <h4 className='text-5xl font-bold font-alatsi ml-4 text-center dark:text-white'>
+                                Arduino Metingen
+                            </h4>
                         </Link>
                     </div>
 
-                    <div className="col-lg-4 flex justify-between items-center  ">
-
+                    <div className="col-lg-4 flex justify-between items-center">
                         <IconButton onClick={toggleDarkmode}>
                             {Darkmode ? <Moon /> : <Zon />}
                         </IconButton>
@@ -137,18 +134,20 @@ function Header() {
                         <IconButton onClick={ToggleSound}>
                             <audio ref={audioRef} src={soundFile} />
                             {currentSound === "1" ? <SoundMid /> : currentSound === "2" ? <SoundMax /> : <SoundOff />}
-
-
                         </IconButton>
 
-
+                        {/* Voeg de logout-knop hier toe */}
+                        <button
+                            onClick={handleLogout}
+                            className="btn btn-danger text-white ml-4"
+                        >
+                            Logout
+                        </button>
                     </div>
-
                 </div>
             </div>
         </div>
-
     );
 }
 
-export default Header
+export default Header;
